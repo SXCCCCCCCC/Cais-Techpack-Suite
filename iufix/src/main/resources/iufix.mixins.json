@@ -15,6 +15,7 @@
         "PollutionTerrainProcessDisableMixin",
         "EnvironmentalLayerTickDisableMixin",
         "ForgeTransmogrifierIUCompatMixin",
+        "BlockCollisionProxyGetDelegatedShapeGuard",
     ],
     "client": [
         "ScreenScannerMixin",
