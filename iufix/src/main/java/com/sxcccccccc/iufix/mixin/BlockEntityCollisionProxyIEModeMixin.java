@@ -5,6 +5,8 @@ import com.denfop.blockentity.collision.BlockEntityCollisionProxy;
 import com.sxcccccccc.iufix.util.MultiblockCollisionUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * 1.4.0：BlockEntityCollisionProxy 按 IE 模式重构（相对偏移 + 双轨读取 + 健康校验）。
+ * 1.4.0/1.4.1：BlockEntityCollisionProxy 按 IE 模式重构（相对偏移 + 双轨读取 + 健康校验）。
  *
  * <p><b>NBT 双轨：</b>新写入格式为相对偏移键 {@code relX/relY/relZ}
  * （IE 的 posInMB 模式：master 坐标 = 自身坐标 − 偏移，纯函数推导，结构上免疫
@@ -35,41 +37,51 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * 同一 tick）。refresh 摆放循环里 setBlock 本身已标记 chunk 脏，不再需要
  * setChanged 补标记。
  *
- * <p>denfop 自有成员运行时名即官方名（masterPos/setMasterPos），原版覆写
- * （m_142466_=loadAdditional、m_183515_=saveAdditional）在注入串里用 SRG 名，
- * handler 体内对原版成员的引用由 reobf 映射。
+ * <p><b>1.4.1 修正 mixin 应用失败：</b>1.4.0 版本写成了 {@code extends
+ * BlockEntityCollisionProxy}，mixin 0.8.5 在 Forge 1.20.1 启动时直接拒绝——
+ * 日志 ERROR {@code iufix.mixins.json:BlockEntityCollisionProxyIEModeMixin}：
+ * "Super class ... was not found in the hierarchy of target class"（抛于
+ * {@code MixinInfo$SubType$Standard.validate}，校验逻辑为
+ * {@code target.hasSuperClass(mixinSuperName, Traversal.SUPER)}，extends 目标
+ * 类自身的写法在该遍历下不命中）→ 整个 mixin 未应用，1.4.0 的代理层重构
+ * 实际从未生效。1.4.1 改为无继承写法：@Shadow 只保留 denfop 自有字段
+ * masterPos（denfop 类不做 reobf，运行时名即官方名），原版成员一律经
+ * {@code ((BlockEntity)(Object)this)} 转型调用（源码 mojmap 名，构建期
+ * jar 级 reobf 机械转 SRG 名，与 1.3.10 getDelegatedShape 守卫同款手法）。
+ *
+ * <p>denfop 自有覆写（m_142466_=loadAdditional、m_183515_=saveAdditional）
+ * 是原版方法，运行时名是 SRG 名，注入串里直接用 SRG 名；denfop 自有方法
+ * setMasterPos 运行时名即官方名。
  */
 @Mixin(value = BlockEntityCollisionProxy.class, remap = false)
-public abstract class BlockEntityCollisionProxyIEModeMixin extends BlockEntityCollisionProxy {
+public abstract class BlockEntityCollisionProxyIEModeMixin {
 
     @Shadow
     private BlockPos masterPos;
 
-    protected BlockEntityCollisionProxyIEModeMixin(BlockPos pos, BlockState state) {
-        super(pos, state);
-    }
-
     /** 构造时自注册，供全维度清扫/反污染命令枚举（1.20.1 无已加载 BE 全量枚举 API）。 */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void iufix$register(BlockPos pos, BlockState state, CallbackInfo ci) {
-        MultiblockCollisionUtil.register(this);
+        MultiblockCollisionUtil.register((BlockEntityCollisionProxy) (Object) this);
     }
 
     /** loadAdditional 重写：双轨读取 + 健康校验（新键优先，旧绝对键兼容）。 */
     @Inject(method = "m_142466_", at = @At("HEAD"), cancellable = true)
     private void iufix$loadAdditional(CompoundTag tag, CallbackInfo ci) {
+        BlockPos here = ((BlockEntity) (Object) this).getBlockPos();
+        Level level = ((BlockEntity) (Object) this).getLevel();
         BlockPos derived = null;
         if (tag.contains("relX") && tag.contains("relY") && tag.contains("relZ")) {
             BlockPos offset = new BlockPos(tag.getInt("relX"), tag.getInt("relY"), tag.getInt("relZ"));
-            derived = this.worldPosition.subtract(offset);
+            derived = here.subtract(offset);
         } else if (tag.contains("masterX") && tag.contains("masterY") && tag.contains("masterZ")) {
             derived = new BlockPos(tag.getInt("masterX"), tag.getInt("masterY"), tag.getInt("masterZ"));
         }
         if (derived != null) {
-            if (this.level != null && this.level.isLoaded(derived) && !(this.level.getBlockEntity(derived) instanceof BlockEntityBase)) {
+            if (level != null && level.isLoaded(derived) && !(level.getBlockEntity(derived) instanceof BlockEntityBase)) {
                 this.masterPos = null;
-                MultiblockCollisionUtil.warnOnce(derived.asLong() ^ Long.rotateLeft(this.worldPosition.asLong(), 32),
-                        "读取代理 NBT：位置 " + this.worldPosition.toShortString()
+                MultiblockCollisionUtil.warnOnce(derived.asLong() ^ Long.rotateLeft(here.asLong(), 32),
+                        "读取代理 NBT：位置 " + here.toShortString()
                                 + " 推导出的 master @" + derived.toShortString()
                                 + " 处不是 BlockEntityBase（旧数据死指针），已按空 master 加载，后续清扫会回收");
             } else {
@@ -85,7 +97,8 @@ public abstract class BlockEntityCollisionProxyIEModeMixin extends BlockEntityCo
     @Inject(method = "m_183515_", at = @At("HEAD"), cancellable = true)
     private void iufix$saveAdditional(CompoundTag tag, CallbackInfo ci) {
         if (this.masterPos != null) {
-            BlockPos offset = this.worldPosition.subtract(this.masterPos);
+            BlockPos here = ((BlockEntity) (Object) this).getBlockPos();
+            BlockPos offset = here.subtract(this.masterPos);
             tag.putInt("relX", offset.getX());
             tag.putInt("relY", offset.getY());
             tag.putInt("relZ", offset.getZ());
@@ -100,9 +113,11 @@ public abstract class BlockEntityCollisionProxyIEModeMixin extends BlockEntityCo
             ci.cancel();
             return;
         }
-        if (this.level == null || !(this.level.getBlockEntity(masterPos) instanceof BlockEntityBase)) {
-            MultiblockCollisionUtil.warnOnce(masterPos.asLong() ^ Long.rotateLeft(this.worldPosition.asLong(), 30),
-                    "setMasterPos 拒绝写入：位置 " + this.worldPosition.toShortString()
+        BlockPos here = ((BlockEntity) (Object) this).getBlockPos();
+        Level level = ((BlockEntity) (Object) this).getLevel();
+        if (level == null || !(level.getBlockEntity(masterPos) instanceof BlockEntityBase)) {
+            MultiblockCollisionUtil.warnOnce(masterPos.asLong() ^ Long.rotateLeft(here.asLong(), 30),
+                    "setMasterPos 拒绝写入：位置 " + here.toShortString()
                             + " 的目标 master @" + masterPos.toShortString()
                             + " 处不是 BlockEntityBase，指针保持原值");
             ci.cancel();

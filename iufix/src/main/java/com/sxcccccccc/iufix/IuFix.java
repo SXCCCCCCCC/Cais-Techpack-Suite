@@ -23,17 +23,28 @@ import net.minecraftforge.fml.common.Mod;
  * <li>6. 污染"开着但无玩家负面效果"：{@code PollutionManager.work} 是唯一 debuff 施加点
  *    （缓慢/挖掘疲劳/虚弱/恶心/失明/毒气共 7 处 addEffect，方法体无其他功能）。
  *    修复：HEAD 取消该方法，污染数值/扩散/地形与环境渲染照常。</li>
- * <li>7. 多胞碰撞代理层按 IE 模式重构（1.4.0，独立分支轨一）：代理 NBT 改存
+ * <li>7. 多胞碰撞代理层按 IE 模式重构（1.4.0/1.4.1，独立分支轨一）：代理 NBT 改存
  *    相对偏移（relX/relY/relZ，master = 自身 − 偏移纯函数推导）并兼容读旧绝对
  *    键；setMasterPos 校验目标位类型并去掉重入路径上的 setChanged（16.09 崩溃
  *    第三层根源）；refresh 清理范围扩到全维度；提供 /iufix cleanmultiblock
- *    一次性反污染命令。</li>
+ *    一次性反污染命令。1.4.1 修正 1.4.0 代理 mixin 的 extends 写法被 mixin 0.8.5
+ *    SubType$Standard.validate 拒绝（日志 "Super class ... was not found in the
+ *    hierarchy of target class"，代理层重构实际从未生效）——改为 @Shadow-only
+ *    无继承写法。</li>
+ * <li>8. 村庄/结构生成的铁砧幽灵方块（1.4.1）：世界生成路径的 TE 经
+ *    LevelChunk 构造器转移（m_142169_，只 setLevel+入表，无 onLoad），
+ *    BlockEntityBase.onLoad 的 refresh 调度永远不跑 → 没有代理。修复：
+ *    ChunkEvent.Load（server、仅新生成 chunk）补扫 needCollision BE 并按
+ *    onLoad 同模式调度下一 tick refresh。玩家放置/磁盘重载路径自带 onLoad
+ *    不受影响。</li>
  * </ol>
  */
 @Mod("iufix")
 public class IuFix {
 
     public IuFix() {
+        System.out.println("[iufix] 1.4.1 已加载：IE 模式代理层（相对偏移/健康校验/全维度清扫）+ 村庄铁砧世界生成路径修复");
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(CleanMultiblockCommand.class);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ChunkLoadCollisionRefreshFix.class);
     }
 }
