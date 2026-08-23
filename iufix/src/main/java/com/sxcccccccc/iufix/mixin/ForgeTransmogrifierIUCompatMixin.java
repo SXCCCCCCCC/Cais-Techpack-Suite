@@ -1,5 +1,7 @@
 package com.sxcccccccc.iufix.mixin;
 
+import com.denfop.blocks.state.State;
+import com.denfop.blocks.state.TypeProperty;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -8,44 +10,105 @@ import net.minecraft.world.level.block.state.properties.Property;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
- * 1.3.5/1.3.6：WorldEdit 7.2.15 × IU 自定义方块属性（com.denfop.blocks.state.State）兼容。
+ * 1.3.9 重构：IU "type" 属性在 WE 边界以**名字字符串**往返（无损耗），仿原版
+ * EnumProperty 的 m_7912_/m_6215_ 字符串往返模式。替换 1.3.6 的 skip-on-IAE 近似与
+ * 1.3.8 的 first-combo 回退（两者都把错误静默变成错误状态，1.3.8 曾致碰撞形状代理
+ * ClassCastException 崩溃，见 crash-2026-08-23_15.11.31）。
  *
- * <p>背景（javap 核实，WE jar 为 Forge 版官方名字节码）：
+ * <p>根因（日志实证，设计文档 we_state_fix_design.md）：
  * <ul>
- *   <li>WE 反向转译 {@code ForgeTransmogrifier.transmogToMinecraftProperties}（private static，
- *       WE BlockState → MC BlockState）对每个属性 entry 只特判 DirectionProperty/EnumProperty，
- *       其余一律 {@code stateDefinition.getProperty(weProp.getName())} 按名查表后
- *       {@code blockState.setValue(mcProp, value)}；IU 的 "type" 属性（TypeProperty，值对象
- *       State 携带运行时 teBlock 引用）不是原版 Direction/Enum 属性 → 按名查表失败或值域
- *       不匹配 → 启动期注册表构建（PlatformReadyEvent 枚举状态）与 //regen 状态适配崩。</li>
- *   <li>WE 正向把这类属性包成 {@code IPropertyAdapter}（PROPERTY_CACHE.loader 的兜底分支），
- *       构造器注入 {@code private final Property property}（原版属性引用）；adapter 的
- *       getName()/getValueFor()/getValues() 全部委托给该包裹属性。IPropertyAdapter 是
- *       package-private 类，编译期不可见。</li>
+ *   <li>IU 的 {@code BlockTileEntity.create()} 用静态 currentTypeProperty 在构造期间
+ *       暂存 TypeProperty（BlockTileEntity.java 133-160 行），m_7926_ 经 getTypeProperty()
+ *       读静态装进 stateDefinition（356-363 行）；注册期并发/重入交错会让某些方块的
+ *       stateDefinition 装入**别的方块**的 TypeProperty（2026-08-23-3 日志：
+ *       electric_squeezer 的 stateDefinition 里是 graphite_reactor/graphite_controller
+ *       的 TypeProperty，setValue 拒绝 "not an allowed value"）。</li>
+ *   <li>WE 原本把这种属性包成 IPropertyAdapter，快照**原始 State 对象**（内容 =
+ *       teBlock 实例引用 + state 字符串），而 WE BlockType 与 MC stateDefinition 解析到的
+ *       TypeProperty 可能不是同一实例 → 值域不一致 → 启动期 PlatformReadyEvent
+ *       setValue 拒绝（每把必现）、运行时 //regen BlockType.getState 查空
+ *       "no state for"（双向崩溃）。</li>
+ *   <li>TypeProperty 自带与属性实例无关的字符串编解码：getName(State) =
+ *       teBlock.getName() [+ "_" + state]，allowedValues 成员间名字唯一。世界状态的
+ *       type 值必是 stateDefinition 该属性 allowedValues 的成员，其名字串必能被同一
+ *       属性的名字匹配解析回**同一个成员实例**——污染与否都成立。字符串因此是
+ *       MC→WE→MC 无损耗往返的载体（EnumProperty 同款模式，WE 内部字符串值路径已被
+ *       原版枚举属性证明可用）。</li>
  * </ul>
  *
- * <p>修复（1.3.6 次修，治启动期残留）：@Inject HEAD cancellable 复刻整个循环——entry key
- * 为 IPropertyAdapter 时直通其包裹的原版属性（不经按名查表、不做 Direction/Enum 特判：
- * adapter 只包非 Direction/Enum 属性）；其余 entry 完整复刻原逻辑（DirectionProperty →
- * ForgeAdapter.adapt、EnumProperty → getValue().orElseThrow）。直通对 IU "type" 属性
- * （值=State 运行时实例、按方块实例化）必撞 allowedValues 校验——setValue 抛
- * IllegalArgumentException 时**捕获并跳过该条目**（不设值、不中断循环），让 WE 注册表
- * 构建走完；被跳过的属性由主修（BlockTypeIUCompatMixin 的 getState 查空回退默认状态）兜底。
- * 包裹属性经反射取 private final property 字段（static 懒缓存）。remap=false：target 串按
- * 运行时官方名原样进 jar；mixin 类字节码里的原版成员引用由 reobf 阶段统一重映射回 SRG。
+ * <p>实现：三个钩子全部落在 ForgeTransmogrifier（WE 侧单收口）：
+ * <ol>
+ *   <li>{@code transmogToWorldEditProperty} HEAD：MC 属性是 TypeProperty 时返回
+ *       WE 自带 EnumProperty("type", 名字串列表)（值 = allowedValues 各成员
+ *       getName，内容派生，与属性实例无关）；否则原逻辑（PROPERTY_CACHE → 类型化
+ *       adapter / IPropertyAdapter）不变。</li>
+ *   <li>{@code transmogToWorldEditProperties} @Redirect 循环内唯一 Map.put：值是
+ *       State 时改为其名字字符串（与 TypeProperty.getName 同式）。Direction/Enum
+ *       分支在 put 前已被原逻辑处理，不受影响。</li>
+ *   <li>{@code transmogToMinecraftProperties} HEAD 重写循环：TypeProperty 条目 +
+ *       String 值 → 在 stateDefinition.m_61081_("type") 返回的属性（不管是不是被污染
+ *       的实例）的 allowedValues 里按 getName 匹配解析回成员 → setValue；解析不到
+ *       则跳过该条目（保默认，防御性，正常流必命中）。Direction/Enum 分支复刻原逻辑；
+ *       兜底 catch(IllegalArgumentException) 跳过（防御其他异常属性）。</li>
+ * </ol>
+ * 同时删除 BlockTypeIUCompatMixin（first-combo 回退）：字符串往返后 WE 内部查空按构造
+ * 不可能发生，回退只会在意外时把错误静默变成错误状态——恢复严格 checkArgument 语义。
+ *
+ * <p>remap=false：target 串按运行时官方名原样进 jar（WE Forge 类官方名字节码）。
+ * 引用 IU 成员只用官方名（TypeProperty.allowedValues 公开字段、TypeProperty.getName、
+ * State.teBlock/state、MultiBlockEntity.getName）；MC 引用由 reobf/refmap 统一重映射。
  */
 @Mixin(targets = "com.sk89q.worldedit.forge.internal.ForgeTransmogrifier", remap = false)
 public abstract class ForgeTransmogrifierIUCompatMixin {
 
-    private static final String ADAPTER_CLASS = "com.sk89q.worldedit.forge.internal.IPropertyAdapter";
-    private static Field adapterPropertyField;
+    /**
+     * 钩子 1：MC 属性 → WE 属性。TypeProperty 换成字符串值属性（WE 自带 EnumProperty，
+     * 与属性实例无关），不再落 IPropertyAdapter 原始值路径。
+     */
+    @Inject(method = "transmogToWorldEditProperty",
+            at = @At("HEAD"), cancellable = true)
+    private static void iufix$transmogToWorldEditProperty(
+            Property<?> property,
+            CallbackInfoReturnable<com.sk89q.worldedit.registry.state.Property<?>> cir) {
+        if (property instanceof TypeProperty) {
+            TypeProperty tp = (TypeProperty) property;
+            List<String> names = new ArrayList<>(tp.allowedValues.size());
+            for (State s : tp.allowedValues) {
+                names.add(tp.getName(s));
+            }
+            cir.setReturnValue(new com.sk89q.worldedit.registry.state.EnumProperty("type", names));
+        }
+    }
 
+    /**
+     * 钩子 2：MC→WE 值转换。循环里唯一的 Map.put 被重定向：值是 State（只可能来自
+     * IU "type" 属性）时改为名字字符串（与 TypeProperty.getName 同式）。
+     */
+    @Redirect(method = "transmogToWorldEditProperties",
+            at = @At(value = "INVOKE",
+                    target = "Ljava/util/Map;put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"))
+    private static Object iufix$putStateName(
+            Map map, Object key, Object value) {
+        if (value instanceof State) {
+            State s = (State) value;
+            value = s.state.isEmpty() ? s.teBlock.getName() : s.teBlock.getName() + "_" + s.state;
+        }
+        return map.put(key, value);
+    }
+
+    /**
+     * 钩子 3：WE→MC 值解析。重写循环：TypeProperty 条目 + String 值 → 按名解析回
+     * stateDefinition 该属性 allowedValues 的成员实例 → setValue（无损耗的关键）。
+     * Direction/Enum 分支复刻原逻辑；异常属性走兜底跳过。
+     */
     @Inject(method = "transmogToMinecraftProperties", at = @At("HEAD"), cancellable = true)
     private static void iufix$transmogToMinecraftProperties(
             StateDefinition<?, ?> stateDefinition,
@@ -56,57 +119,58 @@ public abstract class ForgeTransmogrifierIUCompatMixin {
         BlockState result = state;
         for (Map.Entry<com.sk89q.worldedit.registry.state.Property<?>, Object> entry : properties.entrySet()) {
             com.sk89q.worldedit.registry.state.Property<?> weProp = entry.getKey();
-            Property<?> mcProp;
-            Comparable<?> value = (Comparable<?>) entry.getValue();
+            Property<?> mcProp = stateDefinition.getProperty(weProp.getName());
+            Object value = entry.getValue();
 
-            Property<?> wrapped = iufix$wrappedProperty(weProp);
-            if (wrapped != null) {
-                // IPropertyAdapter 直通：包裹的原版属性 + 正向适配时原样传入的原版值
-                mcProp = wrapped;
-            } else {
-                mcProp = stateDefinition.getProperty(weProp.getName());
-                if (mcProp instanceof DirectionProperty) {
-                    value = com.sk89q.worldedit.forge.ForgeAdapter
-                            .adapt((com.sk89q.worldedit.util.Direction) value);
-                } else if (mcProp instanceof EnumProperty) {
-                    final String rawValue = (String) value;
-                    final String propName = weProp.getName();
-                    java.util.Optional<?> resolved = ((EnumProperty) mcProp).getValue(rawValue);
-                    if (!resolved.isPresent()) {
-                        throw new IllegalStateException(
-                                "Unknown value '" + rawValue + "' for property '" + propName + "'");
+            if (mcProp instanceof TypeProperty) {
+                // IU "type"：字符串往返。值串在 stateDefinition 该属性自己的
+                // allowedValues 里按 getName 匹配解析（内容派生，与属性实例无关）。
+                if (value instanceof String) {
+                    TypeProperty tp = (TypeProperty) mcProp;
+                    State resolved = null;
+                    for (State s : tp.allowedValues) {
+                        if (tp.getName(s).equals(value)) {
+                            resolved = s;
+                            break;
+                        }
                     }
-                    value = (Comparable<?>) resolved.get();
+                    if (resolved != null) {
+                        try {
+                            result = result.setValue(tp, resolved);
+                        } catch (IllegalArgumentException e) {
+                            // 防御网（正常流不触发）
+                        }
+                    }
+                    // 解析不到 → 跳过该条目（保默认值）
                 }
+                continue;
+            }
+
+            if (mcProp == null) {
+                continue;
+            }
+            Comparable<?> comparable;
+            if (mcProp instanceof DirectionProperty) {
+                comparable = com.sk89q.worldedit.forge.ForgeAdapter
+                        .adapt((com.sk89q.worldedit.util.Direction) value);
+            } else if (mcProp instanceof EnumProperty) {
+                final String rawValue = (String) value;
+                final String propName = weProp.getName();
+                java.util.Optional<?> resolved = ((EnumProperty) mcProp).getValue(rawValue);
+                if (!resolved.isPresent()) {
+                    throw new IllegalStateException(
+                            "Unknown value '" + rawValue + "' for property '" + propName + "'");
+                }
+                comparable = (Comparable<?>) resolved.get();
+            } else {
+                comparable = (Comparable<?>) value;
             }
             try {
-                result = result.setValue((Property) mcProp, (Comparable) value);
+                result = result.setValue((Property) mcProp, (Comparable) comparable);
             } catch (IllegalArgumentException e) {
-                // IU "type" 属性按方块实例化（allowedValues 是各 TypeProperty 自己的值域），
-                // 跨方块的值实例必然 "not an allowed value"——跳过该条目而非中断整个转译。
+                // 防御网：跳过该条目（正常流不触发）
             }
         }
         cir.setReturnValue(result);
-    }
-
-    /** 若 weProp 是 IPropertyAdapter，返回其包裹的原版 Property；否则返回 null。 */
-    private static Property<?> iufix$wrappedProperty(Object weProp) {
-        Class<?> cls = weProp.getClass();
-        if (!ADAPTER_CLASS.equals(cls.getName())) {
-            return null;
-        }
-        if (adapterPropertyField == null) {
-            try {
-                adapterPropertyField = cls.getDeclaredField("property");
-                adapterPropertyField.setAccessible(true);
-            } catch (NoSuchFieldException e) {
-                return null;
-            }
-        }
-        try {
-            return (Property<?>) adapterPropertyField.get(weProp);
-        } catch (IllegalAccessException e) {
-            return null;
-        }
     }
 }
