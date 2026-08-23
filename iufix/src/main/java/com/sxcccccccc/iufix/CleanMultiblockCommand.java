@@ -56,7 +56,7 @@ public final class CleanMultiblockCommand {
                     .append(" 健康代理=").append(counts[1]).append("; ");
         }
         report.append("合计移除=").append(totalRemoved);
-        source.sendSuccess(Component.literal(report.toString()), true);
+        source.sendSuccess(() -> Component.literal(report.toString()), true);
         return totalRemoved;
     }
 }
