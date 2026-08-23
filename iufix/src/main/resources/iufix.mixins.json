@@ -16,6 +16,8 @@
         "EnvironmentalLayerTickDisableMixin",
         "ForgeTransmogrifierIUCompatMixin",
         "BlockCollisionProxyGetDelegatedShapeGuard",
+        "BlockEntityCollisionProxyIEModeMixin",
+        "MultiCellCollisionManagerRefreshMixin",
     ],
     "client": [
         "ScreenScannerMixin",
