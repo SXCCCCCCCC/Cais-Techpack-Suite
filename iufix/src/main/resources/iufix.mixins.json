@@ -18,6 +18,8 @@
         "BlockCollisionProxyGetDelegatedShapeGuard",
         "BlockEntityCollisionProxyIEModeMixin",
         "MultiCellCollisionManagerRefreshMixin",
+        "BlockStateBaseFacingRotateMixin",
+        "BlockEntityBaseFacingFromStateMixin"
     ],
     "client": [
         "ScreenScannerMixin",
