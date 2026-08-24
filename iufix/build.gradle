@@ -73,8 +73,10 @@ dependencies {
     // mixin 目标串按运行时真名写（remap=false，字符串原样进 jar）。
     compileOnly fg.deobf(files('libs/IndustrialUpgrade-1.20.1-3.4.0.10.jar'))
 
-    // PinIn 1.6.0 拼音库（重定位版，与 iucore 内嵌同版；运行期随 resources 打进 jar）
-    compileOnly files('libs/pinin-1.6.0.jar')
+    // PinIn 1.6.0 拼音库（官方 Towdium/PinIn 原版包名 me.towdium.pinin；
+    // 用官方 -all 版：fastutil 已 shade 内嵌 me/towdium/pinin/fastutil，零外部依赖；
+    // 运行期随 resources 打进 jar——resources/me/towdium/pinin 即官方 jar 原样解包）
+    compileOnly files('libs/PinIn-1.6.0-all.jar')
 
     // fabric-rendering-fluids v1（fabric-api 0.92.6 jarjar 同版，已 mojmap 无需 deobf；
     // 仅编译期引用 FluidRenderHandlerRegistry 接口，运行期由 fabric-api 的 jarjar 提供）
