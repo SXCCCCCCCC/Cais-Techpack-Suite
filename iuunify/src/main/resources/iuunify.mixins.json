@@ -6,7 +6,9 @@
     "refmap": "iuunify.refmap.json",
     "mixins": [
         "FluidNameRedirectMixin",
-        "DeferredRegisterPhaseMixin"
+        "DeferredRegisterPhaseMixin",
+        "FluidsTankRegisterMixin",
+        "InternalFluidTankAcceptMixin"
     ],
     "client": [],
     "injectors": {
