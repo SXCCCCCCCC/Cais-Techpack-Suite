@@ -11,7 +11,12 @@
         "IUFluidCastTargetsMixin",
         "IUCoreRegisterItemTabMixin",
         "FluidsTankRegisterMixin",
-        "InternalFluidTankAcceptMixin"
+        "InternalFluidTankAcceptMixin",
+        "TransferApiForgeCompatItemBridgeMixin",
+        "InventoryFluidByListAcceptMixin",
+        "InventoryTankAcceptMixin",
+        "RecipesFluidCoreMatchMixin",
+        "FluidHandlerRecipeConsumeMixin"
     ],
     "client": [],
     "injectors": {

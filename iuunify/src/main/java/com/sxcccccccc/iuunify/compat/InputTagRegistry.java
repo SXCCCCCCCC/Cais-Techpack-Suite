@@ -8,6 +8,7 @@ import com.denfop.blockentity.cyclotron.BlockEntityCyclotronCoolant;
 import com.denfop.blockentity.geothermalpump.BlockEntityGeothermalExchanger;
 import com.denfop.blockentity.mechanism.BlockEntityBioGenerator;
 import com.denfop.blockentity.mechanism.BlockEntityFieldCleaner;
+import com.denfop.blockentity.mechanism.BlockEntityGasCombiner;
 import com.denfop.blockentity.mechanism.BlockEntitySingleFluidAdapter;
 import com.denfop.blockentity.mechanism.BlockEntitySteamGenerator;
 import com.denfop.blockentity.mechanism.blastfurnace.block.BlockEntityBlastFurnaceMain;
@@ -66,6 +67,18 @@ public final class InputTagRegistry {
     public static final TagKey<Fluid> HOT_COOLANT = tag("hot_coolant");
     public static final TagKey<Fluid> PAHOEHOE_LAVA = tag("pahoehoe_lava");
     public static final TagKey<Fluid> DISTILLED_WATER = tag("distilled_water");
+    public static final TagKey<Fluid> SUPERHEATED_STEAM = tag("superheated_steam");
+    public static final TagKey<Fluid> UU_MATTER = tag("uu_matter");
+    public static final TagKey<Fluid> CONSTRUCTION_FOAM = tag("construction_foam");
+    public static final TagKey<Fluid> CREOSOTE = tag("creosote");
+    public static final TagKey<Fluid> COMPRESSED_AIR = tag("compressed_air");
+
+    /** 12 个统一流体 tag 全集（FluidName 枚举一一对应）。 */
+    @SuppressWarnings("unchecked")
+    private static final TagKey<Fluid>[] UNIFIED_TAGS = (TagKey<Fluid>[]) new TagKey<?>[]{
+            STEAM, SUPERHEATED_STEAM, BIOMASS, WEED_EX, COOLANT, HOT_COOLANT,
+            PAHOEHOE_LAVA, DISTILLED_WATER, UU_MATTER, CONSTRUCTION_FOAM, CREOSOTE, COMPRESSED_AIR
+    };
 
     /** 罐 → 应宽限的 tag（弱引用：区块卸载、BE 回收后自动清除，无泄漏）。 */
     private static final WeakHashMap<Fluids.InternalFluidTank, TagKey<Fluid>> TANK_TAGS = new WeakHashMap<>();
@@ -122,6 +135,9 @@ public final class InputTagRegistry {
 
             // ---- 蒸馏水输入 → forge:distilled_water ----
             rule(BlockEntitySingleFluidAdapter.class, "fluidTank1", DISTILLED_WATER),
+
+            // ---- 杂酚油输入 → forge:creosote（gas_combiner 输入 1 号罐）----
+            rule(BlockEntityGasCombiner.class, "fluidTank1", CREOSOTE),
     };
 
     private InputTagRegistry() {
@@ -173,6 +189,40 @@ public final class InputTagRegistry {
 
     private static TagKey<Fluid> tag(String path) {
         return TagKey.create(Registries.FLUID, new ResourceLocation("forge", path));
+    }
+
+    /** 是否命中 12 个统一 tag 之一（"属于统一流体族"）。 */
+    public static boolean isUnified(Fluid fluid) {
+        if (fluid == null) {
+            return false;
+        }
+        for (TagKey<Fluid> tag : UNIFIED_TAGS) {
+            if (fluid.builtInRegistryHolder().is(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 两个流体是否属于同一个统一 tag（跨 mod 同义流体判定）。
+     * 例如 immersiveengineering:creosote × ic2_120:creosote 同属 forge:creosote → true；
+     * mekanism:steam × ic2_120:steam 同属 forge:steam → true。
+     * 语义 = "tag 或原判定"并集，未入 tag 的流体（石油、氢气等非统一流体）恒 false。
+     */
+    public static boolean sameUnifiedTag(Fluid a, Fluid b) {
+        if (a == null || b == null) {
+            return false;
+        }
+        if (a == b) {
+            return true;
+        }
+        for (TagKey<Fluid> tag : UNIFIED_TAGS) {
+            if (a.builtInRegistryHolder().is(tag) && b.builtInRegistryHolder().is(tag)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static final class Rule {
