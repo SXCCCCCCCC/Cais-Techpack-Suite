@@ -9,7 +9,9 @@
         "FluidNameRedirectMixin",
         "DeferredRegisterPhaseMixin",
         "IUFluidCastTargetsMixin",
-        "IUCoreRegisterItemTabMixin"
+        "IUCoreRegisterItemTabMixin",
+        "FluidsTankRegisterMixin",
+        "InternalFluidTankAcceptMixin"
     ],
     "client": [],
     "injectors": {
