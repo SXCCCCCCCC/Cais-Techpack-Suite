@@ -2,11 +2,14 @@
     "required": true,
     "minVersion": "0.8",
     "package": "com.sxcccccccc.iuunify.mixin",
+    "plugin": "com.sxcccccccc.iuunify.asm.IuUnifyTransformPlugin",
     "compatibilityLevel": "JAVA_17",
     "refmap": "iuunify.refmap.json",
     "mixins": [
         "FluidNameRedirectMixin",
-        "DeferredRegisterPhaseMixin"
+        "DeferredRegisterPhaseMixin",
+        "IUFluidCastTargetsMixin",
+        "IUCoreRegisterItemTabMixin"
     ],
     "client": [],
     "injectors": {
