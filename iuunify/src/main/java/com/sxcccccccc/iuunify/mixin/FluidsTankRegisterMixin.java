@@ -1,8 +1,10 @@
 package com.sxcccccccc.iuunify.mixin;
 
+import com.denfop.blockentity.base.BlockEntityBase;
 import com.denfop.componets.Fluids;
 import com.sxcccccccc.iuunify.compat.InputTagRegistry;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -30,14 +32,25 @@ public abstract class FluidsTankRegisterMixin {
      * addTank(Fluids$InternalFluidTank)}；描述符
      * {@code (Lcom/denfop/componets/Fluids$InternalFluidTank;)Lcom/denfop/componets/Fluids$InternalFluidTank;}。
      * remap=false：目标类/方法是 mod 成员，不参与原版映射（字符串原样进 jar）。
+     *
+     * <p>0.3.2 修复（同 FluidNameRedirectMixin 的排雷序列，CallbackInjector
+     * getDescriptor 字节码实证）：@Inject handler 参数只允许 [目标方法参数] +
+     * [CallbackInfo]，this 不占参数位——原写法 {@code (Fluids self, tank, CIR)}
+     * 会 InvalidInjectionException "Expected (tank, CIR)"。owner 改经
+     * {@code @Shadow AbstractComponent.getParent()}（非 final，abstract shadow）
+     * 在 handler 内取得再传入
+     * {@link InputTagRegistry#register(BlockEntityBase, Fluids.InternalFluidTank)}。
      */
+    @Shadow(remap = false)
+    public abstract BlockEntityBase getParent();
+
     @Inject(
             method = "addTank(Lcom/denfop/componets/Fluids$InternalFluidTank;)Lcom/denfop/componets/Fluids$InternalFluidTank;",
             at = @At("TAIL"),
             require = 1,
             remap = false
     )
-    private void iuunify$registerTank(Fluids self, Fluids.InternalFluidTank tank, CallbackInfoReturnable<Fluids.InternalFluidTank> cir) {
-        InputTagRegistry.register(self, tank);
+    private void iuunify$registerTank(Fluids.InternalFluidTank tank, CallbackInfoReturnable<Fluids.InternalFluidTank> cir) {
+        InputTagRegistry.register(getParent(), tank);
     }
 }

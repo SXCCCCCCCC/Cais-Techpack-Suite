@@ -127,9 +127,14 @@ public final class InputTagRegistry {
     private InputTagRegistry() {
     }
 
-    /** 由 {@code FluidsMixin.addTank} TAIL 调用：登记罐→tag 映射。 */
-    public static void register(Fluids component, Fluids.InternalFluidTank tank) {
-        BlockEntityBase owner = component.getParent();
+    /**
+     * 由 {@code FluidsTankRegisterMixin.addTank} TAIL 调用：登记罐→tag 映射。
+     * owner 由 mixin 经 {@code AbstractComponent.getParent()} 取好传入
+     * （mixin handler 签名规则：参数位只允许目标方法参数 + CallbackInfo，见
+     * CallbackInjector$Callback.getDescriptor 字节码实证，故不能把 Fluids 实例
+     * 作为参数传入，改用 @Shadow getParent() 在 mixin 内取）。
+     */
+    public static void register(BlockEntityBase owner, Fluids.InternalFluidTank tank) {
         if (owner == null) {
             return;
         }
@@ -141,8 +146,13 @@ public final class InputTagRegistry {
         }
     }
 
-    /** 由 {@code InternalFluidTankMixin.acceptsFluid} HEAD 调用：取该罐应宽限的 tag（无则 null）。 */
-    public static TagKey<Fluid> tagFor(Fluids.InternalFluidTank tank) {
+    /**
+     * 由 {@code InternalFluidTankAcceptMixin.acceptsFluid} HEAD 调用：取该罐应宽限的
+     * tag（无则 null）。参数声明为 Object：mixin handler 的 this 是目标类实例
+     * （InternalFluidTank），参数位不允许携带 this（见 register 注释），直接传 this
+     * 自动向上转型为 Object；WeakHashMap.get(Object) 天然兼容。
+     */
+    public static TagKey<Fluid> tagFor(Object tank) {
         synchronized (TANK_TAGS) {
             return TANK_TAGS.get(tank);
         }

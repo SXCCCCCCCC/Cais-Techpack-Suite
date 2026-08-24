@@ -7,6 +7,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -74,6 +75,26 @@ public abstract class FluidNameRedirectMixin {
     /** 包装 RegistryObject 缓存（每流体一个；get() 在注册表冻结后经 ObjectHolderRegistry 自动填充）。 */
     private static final Map<String, RegistryObject<Fluid>> WRAPPERS = new ConcurrentHashMap<>();
 
+    /**
+     * 0.3.2 修复（2026-08-24 实崩复盘，CallbackInjector$Callback.getDescriptor
+     * 字节码实证）：@Inject handler 参数必须精确 = [目标方法参数] + [CallbackInfo]，
+     * 非静态 handler 的目标实例（this）不占参数位——0.3.1 写的
+     * {@code (FluidName self, CIR)} 多了一个参数位 → "Invalid descriptor ... Expected
+     * (CallbackInfoReturnable) but found (FluidName, CallbackInfoReturnable)" →
+     * FluidName 类加载失败连锁 ModList 崩溃（同 0.3.1 的 IUCoreRegisterItemTabMixin
+     * 排雷序列）。目标 {@code getInstance()} 是实例方法（可读源码实证：用 this.instance），
+     * handler 合并后 this 即枚举实例；成员访问经 @Shadow：
+     * {@code hasInstance()}（FluidName 非 final，abstract shadow）与
+     * {@code name()}（java.lang.Enum final 方法，Mixin 官方规则用非 abstract shadow）。
+     */
+    @Shadow(remap = false)
+    public abstract boolean hasInstance();
+
+    @Shadow(remap = false)
+    public String name() {
+        return "";
+    }
+
     @Inject(
             method = "getInstance()Lnet/minecraftforge/registries/RegistryObject;",
             at = @At("HEAD"),
@@ -81,11 +102,11 @@ public abstract class FluidNameRedirectMixin {
             require = 1,
             remap = false
     )
-    private void iuunify$redirectToIc2(FluidName self, CallbackInfoReturnable<RegistryObject<Fluid>> cir) {
-        if (RegistrationPhaseGuard.isRegistrationActive() || !self.hasInstance()) {
+    private void iuunify$redirectToIc2(CallbackInfoReturnable<RegistryObject<Fluid>> cir) {
+        if (RegistrationPhaseGuard.isRegistrationActive() || !this.hasInstance()) {
             return;
         }
-        String ic2Name = IC2_FLUID_NAME.get(self.name());
+        String ic2Name = IC2_FLUID_NAME.get(this.name());
         if (ic2Name == null) {
             return;
         }

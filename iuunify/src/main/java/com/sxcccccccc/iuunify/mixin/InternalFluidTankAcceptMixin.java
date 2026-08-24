@@ -36,6 +36,13 @@ public abstract class InternalFluidTankAcceptMixin {
      * {@code (Lnet/minecraft/world/level/material/Fluid;)Z}。
      * remap=false：目标类/方法是 mod 成员；handler 体内原版调用由 reobfJar 自动
      * 重映射为运行时 SRG 名。
+     *
+     * <p>0.3.2 修复（同 FluidNameRedirectMixin 排雷序列）：@Inject handler 参数
+     * 只允许 [目标方法参数] + [CallbackInfo]，this 不占参数位——原写法
+     * {@code (InternalFluidTank self, fluid, CIR)} 会 InvalidInjectionException。
+     * this（= 目标罐实例）直接传给 {@link InputTagRegistry#tagFor(Object)}，
+     * 参数声明 Object 以便 mixin 类的 this 向上转型（WeakHashMap.get(Object)
+     * 兼容，无需 @Shadow）。
      */
     @Inject(
             method = "acceptsFluid(Lnet/minecraft/world/level/material/Fluid;)Z",
@@ -44,8 +51,8 @@ public abstract class InternalFluidTankAcceptMixin {
             require = 1,
             remap = false
     )
-    private void iuunify$tagWiden(Fluids.InternalFluidTank self, Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
-        TagKey<Fluid> tag = InputTagRegistry.tagFor(self);
+    private void iuunify$tagWiden(Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
+        TagKey<Fluid> tag = InputTagRegistry.tagFor(this);
         if (tag != null && fluid.builtInRegistryHolder().is(tag)) {
             cir.setReturnValue(true);
         }
