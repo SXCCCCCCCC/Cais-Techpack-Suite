@@ -1,0 +1,95 @@
+package com.sxcccccccc.iuunify.mixin;
+
+import com.denfop.blocks.FluidName;
+import com.sxcccccccc.iuunify.RegistrationPhaseGuard;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
+ * 流体统一核心：把 12 种 IU 流体的 {@code FluidName.getInstance()} 重定向到 IC2
+ * Refabricated（命名空间 {@code ic2_120}）的对应流体。
+ *
+ * <p>目标签名（jar 实证，IndustrialUpgrade-1.20.1-3.4.0.10 javap）：
+ * {@code public RegistryObject<IUFluid> getInstance()}（擦除返回类型
+ * {@code RegistryObject}，无重载）。枚举名（如 {@code fluidcoolant}）是注册 id 的
+ * 推导源头（FluidHandler：{@code iufluidX}/{@code iufluidX_flowing}/…），本 mixin 按
+ * 枚举名映射到 IC2R 注册名（ModFluids.kt + jar 字节码实证：coolant / hot_coolant /
+ * uu_matter / weed_ex / pahoehoe_lava / biomass / distilled_water /
+ * construction_foam / creosote / compressed_air / steam / superheated_steam）。
+ *
+ * <p>重定向语义：
+ * <ul>
+ *   <li>注册阶段（RegistrationPhaseGuard 为 true）或枚举实例未初始化
+ *       （hasInstance()==false，mod 构造期 setInstance 之前）——透传原逻辑
+ *       （原始 instance 字段，未初始化时原方法抛 ISE），注册链零干扰；</li>
+ *   <li>其余时机——12 个枚举值返回包装 RegistryObject，其 get() 惰性解析
+ *       {@code ForgeRegistries.FLUIDS} 中 {@code ic2_120:xxx} 的流体。</li>
+ * </ul>
+ *
+ * <p>包装 RegistryObject 的填充机制（forge-1.20.1-47.4.10 字节码实证）：
+ * {@code RegistryObject.create(ResourceLocation, IForgeRegistry)} 构造器注册
+ * {@code ObjectHolderRegistry.addHandler} 回调并立即 updateReference——与
+ * DeferredRegister 自身 RegistryObject 的 {@code (name, owner, modid, optional)}
+ * 构造器同一机制，在 FLUIDS 注册表冻结时自动填充 value。因此：
+ * <ul>
+ *   <li>12 流体的首次 getInstance().get() 必发生在注册完成后（不变量：原版 IU 在
+ *       注册前对 RO.get() 同样 NPE "Registry Object not present"，见 iudebug 实测
+ *       文档），届时 ic2_120 流体已注册 → 包装 get() 恒成功；</li>
+ *   <li>iudebug 删除 = 注册表里没有 iufluidX；包装 RO 只读 ic2_120 流体、从不写入
+ *       ——"IC2 流体二次注册到 iufluidX id"不可能发生（全树仅 FluidHandler 的
+ *       注册调用会被跳过，且不读 getInstance()）。</li>
+ * </ul>
+ *
+ * <p>未覆盖引用（世界生成 9 处 {@code (IUFluid)} 强转等）会得到 IC2R 流体实例而非
+ * {@code IUFluid} 子类 → 运行时 ClassCastException = 设计反馈（阶段二逐个改写）。
+ */
+@Mixin(value = FluidName.class)
+public abstract class FluidNameRedirectMixin {
+
+    /** 12 种统一流体：枚举名 → IC2R 注册名（ic2_120 命名空间）。fluidair 对应 compressed_air。 */
+    private static final Map<String, String> IC2_FLUID_NAME = Map.ofEntries(
+            Map.entry("fluidcoolant", "coolant"),
+            Map.entry("fluidhot_coolant", "hot_coolant"),
+            Map.entry("fluiduu_matter", "uu_matter"),
+            Map.entry("fluidweed_ex", "weed_ex"),
+            Map.entry("fluidpahoehoe_lava", "pahoehoe_lava"),
+            Map.entry("fluidbiomass", "biomass"),
+            Map.entry("fluiddistilled_water", "distilled_water"),
+            Map.entry("fluidconstruction_foam", "construction_foam"),
+            Map.entry("fluidcreosote", "creosote"),
+            Map.entry("fluidair", "compressed_air"),
+            Map.entry("fluidsteam", "steam"),
+            Map.entry("fluidsuperheated_steam", "superheated_steam")
+    );
+
+    /** 包装 RegistryObject 缓存（每流体一个；get() 在注册表冻结后经 ObjectHolderRegistry 自动填充）。 */
+    private static final Map<String, RegistryObject<Fluid>> WRAPPERS = new ConcurrentHashMap<>();
+
+    @Inject(
+            method = "getInstance()Lnet/minecraftforge/registries/RegistryObject;",
+            at = @At("HEAD"),
+            cancellable = true,
+            require = 1,
+            remap = false
+    )
+    private void iuunify$redirectToIc2(FluidName self, CallbackInfoReturnable<RegistryObject<Fluid>> cir) {
+        if (RegistrationPhaseGuard.isRegistrationActive() || !self.hasInstance()) {
+            return;
+        }
+        String ic2Name = IC2_FLUID_NAME.get(self.name());
+        if (ic2Name == null) {
+            return;
+        }
+        cir.setReturnValue(WRAPPERS.computeIfAbsent(ic2Name, name ->
+                RegistryObject.create(new ResourceLocation("ic2_120", name), ForgeRegistries.FLUIDS)));
+    }
+}

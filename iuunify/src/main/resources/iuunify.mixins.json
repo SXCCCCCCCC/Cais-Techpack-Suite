@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iuunify.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iuunify.refmap.json",
+    "mixins": [
+        "FluidNameRedirectMixin",
+        "DeferredRegisterPhaseMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 0
+    }
+}
