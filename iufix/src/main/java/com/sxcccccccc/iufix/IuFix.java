@@ -59,7 +59,7 @@ import net.minecraftforge.fml.common.Mod;
 public class IuFix {
 
     public IuFix() {
-        System.out.println("[iufix] 1.4.3-hotfix3 已加载：IE 模式代理层 + 村庄铁砧世界生成路径修复 + 铁砧朝向随 jigsaw 房屋旋转（state+BE 双轨）");
+        System.out.println("[iufix] 1.4.3-hotfix4 已加载：IE 模式代理层 + 村庄铁砧世界生成路径修复 + 铁砧朝向随 jigsaw 房屋旋转（state+BE 双轨）");
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(CleanMultiblockCommand.class);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ChunkLoadCollisionRefreshFix.class);
     }

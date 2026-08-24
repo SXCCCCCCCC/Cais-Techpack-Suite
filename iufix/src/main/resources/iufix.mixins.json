@@ -20,7 +20,8 @@
         "MultiCellCollisionManagerRefreshMixin",
         "BlockStateBaseFacingRotateMixin",
         "BlockEntityBaseFacingFromStateMixin",
-        "BlockEntityBaseCanPlaceMixin"
+        "BlockEntityBaseCanPlaceMixin",
+        "BlockComponentProviderJadeDataGuard"
     ],
     "client": [
         "ScreenScannerMixin",
