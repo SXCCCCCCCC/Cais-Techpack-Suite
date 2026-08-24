@@ -1,10 +1,8 @@
 package com.sxcccccccc.iuunify.mixin;
 
-import com.denfop.blockentity.base.BlockEntityBase;
 import com.denfop.componets.Fluids;
 import com.sxcccccccc.iuunify.compat.InputTagRegistry;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -38,12 +36,15 @@ public abstract class FluidsTankRegisterMixin {
      * [CallbackInfo]，this 不占参数位——原写法 {@code (Fluids self, tank, CIR)}
      * 会 InvalidInjectionException "Expected (tank, CIR)"。owner 改经
      * {@code @Shadow AbstractComponent.getParent()}（非 final，abstract shadow）
-     * 在 handler 内取得再传入
-     * {@link InputTagRegistry#register(BlockEntityBase, Fluids.InternalFluidTank)}。
+     * 在 handler 内取得再传入 {@code InputTagRegistry.register(...)}。
+     *
+     * <p>0.3.3 修复（与 FluidNameRedirectMixin 同源排雷：0.3.2 的
+     * {@code @Shadow name()} 因 JDK 父链断裂在 apply 时报
+     * "was not located in the target class"）：本类也不再使用 @Shadow，owner 在
+     * handler 内直接强转调用 {@code ((Fluids)(Object)this).getParent()}——编译期
+     * javac 就按继承链解析到 AbstractComponent.getParent()，运行时 this 即合并后的
+     * Fluids 实例，虚拟分派到同一方法，零 @Shadow 运行时解析风险。
      */
-    @Shadow(remap = false)
-    public abstract BlockEntityBase getParent();
-
     @Inject(
             method = "addTank(Lcom/denfop/componets/Fluids$InternalFluidTank;)Lcom/denfop/componets/Fluids$InternalFluidTank;",
             at = @At("TAIL"),
@@ -51,6 +52,6 @@ public abstract class FluidsTankRegisterMixin {
             remap = false
     )
     private void iuunify$registerTank(Fluids.InternalFluidTank tank, CallbackInfoReturnable<Fluids.InternalFluidTank> cir) {
-        InputTagRegistry.register(getParent(), tank);
+        InputTagRegistry.register(((Fluids) (Object) this).getParent(), tank);
     }
 }
