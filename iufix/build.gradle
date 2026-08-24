@@ -73,9 +73,12 @@ dependencies {
     // mixin 目标串按运行时真名写（remap=false，字符串原样进 jar）。
     compileOnly fg.deobf(files('libs/IndustrialUpgrade-1.20.1-3.4.0.10.jar'))
 
-    // PinIn 1.6.0 拼音库（官方 Towdium/PinIn 原版包名 me.towdium.pinin；
-    // 用官方 -all 版：fastutil 已 shade 内嵌 me/towdium/pinin/fastutil，零外部依赖；
-    // 运行期随 resources 打进 jar——resources/me/towdium/pinin 即官方 jar 原样解包）
+    // PinIn 1.6.0 拼音库（官方 Towdium/PinIn，包名 me.towdium.pinin）——仅编译期类型。
+    // 1.4.3-hotfix 起运行期不再打包：jecharacters 4.6.9 内嵌官方 PinIn 1.6.0（同包名、
+    // data.txt 逐字节同 302037 字节），mods.toml 声明 mandatory 依赖，运行期直接读它提供的类。
+    // 原因：把 me.towdium.pinin 打进 iufix 与 jecharacters 同包冲突
+    // （java.lang.module.ResolutionException: Modules jecharacters and iufix export
+    // package me.towdium.pinin.searchers to module gregfluxology——JPMS split package）。
     compileOnly files('libs/PinIn-1.6.0-all.jar')
 
     // fabric-rendering-fluids v1（fabric-api 0.92.6 jarjar 同版，已 mojmap 无需 deobf；

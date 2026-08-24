@@ -29,3 +29,15 @@ description='''${mod_description}'''
     versionRange="[3.4.0.10,)"
     ordering="NONE"
     side="BOTH"
+
+# 1.4.3-hotfix：PinIn 拼音库不再打包进 iufix——jecharacters 4.6.9 内嵌官方 PinIn 1.6.0
+# （me.towdium.pinin，data.txt 与官方逐字节同 302037 字节），运行期直接读它，
+# 消除官方包名与 jecharacters 的 JPMS split package 启动冲突
+# （java.lang.module.ResolutionException: Modules jecharacters and iufix export
+# package me.towdium.pinin.searchers to module gregfluxology）。
+[[dependencies.${mod_id}]]
+    modId="jecharacters"
+    mandatory=true
+    versionRange="[4.6.9,)"
+    ordering="NONE"
+    side="BOTH"
