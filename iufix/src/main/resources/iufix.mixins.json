@@ -19,7 +19,8 @@
         "BlockEntityCollisionProxyIEModeMixin",
         "MultiCellCollisionManagerRefreshMixin",
         "BlockStateBaseFacingRotateMixin",
-        "BlockEntityBaseFacingFromStateMixin"
+        "BlockEntityBaseFacingFromStateMixin",
+        "BlockEntityBaseCanPlaceMixin"
     ],
     "client": [
         "ScreenScannerMixin",
