@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.spongepowered.asm.mixin.Mixin;
@@ -57,7 +58,11 @@ public abstract class BlockCollisionProxyGetDelegatedShapeGuard {
             if (level.getBlockEntity(masterPos) instanceof BlockEntityBase master) {
                 cir.setReturnValue(MultiCellCollisionShapeHelper.buildClippedShapeForCell(master, masterPos, pos, collision));
             } else {
-                warnOnce(pos, masterPos);
+                // 1.4.3-hotfix2 警告分级：仅服务端真阳性打一条短的；客户端渲染线程静默
+                //（客户端只渲染不拆方块，对残留无行动能力，且大多为清扫前的滞后视图）。
+                if (level instanceof Level l && !l.isClientSide()) {
+                    warnOnce(pos, masterPos);
+                }
                 cir.setReturnValue(Shapes.empty());
             }
         } else {
@@ -68,10 +73,8 @@ public abstract class BlockCollisionProxyGetDelegatedShapeGuard {
     private static void warnOnce(BlockPos proxyPos, BlockPos masterPos) {
         long key = masterPos.asLong() ^ Long.rotateLeft(proxyPos.asLong(), 32);
         if (WARNED.add(key)) {
-            System.out.println("[iufix] 检测到损坏的 IU 多胞碰撞结构：位置 " + proxyPos.toShortString()
-                    + " 的代理 masterPos=" + masterPos.toShortString()
-                    + " 处不是 BlockEntityBase（代理指向代理/被代理占据）。已返回空形状防崩溃，"
-                    + "请拆除重建该位置的结构（如 //set air 后重放）。");
+            System.out.println("[iufix] 损坏的多胞结构：代理 @" + proxyPos.toShortString()
+                    + " 的 master @" + masterPos.toShortString() + " 缺失，已防崩");
         }
     }
 }

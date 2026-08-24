@@ -4,7 +4,6 @@ import com.denfop.blockentity.base.BlockEntityBase;
 import com.denfop.blockentity.collision.BlockEntityCollisionProxy;
 import com.denfop.blocks.BlockCollisionProxy;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,18 +36,9 @@ public final class MultiblockCollisionUtil {
     private static final Set<BlockEntityCollisionProxy> PROXIES =
             Collections.synchronizedSet(Collections.newSetFromMap(new IdentityHashMap<>()));
 
-    /** 已告警过的 (master, proxy) 组合，避免刷屏。 */
-    private static final Set<Long> WARNED = Collections.synchronizedSet(new HashSet<>());
-
     /** 代理构造时自注册（客户端、服务端各自注册各自实例）。 */
     public static void register(BlockEntityCollisionProxy proxy) {
         PROXIES.add(proxy);
-    }
-
-    public static void warnOnce(long key, String message) {
-        if (WARNED.add(key)) {
-            System.out.println("[iufix] " + message);
-        }
     }
 
     /**
@@ -78,10 +68,7 @@ public final class MultiblockCollisionUtil {
                     continue;
                 }
                 if (!isHealthyMaster(level, mp)) {
-                    warnOnce(mp.asLong() ^ Long.rotateLeft(proxy.getBlockPos().asLong(), 32),
-                            "清扫：代理 @" + proxy.getBlockPos().toShortString()
-                                    + " 推导出的 master @" + mp.toShortString()
-                                    + " 处不是 BlockEntityBase（死指针），回收其方块");
+                    // 1.4.3-hotfix2 警告分级：清扫回收是预期内的自我修复，静默。
                     if (removeProxyBlock(level, proxy.getBlockPos())) {
                         removed++;
                     }
@@ -89,10 +76,6 @@ public final class MultiblockCollisionUtil {
                     continue;
                 }
                 if (masterPos != null && mp.equals(masterPos) && desired != null && !desired.contains(proxy.getBlockPos())) {
-                    warnOnce(mp.asLong() ^ Long.rotateLeft(proxy.getBlockPos().asLong(), 31),
-                            "清扫：代理 @" + proxy.getBlockPos().toShortString()
-                                    + " 指向 master @" + mp.toShortString()
-                                    + " 但不在其 desired cells 里（历史多余代理），回收其方块");
                     if (removeProxyBlock(level, proxy.getBlockPos())) {
                         removed++;
                     }

@@ -79,11 +79,8 @@ public abstract class BlockEntityCollisionProxyIEModeMixin {
         }
         if (derived != null) {
             if (level != null && level.isLoaded(derived) && !(level.getBlockEntity(derived) instanceof BlockEntityBase)) {
+                // 1.4.3-hotfix2 警告分级：加载期死指针按空 master 加载，交由清扫静默回收，不打日志。
                 this.masterPos = null;
-                MultiblockCollisionUtil.warnOnce(derived.asLong() ^ Long.rotateLeft(here.asLong(), 32),
-                        "读取代理 NBT：位置 " + here.toShortString()
-                                + " 推导出的 master @" + derived.toShortString()
-                                + " 处不是 BlockEntityBase（旧数据死指针），已按空 master 加载，后续清扫会回收");
             } else {
                 this.masterPos = derived;
             }
@@ -113,13 +110,9 @@ public abstract class BlockEntityCollisionProxyIEModeMixin {
             ci.cancel();
             return;
         }
-        BlockPos here = ((BlockEntity) (Object) this).getBlockPos();
         Level level = ((BlockEntity) (Object) this).getLevel();
         if (level == null || !(level.getBlockEntity(masterPos) instanceof BlockEntityBase)) {
-            MultiblockCollisionUtil.warnOnce(masterPos.asLong() ^ Long.rotateLeft(here.asLong(), 30),
-                    "setMasterPos 拒绝写入：位置 " + here.toShortString()
-                            + " 的目标 master @" + masterPos.toShortString()
-                            + " 处不是 BlockEntityBase，指针保持原值");
+            // 1.4.3-hotfix2 警告分级：拒绝写入是预防性防护（健康 master 的 refresh 正常路径不会触发），静默。
             ci.cancel();
             return;
         }
