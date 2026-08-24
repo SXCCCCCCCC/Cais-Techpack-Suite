@@ -8,6 +8,7 @@ import com.denfop.blockentity.cyclotron.BlockEntityCyclotronCoolant;
 import com.denfop.blockentity.geothermalpump.BlockEntityGeothermalExchanger;
 import com.denfop.blockentity.mechanism.BlockEntityBioGenerator;
 import com.denfop.blockentity.mechanism.BlockEntityFieldCleaner;
+import com.denfop.blockentity.mechanism.BlockEntityGasCombiner;
 import com.denfop.blockentity.mechanism.BlockEntitySingleFluidAdapter;
 import com.denfop.blockentity.mechanism.BlockEntitySteamGenerator;
 import com.denfop.blockentity.mechanism.blastfurnace.block.BlockEntityBlastFurnaceMain;
@@ -69,13 +70,14 @@ public final class InputTagRegistry {
     public static final TagKey<Fluid> SUPERHEATED_STEAM = tag("superheated_steam");
     public static final TagKey<Fluid> UU_MATTER = tag("uu_matter");
     public static final TagKey<Fluid> CONSTRUCTION_FOAM = tag("construction_foam");
+    public static final TagKey<Fluid> CREOSOTE = tag("creosote");
     public static final TagKey<Fluid> COMPRESSED_AIR = tag("compressed_air");
 
-    /** 11 个统一流体 tag 全集（FluidName 枚举一一对应；creosote 已随 0.3.5 撤回——tag 组成员待用户裁决）。 */
+    /** 12 个统一流体 tag 全集（FluidName 枚举一一对应）。 */
     @SuppressWarnings("unchecked")
     private static final TagKey<Fluid>[] UNIFIED_TAGS = (TagKey<Fluid>[]) new TagKey<?>[]{
             STEAM, SUPERHEATED_STEAM, BIOMASS, WEED_EX, COOLANT, HOT_COOLANT,
-            PAHOEHOE_LAVA, DISTILLED_WATER, UU_MATTER, CONSTRUCTION_FOAM, COMPRESSED_AIR
+            PAHOEHOE_LAVA, DISTILLED_WATER, UU_MATTER, CONSTRUCTION_FOAM, CREOSOTE, COMPRESSED_AIR
     };
 
     /** 罐 → 应宽限的 tag（弱引用：区块卸载、BE 回收后自动清除，无泄漏）。 */
@@ -133,6 +135,9 @@ public final class InputTagRegistry {
 
             // ---- 蒸馏水输入 → forge:distilled_water ----
             rule(BlockEntitySingleFluidAdapter.class, "fluidTank1", DISTILLED_WATER),
+
+            // ---- 杂酚油输入 → forge:creosote（gas_combiner 输入 1 号罐）----
+            rule(BlockEntityGasCombiner.class, "fluidTank1", CREOSOTE),
     };
 
     private InputTagRegistry() {

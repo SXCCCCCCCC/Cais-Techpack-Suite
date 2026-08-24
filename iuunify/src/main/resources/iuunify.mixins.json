@@ -14,7 +14,9 @@
         "InternalFluidTankAcceptMixin",
         "TransferApiForgeCompatItemBridgeMixin",
         "InventoryFluidByListAcceptMixin",
-        "InventoryTankAcceptMixin"
+        "InventoryTankAcceptMixin",
+        "RecipesFluidCoreMatchMixin",
+        "FluidHandlerRecipeConsumeMixin"
     ],
     "client": [],
     "injectors": {
