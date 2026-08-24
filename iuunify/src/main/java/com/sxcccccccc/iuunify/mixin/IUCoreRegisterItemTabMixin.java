@@ -28,6 +28,17 @@ import org.spongepowered.asm.mixin.injection.Redirect;
  * 方法内 {@code invokevirtual RegistryObject.get:()Ljava/lang/Object;} 共 4 处
  * 调用点，全部替换，行为一致；require=1 保证方法串/目标串写错时启动即崩
  * （显式反馈，杜绝静默失效）。
+ *
+ * <p>0.3.1 修复（2026-08-24 实崩复盘，mixin-0.8.5
+ * {@code Injector.checkTargetModifiers} 反编译实证）：handler 必须是
+ * <b>非 static</b>——Mixin 要求 handler 的 static 修饰符与<b>被注入方法</b>
+ * 的 static 修饰符一致（{@code registerItemTab} 是实例方法）。0.3.0 里写成
+ * static → InvalidInjectionException → IUCore 类加载失败 → IU 容器 broken →
+ * ModList 容器初始化失败 → Timer 构造时 carpet CarpetSettings.<clinit> 查
+ * ModList.getModContainerById("carpet") 拿空 → NoSuchElementException 连锁崩。
+ * handler 合并进 IUCore 成为实例方法后，{@code RegistryObject} 参数即被
+ * 重定向调用的 receiver，this 自动绑定（参照 iufix ScreenVeinSensorMixin：
+ * 实例方法 @Redirect 一律非 static handler）。
  */
 @Mixin(value = IUCore.class, remap = false)
 public abstract class IUCoreRegisterItemTabMixin {
@@ -38,7 +49,7 @@ public abstract class IUCoreRegisterItemTabMixin {
             require = 1,
             remap = false
     )
-    private static Object iuunify$safeRegistryObjectGet(RegistryObject<?> registryObject) {
+    private Object iuunify$safeRegistryObjectGet(RegistryObject<?> registryObject) {
         return registryObject.isPresent() ? registryObject.get() : null;
     }
 }
