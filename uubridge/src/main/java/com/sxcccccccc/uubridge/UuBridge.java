@@ -18,8 +18,11 @@ import net.minecraftforge.fml.common.Mod;
  * <p>第二部分：UU 成本整表替换。IU 复制机/扫描机/模式存储/工具提示/JEI 全部从
  * 自研 "replicator" 配方表读成本；本 mod 在 TagsUpdatedEvent（LOWEST，IU 的
  * {@code ReplicatorRecipe.init()} 之后）清空该表并从 IC2 权威成本
- * {@code Ic2Config.getReplicationCostUb} 重新填充（matter buckets = uB/1e6，
- * 90B 上限截断，两阶段 ready 翻转，ServerStartedEvent 重置），
+ * {@code Ic2Config.getReplicationCostUb} 重新填充（0.1.2 起精确传值：
+ * {@code ReplicatorRecipe.add(ItemStack, double col)} 直接收
+ * {@code costUb / 1000.0}，double 除法无取整 ⇒ matter = uB/1e6 精确；
+ * IU 复制机动态消耗（consumeUu + extraUuStored 找零）无损，无需 ceil 地板、
+ * 无 90B 截断；两阶段 ready 翻转，ServerStartedEvent 重置），
  * IU 整条 UU 链自动切到 IC2 定价。
  */
 @Mod("uubridge")

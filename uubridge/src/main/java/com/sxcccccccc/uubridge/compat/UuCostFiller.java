@@ -42,9 +42,15 @@ import java.util.List;
  *       白名单版 → ready 翻转后全量版重填。</li>
  * </ul>
  *
- * <p>90B 上限截断：成本 &gt; 90,000,000 uB（= 90,000 mB）跳过禁止复制，防止套娃
- * 配方成本爆炸（IC2 白名单最贵条目 346,466,802 uB 也会被截掉；IU 复制机罐
- * 16000 mB 装不下超高成本，截断更干净）。
+ * <p>0.1.2 精确传值（用户实测裁决）：IU 复制机是<strong>动态消耗</strong>——
+ * {@code consumeUu(double amount)} 按 double buckets 精确计，
+ * {@code extraUuStored} 找零无损消化任意小数（amount 先用找零、不足才
+ * ceil(amount×1000) mB 从罐扣、多扣部分进找零）。因此 uB 成本<strong>原样搬移</strong>：
+ * 不需要向上取整（0.1.1 的 ceil 把 10 uB 抬成 1 mB，实测确认错）、不需要 90B
+ * 截断（那是 Mek 侧罐容量约束，IU 侧无此约束）。
+ * {@code ReplicatorRecipe.add(ItemStack, double col)} 的 col 是 double（mB），
+ * 内部 {@code putDouble("matter", col / 1000)}（buckets）——传
+ * {@code costUb / 1000.0} 即精确表达 matter = uB/1e6，全程 double 无整数截断。
  *
  * <p>时序：IU 每次 TagsUpdatedEvent 重注册旧价表（{@code ReplicatorRecipe.init()}，
  * 有 register 标志门控只跑一次 SERVER_DATA_LOAD），本 handler 以
@@ -58,9 +64,7 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = "uubridge", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public final class UuCostFiller {
 
-    /** 90B 上限，单位 uB：90,000 mB × 1000 uB/mB（照抄 mekmmuufix 实证值）。 */
-    public static final long MAX_UU_COST_UB = 90_000_000L;
-    /** uB → mB 换算：1 mB = 1000 uB */
+    /** uB → mB 换算：1 mB = 1000 uB（double，保留小数精度） */
     private static final double UB_PER_MB = 1000.0;
 
     private static final Object LOCK = new Object();
@@ -127,7 +131,6 @@ public final class UuCostFiller {
         Recipes.recipes.removeAll("replicator");
 
         int count = 0;
-        int capped = 0;
         for (Item item : ForgeRegistries.ITEMS.getValues()) {
             if (item == Items.AIR) {
                 continue;
@@ -137,14 +140,11 @@ public final class UuCostFiller {
             if (costUb == null || costUb <= 0) {
                 continue; // 不可复制 / 无成本（IC2 语义：没标价 = 不可扫描）
             }
-            if (costUb > MAX_UU_COST_UB) {
-                capped++; // 90B 上限截断：禁止复制
-                continue;
-            }
-            // ReplicatorRecipe.add(ItemStack, double col)：col 单位 mB = uB/1000，
-            // 向上取整保证消耗不低于 IC2 成本（IU consumeUu 按 mB 取整 + 找零无损）；
-            // 内部存 matter = col/1000（buckets）= uB/1e6。
-            ReplicatorRecipe.add(new ItemStack(item), Math.ceil(costUb / UB_PER_MB));
+            // ReplicatorRecipe.add(ItemStack, double col)：col 收 double（mB），
+            // 内部 putDouble("matter", col / 1000) 存 buckets。
+            // 传 costUb / 1000.0（double 除法，无整数截断）⇒ matter = uB/1e6 精确值；
+            // IU consumeUu(double) 动态消耗 + extraUuStored 找零无损，无需 ceil。
+            ReplicatorRecipe.add(new ItemStack(item), costUb / UB_PER_MB);
             count++;
         }
 
@@ -154,7 +154,7 @@ public final class UuCostFiller {
         // JEI 静态列表刷新（客户端类，反射调用；服务端/JEI 未装时类加载失败被吞）
         refreshJei();
 
-        LOGGER.info("[uubridge] replicator table: {} entries added, {} capped at 90B", count, capped);
+        LOGGER.info("[uubridge] replicator table: {} entries added", count);
     }
 
     /**
