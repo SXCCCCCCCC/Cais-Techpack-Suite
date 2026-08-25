@@ -21,7 +21,8 @@
         "BlockStateBaseFacingRotateMixin",
         "BlockEntityBaseFacingFromStateMixin",
         "BlockEntityBaseCanPlaceMixin",
-        "BlockComponentProviderJadeDataGuard"
+        "BlockComponentProviderJadeDataGuard",
+        "LoginGiftDisableMixin"
     ],
     "client": [
         "ScreenScannerMixin",
