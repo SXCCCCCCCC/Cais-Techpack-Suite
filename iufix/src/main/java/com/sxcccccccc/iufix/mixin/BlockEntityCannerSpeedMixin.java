@@ -22,29 +22,22 @@ import org.spongepowered.asm.mixin.injection.Redirect;
  * 两处都置 30：机器转 1 秒完成，Jade 即刻显示 30；超频/降速 upgrade 仍按默认 30 的倍数走
  * （getOperationLength1(defaultOperationLength)）。
  *
- * <p>@Redirect(value=NEW)：target 写“类名+构造器描述符”（外部描述符形式，无点号）——
- * mixin 0.8.5 的 BeforeNew 构造时会把 target 里的所有 '.' 替换成 '/'（原文
- * type.replace('.', '/')），此前写的 "com.denfop.componets.ComponentProcess.<init>"
- * 解析前就被揉成 "com/denfop/componets/ComponentProcess/<init>"，过不了
- * MemberInfo.validate（Invalid owner，1.5.1 启动崩溃点）。
- * 描述符取自发布 jar 字节码实证：BlockEntityCanner.<init> 中
- * ComponentProcess."<init>":(Lcom/denfop/blockentity/base/BlockEntityInventory;ID)V、
- * ComponentProgress."<init>":(Lcom/denfop/blockentity/base/BlockEntityInventory;IS)V，
- * 且每个类的 NEW 恰出现一次，require=1 落空即直接崩溃（宁崩不静默）。
+ * <p>@Redirect(value=NEW)：target 只按类名匹配（mixin 0.8.5 对 NEW 不支持构造器描述符），
+ * <init> 方法体内每个类的 NEW 恰出现一次，require=1 落空即直接奔溃（宁崩不静默）。
  * handler 签名 = 构造器参数 + 返回被构造类型，返回同型对象，原 INVOKESPECIAL 被吞掉。
  */
 @Mixin(value = BlockEntityCanner.class, remap = false)
 public abstract class BlockEntityCannerSpeedMixin {
 
     @Redirect(method = "<init>",
-            at = @At(value = "NEW", target = "(Lcom/denfop/blockentity/base/BlockEntityInventory;ID)Lcom/denfop/componets/ComponentProcess;"),
+            at = @At(value = "NEW", target = "com/denfop/componets/ComponentProcess.<init>"),
             require = 1)
     private ComponentProcess iufix$cannerProcess(BlockEntityInventory base, int operationLength, double energyConsume) {
         return new ComponentProcess(base, 30, energyConsume);
     }
 
     @Redirect(method = "<init>",
-            at = @At(value = "NEW", target = "(Lcom/denfop/blockentity/base/BlockEntityInventory;IS)Lcom/denfop/componets/ComponentProgress;"),
+            at = @At(value = "NEW", target = "com/denfop/componets/ComponentProgress.<init>"),
             require = 1)
     private ComponentProgress iufix$cannerProgress(BlockEntityInventory base, int col, short max) {
         return new ComponentProgress(base, col, (short) 30);
