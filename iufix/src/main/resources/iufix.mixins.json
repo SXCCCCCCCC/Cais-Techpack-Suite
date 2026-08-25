@@ -25,7 +25,8 @@
     ],
     "client": [
         "ScreenScannerMixin",
-        "ScreenVeinSensorMixin"
+        "ScreenVeinSensorMixin",
+        "ScreenIndustrialUpgradeTextWrapMixin"
     ],
     "injectors": {
         "defaultRequire": 0
