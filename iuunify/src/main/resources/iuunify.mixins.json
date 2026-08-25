@@ -16,7 +16,9 @@
         "InventoryFluidByListAcceptMixin",
         "InventoryTankAcceptMixin",
         "RecipesFluidCoreMatchMixin",
-        "FluidHandlerRecipeConsumeMixin"
+        "FluidHandlerRecipeConsumeMixin",
+        "FluidTankFillUnifiedMixin",
+        "InventoryFluidTransferDrainMixin"
     ],
     "client": [],
     "injectors": {
