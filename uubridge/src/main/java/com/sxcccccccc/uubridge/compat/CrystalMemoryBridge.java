@@ -7,28 +7,48 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.registries.ForgeRegistries;
 
 /**
  * 模式水晶桥接 helper（mixin 包外的普通类，mixin 包内禁止放非 mixin 类）。
  *
  * <p>目标：让 IU 机器把 IC2 水晶（{@code ic2_120:crystal_memory}）当作合法
- * 模式载体。IC2 水晶是普通 Item，数据全在 NBT；IU 侧对水晶的唯一依赖是
- * 两处 item 判定（槽位按 item 实例过滤、5 处 {@code instanceof ItemCrystalMemory}
- * 后调 {@code readItemStack}/{@code writecontentsTag}——这两个方法只读写
- * NBT 键 {@code "Pattern"}，与 item 类无关）。
+ * 模式载体，并让两种格式<strong>双向互通</strong>（用户裁决 0.1.1：成本已统一
+ * 用 IC2 计算，两边水晶应该互相可用；撤销 0.1.0 的单向设计，移除写时删除
+ * UuTemplate 的守卫）。IC2 水晶是普通 Item，数据全在 NBT；IU 侧对水晶的
+ * 唯一依赖是两处 item 判定（槽位按 item 实例过滤、
+ * {@code instanceof ItemCrystalMemory} 后调 {@code readItemStack}/
+ * {@code writecontentsTag}——这两个方法只读写 NBT 键 {@code "Pattern"}，
+ * 与 item 类无关）。
+ *
+ * <p>两种 NBT 格式（两侧源码逐行取证，互不冲突、可共存于一键）：
+ * <ul>
+ *   <li>IU {@code "Pattern"}：{@code recorded.save(contentTag)} 的<strong>完整
+ *       序列化 ItemStack</strong>（含 id/Count/tag），{@code ItemStack.of} 读回
+ *       （ItemCrystalMemory.writecontentsTag/readItemStack 实读实写，dev 源码
+ *       33-58 行实证）。</li>
+ *   <li>IC2 {@code "UuTemplate"}：{@code {ItemId: "modid:itemid"}}——仅 itemId
+ *       一个字段（UuTemplateData.kt：{@code UuTemplateEntry.toNbt} 只写
+ *       {@code putString("ItemId", itemId)}，{@code fromNbt} 只读
+ *       {@code getString("ItemId")}；成本 {@code uuCostUb} 是 getter 实时查
+ *       {@code Ic2Config.getReplicationCostUb}，不存水晶上）。</li>
+ * </ul>
+ *
+ * <p>双向桥（{@link #writePattern} / {@link #readPattern}）：
+ * <ul>
+ *   <li><strong>IU 写</strong>：一次调用同写两键——{@code "Pattern"}（IU 完整栈）
+ *       与 {@code "UuTemplate"}（IC2 格式，itemId = Pattern 栈的注册 id），
+ *       保证两键同步一致；IC2 机器读它自己的格式天然生效，零 IC2 侧改动。</li>
+ *   <li><strong>IU 读</strong>：优先读 {@code "Pattern"}（同一次写入的完整栈）；
+ *       没有则读 {@code "UuTemplate"} 的 {@code ItemId} 并转成 ItemStack
+ *       （count=1——IC2 模板不存数量，IC2 复制机产出恒 1 个，语义对齐）。</li>
+ * </ul>
  *
  * <p>关键技巧：{@link #getItemForCrystalCheck} 把 IC2 水晶伪装成
  * {@code IUItem.crystalMemory.getItem()}，使原始方法内的
  * {@code instanceof ItemCrystalMemory} 与 {@code (ItemCrystalMemory) getItem()}
- * 转型原样通过，随后 {@code readItemStack}/{@code writecontentsTag} 只操作
- * NBT（{@code ModUtils.nbt}），对 IC2 水晶同样成立——不重写方法体。
- *
- * <p>单向数据策略（用户裁决）：IU 机器读写水晶上的 IU 格式 {@code "Pattern"}
- * 键（完整序列化 ItemStack）；写入时删除 IC2 {@code "UuTemplate"} 键——
- * IC2 复制机/模式存储机不校验模板是否在白名单内，带非白名单 ItemId 的水晶
- * 模板进入 IC2 复制机 = 成本 0 免费复制（漏洞），删除该键即封死。
- * 不做双向桥（IC2 机器读 IU 模式），IC2 机器读写的是各自格式，互不冲突。
+ * 转型原样通过，随后 read/write 落点被重定向到本桥（M3/M4 的 @Redirect）。
  */
 public final class CrystalMemoryBridge {
 
@@ -73,22 +93,62 @@ public final class CrystalMemoryBridge {
         return stack.getItem();
     }
 
-    /** 镜像 {@code ItemCrystalMemory.readItemStack}：读 {@code "Pattern"}（IU 格式，完整序列化 ItemStack）。 */
+    /**
+     * 双向读：优先 {@code "Pattern"}（IU 完整序列化 ItemStack）；为空/缺失则回落
+     * IC2 {@code "UuTemplate"}.{@code ItemId} 并转换为 ItemStack（count=1）。
+     * 两者都无 → {@code ItemStack.EMPTY}（原方法空分支安全处理）。
+     */
     public static ItemStack readPattern(ItemStack crystal) {
         CompoundTag nbt = ModUtils.nbt(crystal);
-        CompoundTag contentTag = nbt.getCompound("Pattern");
-        return ItemStack.of(contentTag);
+
+        // IU 格式优先（同一次写入的完整栈，含 NBT）
+        CompoundTag patternTag = nbt.getCompound("Pattern");
+        if (!patternTag.isEmpty()) {
+            ItemStack out = ItemStack.of(patternTag);
+            if (!out.isEmpty()) {
+                return out;
+            }
+        }
+
+        // 回落 IC2 格式：UuTemplate -> {ItemId: "modid:itemid"}
+        CompoundTag uuTemplate = nbt.getCompound("UuTemplate");
+        String itemId = uuTemplate.getString("ItemId");
+        if (!itemId.isBlank()) {
+            ResourceLocation id = ResourceLocation.tryParse(itemId);
+            if (id != null) {
+                Item item = ForgeRegistries.ITEMS.getValue(id);
+                if (item != null && item != Items.AIR) {
+                    return new ItemStack(item, 1);
+                }
+            }
+        }
+
+        return ItemStack.EMPTY;
     }
 
     /**
-     * 镜像 {@code ItemCrystalMemory.writecontentsTag}：写 {@code "Pattern"}，并删除
-     * IC2 {@code "UuTemplate"} 键（防 IC2 复制机 0 成本免费复制漏洞）。
+     * 双向写：一次调用同写两键，保证同步一致——
+     * ① IU {@code "Pattern"}：{@code recorded.save()} 完整序列化 ItemStack；
+     * ② IC2 {@code "UuTemplate"}：{@code {ItemId: <pattern 栈注册 id>}}，
+     *    与 {@code UuTemplateData.UuTemplateEntry.toNbt} 完全同构（键名
+     *    {@code "UuTemplate"} / 字段 {@code "ItemId"}），IC2 机器
+     *    {@code getUuTemplate()} 直接可读。
+     * 0.1.1 起移除 0.1.0 的"写时删除 UuTemplate"单向守卫（用户裁决双向）。
      */
     public static void writePattern(ItemStack crystal, ItemStack recorded) {
         CompoundTag nbt = ModUtils.nbt(crystal);
+
+        // IU 格式（完整序列化 ItemStack）
         CompoundTag contentTag = new CompoundTag();
         recorded.save(contentTag);
         nbt.put("Pattern", contentTag);
-        nbt.remove("UuTemplate");
+
+        // IC2 格式（仅 itemId；IC2 模板语义不存 count/NBT）
+        ResourceLocation id = ForgeRegistries.ITEMS.getKey(recorded.getItem());
+        if (id != null) {
+            CompoundTag uuTemplate = new CompoundTag();
+            uuTemplate.putString("ItemId", id.toString());
+            nbt.put("UuTemplate", uuTemplate);
+        }
     }
 }
