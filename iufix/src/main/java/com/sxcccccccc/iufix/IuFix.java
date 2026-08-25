@@ -1,6 +1,5 @@
 package com.sxcccccccc.iufix;
 
-import com.sxcccccccc.iufix.util.CannerRecipeRegister;
 import net.minecraftforge.fml.common.Mod;
 
 /**
@@ -60,9 +59,8 @@ import net.minecraftforge.fml.common.Mod;
 public class IuFix {
 
     public IuFix() {
-        System.out.println("[iufix] 1.5.1 已加载：装罐机（canner_iu）功能补全——GUI（ContainerMenuCanner/ScreenCanner 按 guicanner.png 逐像素布位）+ cannerenrich 十条例程配方（IC2R 空燃料棒 → IU 单棒）+ 加工时长 300→30 刻");
+        System.out.println("[iufix] 1.4.3-hotfix5 已加载：IE 模式代理层 + 村庄铁砧世界生成路径修复 + 铁砧朝向随 jigsaw 房屋旋转（state+BE 双轨）+ Jade 铁砧 data 空守卫（修复 hotfix4 注入落错重载）");
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(CleanMultiblockCommand.class);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ChunkLoadCollisionRefreshFix.class);
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new CannerRecipeRegister());
     }
 }

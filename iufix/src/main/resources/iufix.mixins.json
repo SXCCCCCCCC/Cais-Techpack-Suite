@@ -22,9 +22,7 @@
         "BlockEntityBaseFacingFromStateMixin",
         "BlockEntityBaseCanPlaceMixin",
         "BlockComponentProviderJadeDataGuard",
-        "LoginGiftDisableMixin",
-        "BlockEntityCannerGuiMixin",
-        "BlockEntityCannerSpeedMixin"
+        "LoginGiftDisableMixin"
     ],
     "client": [
         "ScreenScannerMixin",
