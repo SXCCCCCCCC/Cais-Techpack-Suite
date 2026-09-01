@@ -66,7 +66,15 @@ public final class Ic2SteamGeneratorMixin {
             boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.ic2Fluid("distilled_water");
             boolean widened = UnifiedFluidRegistry.acceptOverrideAny(MACHINE,
                     new Fluid[]{Ic2Support.water(), Ic2Support.ic2Fluid("distilled_water")}, fluid, nativeResult);
-            if (!widened) {
+            if (widened && !nativeResult) {
+                // ioStorage 原生体有内联硬判定（非水非蒸馏水 return 0L）——放行落原生
+                // 体也会被拒，ACCEPT 时直接身份保持插水罐（罐 canInsert 已被加宽）
+                long r = Ic2Support.directInsert(this, "waterTank", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
                 cir.setReturnValue(0L);
                 cir.cancel();
             }

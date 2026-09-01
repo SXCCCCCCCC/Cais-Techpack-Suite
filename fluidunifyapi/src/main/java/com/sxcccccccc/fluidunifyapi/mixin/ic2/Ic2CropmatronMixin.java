@@ -31,7 +31,10 @@ public final class Ic2CropmatronMixin {
         private void fluidunifyapi$water(@Coerce Object fluidObj, CallbackInfoReturnable<Boolean> cir) {
             Fluid fluid = Ic2Support.normalize((Fluid) fluidObj);
             boolean nativeResult = cir.getReturnValueZ();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.water(), fluid, nativeResult);
+            // isWater 原生同时接受水与蒸馏水——双模板口径，补丁键2 写哪个都能命中
+            boolean widened = UnifiedFluidRegistry.acceptOverrideAny(MACHINE,
+                    new Fluid[]{Ic2Support.water(), Ic2Support.ic2Fluid("distilled_water")},
+                    fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
             }
@@ -70,6 +73,8 @@ public final class Ic2CropmatronMixin {
                 return;
             }
             if (UnifiedFluidRegistry.decide(MACHINE, Ic2Support.water(), fluid)
+                    == UnifiedFluidRegistry.Decision.ACCEPT
+                    || UnifiedFluidRegistry.decide(MACHINE, Ic2Support.ic2Fluid("distilled_water"), fluid)
                     == UnifiedFluidRegistry.Decision.ACCEPT) {
                 cir.setReturnValue(true);
             }

@@ -48,6 +48,30 @@ public final class Ic2Support {
         return ForgeRegistries.FLUIDS.getValue(new ResourceLocation("ic2_120", name));
     }
 
+    public static Fluid hotCoolant() {
+        return ic2Fluid("hot_coolant");
+    }
+
+    public static Fluid coolant() {
+        return ic2Fluid("coolant");
+    }
+
+    public static Fluid pahoehoe() {
+        return ic2Fluid("pahoehoe_lava");
+    }
+
+    public static Fluid biomass() {
+        return ic2Fluid("biomass");
+    }
+
+    public static Fluid steam() {
+        return ic2Fluid("steam");
+    }
+
+    public static Fluid superheatedSteam() {
+        return ic2Fluid("superheated_steam");
+    }
+
     /** flowing_xxx → xxx 归一化（配置里只写 still id；机器原生两种都认）。 */
     public static Fluid normalize(Fluid fluid) {
         if (fluid == null) {
@@ -146,5 +170,115 @@ public final class Ic2Support {
             geoFuelSlot = v;
         }
         return v;
+    }
+
+    // ==================== ioStorage 内联判定绕过（身份保持直插） ====================
+    // 多台 IC2 机器的 ioStorage.insert 有内联硬判定（非原生流体直接 return 0L），
+    // 门禁 mixin 的"放行落原生体"会撞上内联判定——ACCEPT 时改为直接调用所属机器的
+    // 目标罐 insert（罐的 canInsert 已由对应 TankGate 加宽），variant 原样存入
+    // （身份保持）。手法与 fluidqinshihuangdi 的 Ic2RuleLookup.directInsert 一致。
+
+    private static final Map<String, java.lang.reflect.Field> FIELD_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, Method> METHOD_CACHE = new ConcurrentHashMap<>();
+
+    /**
+     * ioStorage 匿名对象 → 所属机器 BE 的目标罐字段做身份保持插入。
+     *
+     * @param ioInner       ioStorage 匿名对象（synthetic this$0 指回 BE）
+     * @param tankFieldName 目标罐字段名（如 "waterTank"、"inputTankInternal"）
+     * @return 插入结果（droplets）；反射失败返回 -1（调用方回退原生路径）
+     */
+    public static long directInsert(Object ioInner, String tankFieldName, Object variant,
+                                    long maxAmount, Object tx) {
+        try {
+            Object owner = ownerOf(ioInner);
+            if (owner == null) {
+                return -1L;
+            }
+            Object tank = fieldValue(owner, tankFieldName);
+            if (tank == null) {
+                return -1L;
+            }
+            Method insert = findMethod(tank.getClass(), "insert", 3);
+            if (insert == null) {
+                return -1L;
+            }
+            Object ret = insert.invoke(tank, variant, maxAmount, tx);
+            return ret instanceof Long l ? l : -1L;
+        } catch (ReflectiveOperationException e) {
+            return -1L;
+        }
+    }
+
+    /** 匿名内部类 → 外层 BE 实例（this$0 链，找不到返回 null）。 */
+    public static Object ownerOf(Object inner) {
+        if (inner == null) {
+            return null;
+        }
+        for (Class<?> c = inner.getClass(); c != null; c = c.getSuperclass()) {
+            try {
+                java.lang.reflect.Field f = c.getDeclaredField("this$0");
+                f.setAccessible(true);
+                return f.get(inner);
+            } catch (NoSuchFieldException e) {
+                // 继续向父类找
+            } catch (IllegalAccessException e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    private static Object fieldValue(Object target, String name) {
+        if (target == null) {
+            return null;
+        }
+        try {
+            java.lang.reflect.Field f = field(target.getClass(), name);
+            if (f == null) {
+                return null;
+            }
+            f.setAccessible(true);
+            return f.get(target);
+        } catch (ReflectiveOperationException e) {
+            return null;
+        }
+    }
+
+    private static java.lang.reflect.Field field(Class<?> start, String name) {
+        String key = start.getName() + '#' + name;
+        java.lang.reflect.Field cached = FIELD_CACHE.get(key);
+        if (cached != null) {
+            return cached;
+        }
+        for (Class<?> c = start; c != null; c = c.getSuperclass()) {
+            try {
+                java.lang.reflect.Field f = c.getDeclaredField(name);
+                f.setAccessible(true);
+                FIELD_CACHE.put(key, f);
+                return f;
+            } catch (NoSuchFieldException ignored) {
+                // 向父类找
+            }
+        }
+        return null;
+    }
+
+    private static Method findMethod(Class<?> start, String name, int paramCount) {
+        String key = start.getName() + '#' + name + '#' + paramCount;
+        Method cached = METHOD_CACHE.get(key);
+        if (cached != null) {
+            return cached;
+        }
+        for (Class<?> c = start; c != null; c = c.getSuperclass()) {
+            for (Method m : c.getMethods()) {
+                if (m.getName().equals(name) && m.getParameterCount() == paramCount) {
+                    m.setAccessible(true);
+                    METHOD_CACHE.put(key, m);
+                    return m;
+                }
+            }
+        }
+        return null;
     }
 }

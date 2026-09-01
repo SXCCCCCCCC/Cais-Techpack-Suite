@@ -60,4 +60,38 @@ public final class Ic2FermenterMixin {
             }
         }
     }
+
+    /** ioStorage.insert 内联判定（isBiomass 已由 Predicates 加宽）+ 归一化为
+     *  BIOMASS_STILL 再入罐——ACCEPT 时绕过，身份保持直插输入罐。 */
+    @Mixin(targets = "ic2_120.content.block.machines.FermenterBlockEntity$ioStorage$1", remap = false)
+    public abstract static class IoInsertGate {
+
+        @Inject(
+                method = "insert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;JLnet/fabricmc/fabric/api/transfer/v1/transaction/TransactionContext;)J",
+                at = @At("HEAD"),
+                cancellable = true,
+                require = 1,
+                remap = false
+        )
+        private void fluidunifyapi$insert(@Coerce Object variant, long maxAmount, @Coerce Object tx,
+                                          CallbackInfoReturnable<Long> cir) {
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
+            if (fluid == null) {
+                return;
+            }
+            boolean nativeResult = fluid == Ic2Support.ic2Fluid("biomass");
+            boolean widened = UnifiedFluidRegistry.acceptOverride(
+                    MACHINE, Ic2Support.ic2Fluid("biomass"), fluid, nativeResult);
+            if (widened && !nativeResult) {
+                long r = Ic2Support.directInsert(this, "inputTankInternal", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
+                cir.setReturnValue(0L);
+                cir.cancel();
+            }
+        }
+    }
 }

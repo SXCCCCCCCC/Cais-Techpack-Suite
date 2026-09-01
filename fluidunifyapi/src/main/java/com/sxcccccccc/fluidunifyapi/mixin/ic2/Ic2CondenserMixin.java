@@ -42,6 +42,39 @@ public final class Ic2CondenserMixin {
         }
     }
 
+    /** ioStorage.insert 有内联硬判定（非蒸汽非过热蒸汽 return 0L）——ACCEPT 时
+     *  身份保持直插蒸汽罐（罐 canInsert 已被加宽）。 */
+    @Mixin(targets = "ic2_120.content.block.machines.CondenserBlockEntity$ioStorage$1", remap = false)
+    public abstract static class IoInsertGate {
+
+        @Inject(
+                method = "insert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;JLnet/fabricmc/fabric/api/transfer/v1/transaction/TransactionContext;)J",
+                at = @At("HEAD"),
+                cancellable = true,
+                require = 1,
+                remap = false
+        )
+        private void fluidunifyapi$insert(@Coerce Object variant, long maxAmount, @Coerce Object tx,
+                                          CallbackInfoReturnable<Long> cir) {
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
+            if (fluid == null) {
+                return;
+            }
+            boolean nativeResult = fluid == Ic2Support.ic2Fluid("steam") || fluid == Ic2Support.ic2Fluid("superheated_steam");
+            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.ic2Fluid("steam"), fluid, nativeResult);
+            if (widened && !nativeResult) {
+                long r = Ic2Support.directInsert(this, "steamTank", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
+                cir.setReturnValue(0L);
+                cir.cancel();
+            }
+        }
+    }
+
     /** 水桶入槽（SLOT_WATER_INPUT）：原生只收空桶/水桶，补丁新流体的桶也可放。 */
     @Mixin(targets = "ic2_120.content.block.machines.CondenserBlockEntity", remap = false)
     public abstract static class ContainerGate {

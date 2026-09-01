@@ -91,8 +91,11 @@ public final class MachineAdapters {
     );
 
     // ==================== IF 硬编码 isSame 族（BE 类名 → 方块注册名，3.5.22 实证）====================
-    // 经验 tag 判定机器（MobCrusher/MobDuplicator/Enchantment×3）不在此表：原生就是 tag
-    // 驱动，加 tag 即生效，配置打到它们身上会在 isKnownMachine 校验时报错（fail-fast）。
+    // 只收有<b>流体输入罐</b>（tankAction = FILL）的机器。经验 tag 判定机器
+    // （MobCrusher/MobDuplicator/Enchantment×3）原生 tag 驱动不在表内；纯输出机
+    // （SlaughterFactory=肉/粉史莱姆、WaterCondensator=水，两机全部罐
+    // Action.DRAIN，3.5.22 反编译实证）也不在表内——配置打到它们身上在
+    // isKnownMachine 校验时报错（fail-fast），不会静默无效果。
     public static final Map<String, String> IF_BE_TO_MACHINE = Map.ofEntries(
             Map.entry("BioReactorTile", "industrialforegoing:bioreactor"),
             Map.entry("BiofuelGeneratorTile", "industrialforegoing:biofuel_generator"),
@@ -100,7 +103,6 @@ public final class MachineAdapters {
             Map.entry("HydroponicBedTile", "industrialforegoing:hydroponic_bed"),
             Map.entry("PlantGathererTile", "industrialforegoing:plant_gatherer"),
             Map.entry("SewageComposterTile", "industrialforegoing:sewage_composter"),
-            Map.entry("SlaughterFactoryTile", "industrialforegoing:mob_slaughter_factory"),
             Map.entry("FermentationStationTile", "industrialforegoing:fermentation_station"),
             Map.entry("FluidSievingMachineTile", "industrialforegoing:fluid_sieving_machine"),
             Map.entry("WashingFactoryTile", "industrialforegoing:washing_factory"),
@@ -109,7 +111,6 @@ public final class MachineAdapters {
             Map.entry("PotionBrewerTile", "industrialforegoing:potion_brewer"),
             Map.entry("SludgeRefinerTile", "industrialforegoing:sludge_refiner"),
             Map.entry("SporesRecreatorTile", "industrialforegoing:spores_recreator"),
-            Map.entry("WaterCondensatorTile", "industrialforegoing:water_condensator"),
             Map.entry("MycelialGeneratorTile", "industrialforegoing:mycelial_reactor")
     );
 
@@ -142,7 +143,6 @@ public final class MachineAdapters {
             "ic2_120:replicator",
             "ic2_120:animalmatron",
             "ic2_120:cropmatron",
-            "ic2_120:compressor",
             "ic2_120:steam_kinetic_generator"
     );
 

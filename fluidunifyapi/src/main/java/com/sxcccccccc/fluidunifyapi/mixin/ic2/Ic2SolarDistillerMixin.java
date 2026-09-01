@@ -61,7 +61,15 @@ public final class Ic2SolarDistillerMixin {
             }
             boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.flowingWater();
             boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.water(), fluid, nativeResult);
-            if (!widened) {
+            if (widened && !nativeResult) {
+                // 原生 ioStorage 内联判定 + 归一化为 WATER 再入罐——ACCEPT 时绕过，
+                // 身份保持直插输入罐（罐 canInsert 已被加宽）
+                long r = Ic2Support.directInsert(this, "inputTankInternal", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
                 cir.setReturnValue(0L);
                 cir.cancel();
             }

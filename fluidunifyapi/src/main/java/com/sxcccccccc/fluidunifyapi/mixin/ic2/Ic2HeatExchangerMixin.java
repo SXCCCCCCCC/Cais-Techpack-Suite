@@ -20,9 +20,8 @@ public final class Ic2HeatExchangerMixin {
 
     private static final String MACHINE = "ic2_120:liquid_heat_exchanger";
 
-    private static final Fluid HOT_COOLANT = Ic2Support.ic2Fluid("hot_coolant");
-    private static final Fluid COOLANT = Ic2Support.ic2Fluid("coolant");
-    private static final Fluid PAHOEHOE = Ic2Support.ic2Fluid("pahoehoe_lava");
+    // 流体常量放 Ic2Support（mixin 包内禁止非 mixin 静态字段：
+    // handler 引用本类非常量字段会生成对 mixin 类的直接引用 → IllegalClassLoadError）
 
     @Mixin(targets = "ic2_120.content.block.machines.FluidHeatExchangerBlockEntity", remap = false)
     public abstract static class Predicates {
@@ -37,7 +36,7 @@ public final class Ic2HeatExchangerMixin {
         private void fluidunifyapi$hotCoolant(@Coerce Object fluidObj, CallbackInfoReturnable<Boolean> cir) {
             Fluid fluid = Ic2Support.normalize((Fluid) fluidObj);
             boolean nativeResult = cir.getReturnValueZ();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, HOT_COOLANT, fluid, nativeResult);
+            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.hotCoolant(), fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
             }
@@ -69,7 +68,7 @@ public final class Ic2HeatExchangerMixin {
         private void fluidunifyapi$coolant(@Coerce Object fluidObj, CallbackInfoReturnable<Boolean> cir) {
             Fluid fluid = Ic2Support.normalize((Fluid) fluidObj);
             boolean nativeResult = cir.getReturnValueZ();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, COOLANT, fluid, nativeResult);
+            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.coolant(), fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
             }
@@ -85,7 +84,7 @@ public final class Ic2HeatExchangerMixin {
         private void fluidunifyapi$pahoehoe(@Coerce Object fluidObj, CallbackInfoReturnable<Boolean> cir) {
             Fluid fluid = Ic2Support.normalize((Fluid) fluidObj);
             boolean nativeResult = cir.getReturnValueZ();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, PAHOEHOE, fluid, nativeResult);
+            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.pahoehoe(), fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
             }
@@ -108,7 +107,7 @@ public final class Ic2HeatExchangerMixin {
             if (fluid == null) {
                 return;
             }
-            Fluid[] templates = {HOT_COOLANT, Ic2Support.lava(), COOLANT, PAHOEHOE};
+            Fluid[] templates = {Ic2Support.hotCoolant(), Ic2Support.lava(), Ic2Support.coolant(), Ic2Support.pahoehoe()};
             for (Fluid template : templates) {
                 if (UnifiedFluidRegistry.decide(MACHINE, template, fluid) == UnifiedFluidRegistry.Decision.ACCEPT) {
                     cir.setReturnValue(true);

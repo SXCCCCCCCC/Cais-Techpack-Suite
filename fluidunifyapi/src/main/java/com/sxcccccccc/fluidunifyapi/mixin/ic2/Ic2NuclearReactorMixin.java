@@ -46,6 +46,41 @@ public final class Ic2NuclearReactorMixin {
         }
     }
 
+    /** ioStorage.insert 内联判定 + 归一化为 COOLANT_STILL——ACCEPT 时身份保持直插
+     *  输入罐（罐 canInsert 已被加宽）。注意非热模式 getFluidStorageForSide 返回
+     *  Storage.empty()，流体口只在热模式存在（机器原生语义，不归本 mod 管）。 */
+    @Mixin(targets = "ic2_120.content.block.nuclear.NuclearReactorBlockEntity$ioStorage$1", remap = false)
+    public abstract static class IoInsertGate {
+
+        @Inject(
+                method = "insert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;JLnet/fabricmc/fabric/api/transfer/v1/transaction/TransactionContext;)J",
+                at = @At("HEAD"),
+                cancellable = true,
+                require = 1,
+                remap = false
+        )
+        private void fluidunifyapi$insert(@Coerce Object variant, long maxAmount, @Coerce Object tx,
+                                          CallbackInfoReturnable<Long> cir) {
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
+            if (fluid == null) {
+                return;
+            }
+            boolean nativeResult = fluid == Ic2Support.ic2Fluid("coolant");
+            boolean widened = UnifiedFluidRegistry.acceptOverride(
+                    MACHINE, Ic2Support.ic2Fluid("coolant"), fluid, nativeResult);
+            if (widened && !nativeResult) {
+                long r = Ic2Support.directInsert(this, "inputTank", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
+                cir.setReturnValue(0L);
+                cir.cancel();
+            }
+        }
+    }
+
     @Mixin(targets = "ic2_120.content.block.nuclear.NuclearReactorBlockEntity", remap = false)
     public abstract static class Predicates {
 
