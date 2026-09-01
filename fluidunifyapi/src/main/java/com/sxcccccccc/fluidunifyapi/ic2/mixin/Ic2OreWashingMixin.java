@@ -12,7 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
  * IC2 洗矿机：水输入（模板 minecraft:water）。
- * 门禁点：$waterTankInternal$1.canInsert + insert 覆写 + 水容器入槽 isWaterInput。
+ * 门禁点：$waterTankInternal$1.canInsert + 水容器入槽 isWaterInput。
+ * 本机不覆写 insert（继承 SingleVariantStorage，其 insert 先问 canInsert——
+ * 字节码实证 offset 32 invokevirtual canInsert），无需注入。
  */
 public final class Ic2OreWashingMixin {
 
@@ -37,27 +39,6 @@ public final class Ic2OreWashingMixin {
             boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.water(), fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
-                cir.cancel();
-            }
-        }
-
-        @Inject(
-                method = "insert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;JLnet/fabricmc/fabric/api/transfer/v1/transaction/TransactionContext;)J",
-                at = @At("HEAD"),
-                cancellable = true,
-                require = 1,
-                remap = false
-        )
-        private void fluidunifyapi$insert(@Coerce Object variant, long maxAmount, @Coerce Object tx,
-                                          CallbackInfoReturnable<Long> cir) {
-            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
-            if (fluid == null) {
-                return;
-            }
-            boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.flowingWater();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.water(), fluid, nativeResult);
-            if (!widened) {
-                cir.setReturnValue(0L);
                 cir.cancel();
             }
         }
