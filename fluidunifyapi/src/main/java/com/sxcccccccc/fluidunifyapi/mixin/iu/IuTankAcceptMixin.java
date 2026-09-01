@@ -6,12 +6,10 @@ import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.iu.IuTankOwnerRegistry;
 import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Predicate;
 
 /**
  * IU 咽喉点 2：罐接受判定（全部输入罐的汇聚点，iuunify 字节码实证过"isFluidValid、
@@ -27,9 +25,6 @@ import java.util.function.Predicate;
 @Mixin(value = Fluids.InternalFluidTank.class, remap = false)
 public abstract class IuTankAcceptMixin {
 
-    @Shadow(remap = false)
-    private Predicate<Fluid> acceptedFluids;
-
     @Inject(
             method = "acceptsFluid(Lnet/minecraft/world/level/material/Fluid;)Z",
             at = @At("HEAD"),
@@ -43,9 +38,13 @@ public abstract class IuTankAcceptMixin {
         if (machineId == null || !UnifiedFluidRegistry.hasPatch(machineId)) {
             return; // 原生路径
         }
-        Predicate<Fluid> nativePredicate = this.acceptedFluids;
+        // acceptedFluids 字段是 private guava Predicate（@Shadow 类型对不上），走公开
+        // getter；guava apply → JUF test 适配，null 视为不接受。
+        com.google.common.base.Predicate<Fluid> nativePredicate =
+                ((Fluids.InternalFluidTank) (Object) this).getAcceptedFluids();
         // 必须 cancel：SOP 铁律——HEAD 注入只 setReturnValue 不 cancel 则返回值被忽略
-        cir.setReturnValue(UnifiedFluidRegistry.acceptOverrideProbed(machineId, fluid, nativePredicate));
+        cir.setReturnValue(UnifiedFluidRegistry.acceptOverrideProbed(machineId, fluid,
+                nativePredicate == null ? f -> false : nativePredicate::apply));
         cir.cancel();
     }
 }

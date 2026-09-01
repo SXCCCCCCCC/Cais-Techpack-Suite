@@ -6,8 +6,8 @@ import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,9 +25,6 @@ public abstract class IuSteamTurbineClearMixin {
 
     private static final String MACHINE = "industrialupgrade:steam_turbine_tank";
 
-    @Shadow(remap = false)
-    private com.denfop.componets.Fluids.InternalFluidTank tank;
-
     @Inject(
             method = "clear",
             at = @At("HEAD"),
@@ -36,6 +33,8 @@ public abstract class IuSteamTurbineClearMixin {
             remap = false
     )
     private void fluidunifyapi$clearWidened(boolean steam, CallbackInfo ci) {
+        // tank 字段是 private final（@Shadow 不可靠），走公开 getTank()。
+        FluidTank tank = ((BlockEntityBaseSteamTurbineTank) (Object) this).getTank();
         if (tank.getFluid().isEmpty()) {
             ci.cancel();
             return; // 原逻辑：空罐什么都不做

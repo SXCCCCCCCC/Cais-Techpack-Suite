@@ -5,7 +5,6 @@ import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import net.minecraft.world.level.material.Fluid;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -22,9 +21,6 @@ import java.util.Set;
 @Mixin(value = InventoryFluidByList.class, remap = false)
 public abstract class IuSlotAcceptMixin {
 
-    @Shadow(remap = false)
-    private Set<Fluid> acceptedFluids;
-
     @Inject(
             method = "acceptsLiquid(Lnet/minecraft/world/level/material/Fluid;)Z",
             at = @At("RETURN"),
@@ -39,7 +35,8 @@ public abstract class IuSlotAcceptMixin {
         if (machineId == null || !UnifiedFluidRegistry.hasPatch(machineId)) {
             return;
         }
-        Set<Fluid> nativeSet = this.acceptedFluids;
+        // acceptedFluids 字段是 private（@Shadow 不可靠），走公开 getter。
+        Set<Fluid> nativeSet = ((InventoryFluidByList) (Object) this).getAcceptedFluids();
         boolean widened = UnifiedFluidRegistry.acceptOverrideProbed(
                 machineId, fluid, nativeSet == null ? f -> false : nativeSet::contains);
         if (widened != nativeResult) {
