@@ -1,0 +1,43 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sxcccccccc.fluidunifyapi",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "fluidunifyapi.refmap.json",
+  "injectors": {
+    "defaultRequire": 0
+  },
+  "mixins": [
+    "com.sxcccccccc.fluidunifyapi.iu.mixin.IuTankRegisterMixin",
+    "com.sxcccccccc.fluidunifyapi.iu.mixin.IuTankAcceptMixin",
+    "com.sxcccccccc.fluidunifyapi.iu.mixin.IuSlotAcceptMixin",
+    "com.sxcccccccc.fluidunifyapi.iu.mixin.IuSteamTurbineClearMixin",
+    "com.sxcccccccc.fluidunifyapi.iu.mixin.IuRefrigeratorCoolantMixin",
+    "com.sxcccccccc.fluidunifyapi.ifmod.mixin.FluidTankComponentValidatorMixin",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SteamGeneratorMixin$WaterTankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SteamGeneratorMixin$IoInsertGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2CondenserMixin$SteamTankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2CondenserMixin$ContainerGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SolarDistillerMixin$InputTankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SolarDistillerMixin$IoInsertGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SolarDistillerMixin$ContainerGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2WaterGeneratorMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2HeatExchangerMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2FermenterMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2BlastFurnaceMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2BlastFurnaceMixin$ContainerGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2GeoGeneratorMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2GeoGeneratorMixin$ContainerGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2OreWashingMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2OreWashingMixin$ContainerGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2MinerMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2NuclearReactorMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2NuclearReactorMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2ReplicatorMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2AnimalmatronMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2CropmatronMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2CompressorMixin$Predicates",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2SteamKineticMixin$TankGate",
+    "com.sxcccccccc.fluidunifyapi.ic2.mixin.Ic2WaterFuelExtensionMixin$ExtensionGate"
+  ]
+}
