@@ -7,7 +7,7 @@ import com.sxcccccccc.fluidunifyapi.core.FluidPatch;
 import com.sxcccccccc.fluidunifyapi.core.FluidPatch.Mode;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
-import com.sxcccccccc.fluidunifyapi.ifmod.mixin.RecipeManagerAccessor;
+import com.sxcccccccc.fluidunifyapi.mixin.ifmod.RecipeManagerAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;

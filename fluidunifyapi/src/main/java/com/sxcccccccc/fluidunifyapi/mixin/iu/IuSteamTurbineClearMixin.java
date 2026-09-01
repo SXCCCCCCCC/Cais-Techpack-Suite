@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.iu.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.iu;
 
 import com.denfop.blockentity.mechanism.steamturbine.tank.BlockEntityBaseSteamTurbineTank;
 import com.denfop.blocks.FluidName;

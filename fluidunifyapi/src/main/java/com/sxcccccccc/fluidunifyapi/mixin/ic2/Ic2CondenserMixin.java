@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ic2.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ic2;
 
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.ic2.Ic2Support;
@@ -11,17 +11,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * IC2 洗矿机：水输入（模板 minecraft:water）。
- * 门禁点：$waterTankInternal$1.canInsert + 水容器入槽 isWaterInput。
- * 本机不覆写 insert（继承 SingleVariantStorage，其 insert 先问 canInsert——
- * 字节码实证 offset 32 invokevirtual canInsert），无需注入。
+ * IC2 冷凝机输入口：蒸汽罐（模板 ic2_120:steam）+ 水桶入槽（模板 minecraft:water）。
+ * 蒸馏水输出侧不碰。
  */
-public final class Ic2OreWashingMixin {
+public final class Ic2CondenserMixin {
 
-    private static final String MACHINE = "ic2_120:ore_washing_plant";
+    private static final String MACHINE = "ic2_120:condenser";
 
-    @Mixin(targets = "ic2_120.content.block.machines.OreWashingPlantBlockEntity$waterTankInternal$1", remap = false)
-    public abstract static class TankGate {
+    @Mixin(targets = "ic2_120.content.block.machines.CondenserBlockEntity$steamTank$1", remap = false)
+    public abstract static class SteamTankGate {
 
         @Inject(
                 method = "canInsert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;)Z",
@@ -35,8 +33,8 @@ public final class Ic2OreWashingMixin {
             if (fluid == null) {
                 return;
             }
-            boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.flowingWater();
-            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.water(), fluid, nativeResult);
+            boolean nativeResult = fluid == Ic2Support.ic2Fluid("steam") || fluid == Ic2Support.ic2Fluid("superheated_steam");
+            boolean widened = UnifiedFluidRegistry.acceptOverride(MACHINE, Ic2Support.ic2Fluid("steam"), fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
                 cir.cancel();
@@ -44,21 +42,23 @@ public final class Ic2OreWashingMixin {
         }
     }
 
-    @Mixin(targets = "ic2_120.content.block.machines.OreWashingPlantBlockEntity", remap = false)
+    /** 水桶入槽（SLOT_WATER_INPUT）：原生只收空桶/水桶，补丁新流体的桶也可放。 */
+    @Mixin(targets = "ic2_120.content.block.machines.CondenserBlockEntity", remap = false)
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
+                method = "isWaterBucket(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
                 remap = false
         )
-        private void fluidunifyapi$waterContainer(@Coerce Object stackObj, CallbackInfoReturnable<Boolean> cir) {
+        private void fluidunifyapi$waterBucket(@Coerce Object stackObj, CallbackInfoReturnable<Boolean> cir) {
             if (cir.getReturnValueZ()) {
                 return;
             }
-            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOfItem((ItemStack) stackObj));
+            ItemStack stack = (ItemStack) stackObj;
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOfItem(stack));
             if (fluid == null) {
                 return;
             }

@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ic2.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ic2;
 
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.ic2.Ic2Support;

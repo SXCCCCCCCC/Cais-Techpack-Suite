@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ifmod.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ifmod;
 
 import com.hrznstudio.titanium.component.fluid.FluidTankComponent;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;

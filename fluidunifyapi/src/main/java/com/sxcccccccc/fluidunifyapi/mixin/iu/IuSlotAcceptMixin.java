@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.iu.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.iu;
 
 import com.denfop.inventory.InventoryFluidByList;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;

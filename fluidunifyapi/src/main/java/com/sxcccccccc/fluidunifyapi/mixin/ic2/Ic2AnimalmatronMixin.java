@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ic2.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ic2;
 
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.ic2.Ic2Support;
@@ -11,14 +11,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * IC2 作物机：水（模板 minecraft:water）与除草剂（模板 ic2_120:weed_ex）双输入。
- * 门禁点：isWater/isWeedEx + cropmatronMatchesWaterInput/cropmatronMatchesWeedExInput。
+ * IC2 畜牧机：水（模板 minecraft:water）与除草剂（模板 ic2_120:weed_ex）双输入。
+ * 门禁点：isWater/isWeedEx（罐判定叶子）+ matchesWaterInput/matchesWeedExInput
+ * （容器入槽叶子）。四个叶子各一个 RETURN 宽限。
  */
-public final class Ic2CropmatronMixin {
+public final class Ic2AnimalmatronMixin {
 
-    private static final String MACHINE = "ic2_120:cropmatron";
+    private static final String MACHINE = "ic2_120:animalmatron";
 
-    @Mixin(targets = "ic2_120.content.block.machines.CropmatronBlockEntity", remap = false)
+    @Mixin(targets = "ic2_120.content.block.machines.AnimalmatronBlockEntity", remap = false)
     public abstract static class Predicates {
 
         @Inject(
@@ -55,7 +56,7 @@ public final class Ic2CropmatronMixin {
         }
 
         @Inject(
-                method = "cropmatronMatchesWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
+                method = "matchesWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -76,7 +77,7 @@ public final class Ic2CropmatronMixin {
         }
 
         @Inject(
-                method = "cropmatronMatchesWeedExInput(Lnet/minecraft/world/item/ItemStack;)Z",
+                method = "matchesWeedExInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

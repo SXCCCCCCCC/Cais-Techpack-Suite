@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ifmod.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ifmod;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;

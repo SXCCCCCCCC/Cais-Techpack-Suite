@@ -1,4 +1,4 @@
-package com.sxcccccccc.fluidunifyapi.ic2.mixin;
+package com.sxcccccccc.fluidunifyapi.mixin.ic2;
 
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.ic2.Ic2Support;
@@ -10,14 +10,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * IC2 蒸汽动能发电机：蒸汽输入（模板 ic2_120:steam）。
- * 门禁点：$steamTank$1.canInsert（ModFluids.isSteam）。
+ * IC2 矿机：钻头冷却液输入（原生 WATER 或 LAVA 二选一，
+ * 模板口径 [minecraft:water, minecraft:lava] 多模板 consultAny）。
+ * 门禁点：$fluidTankInternal$1.canInsert。
  */
-public final class Ic2SteamKineticMixin {
+public final class Ic2MinerMixin {
 
-    private static final String MACHINE = "ic2_120:steam_kinetic_generator";
+    private static final String MACHINE = "ic2_120:miner";
 
-    @Mixin(targets = "ic2_120.content.block.machines.SteamKineticGeneratorBlockEntity$steamTank$1", remap = false)
+    // 0.6 jar 实证：矿机流体罐在基类 BaseMinerBlockEntity（非 MinerBlockEntity）
+    @Mixin(targets = "ic2_120.content.block.machines.BaseMinerBlockEntity$fluidTankInternal$1", remap = false)
     public abstract static class TankGate {
 
         @Inject(
@@ -32,10 +34,9 @@ public final class Ic2SteamKineticMixin {
             if (fluid == null) {
                 return;
             }
-            boolean nativeResult = fluid == Ic2Support.ic2Fluid("steam")
-                    || fluid == Ic2Support.ic2Fluid("superheated_steam");
-            boolean widened = UnifiedFluidRegistry.acceptOverride(
-                    MACHINE, Ic2Support.ic2Fluid("steam"), fluid, nativeResult);
+            boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.lava();
+            boolean widened = UnifiedFluidRegistry.acceptOverrideAny(MACHINE,
+                    new Fluid[]{Ic2Support.water(), Ic2Support.lava()}, fluid, nativeResult);
             if (widened != nativeResult) {
                 cir.setReturnValue(widened);
                 cir.cancel();
