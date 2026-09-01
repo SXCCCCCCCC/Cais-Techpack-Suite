@@ -18,7 +18,8 @@ public final class Ic2MinerMixin {
 
     private static final String MACHINE = "ic2_120:miner";
 
-    @Mixin(targets = "ic2_120.content.block.machines.MinerBlockEntity$fluidTankInternal$1", remap = false)
+    // 0.6 jar 实证：矿机流体罐在基类 BaseMinerBlockEntity（非 MinerBlockEntity）
+    @Mixin(targets = "ic2_120.content.block.machines.BaseMinerBlockEntity$fluidTankInternal$1", remap = false)
     public abstract static class TankGate {
 
         @Inject(

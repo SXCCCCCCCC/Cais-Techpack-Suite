@@ -7,6 +7,7 @@ import com.sxcccccccc.fluidunifyapi.core.FluidPatch;
 import com.sxcccccccc.fluidunifyapi.core.FluidPatch.Mode;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
+import com.sxcccccccc.fluidunifyapi.ifmod.mixin.RecipeManagerAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -55,15 +56,16 @@ public final class IfDatapackFamilyApplier {
             return;
         }
         // byName 与 recipes（byType 索引）必须同步改——JEI/配方查找走两边
-        Map<ResourceLocation, Recipe<?>> byName = new HashMap<>(rm.byName);
+        RecipeManagerAccessor accessor = (RecipeManagerAccessor) rm;
+        Map<ResourceLocation, Recipe<?>> byName = new HashMap<>(accessor.fluidunifyapi$getByName());
         applyToRecipeMap(byName);
         Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> byType = new HashMap<>();
         for (var entry : byName.entrySet()) {
             byType.computeIfAbsent(entry.getValue().getType(), k -> new HashMap<>())
                     .put(entry.getKey(), entry.getValue());
         }
-        rm.byName = byName;
-        rm.recipes = byType;
+        accessor.fluidunifyapi$setByName(byName);
+        accessor.fluidunifyapi$setByType(byType);
     }
 
     /** 客户端钩子（FluidUnifyKubeJSPlugin.injectRuntimeRecipes）与上共用同一实现。 */

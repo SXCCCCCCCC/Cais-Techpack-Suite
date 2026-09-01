@@ -2,7 +2,6 @@ package com.sxcccccccc.fluidunifyapi.iu.mixin;
 
 import com.denfop.blockentity.mechanism.steamturbine.tank.BlockEntityBaseSteamTurbineTank;
 import com.denfop.blocks.FluidName;
-import com.denfop.componets.Fluids;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -27,7 +26,7 @@ public abstract class IuSteamTurbineClearMixin {
     private static final String MACHINE = "industrialupgrade:steam_turbine_tank";
 
     @Shadow(remap = false)
-    private Fluids.InternalFluidTank tank;
+    private com.denfop.componets.Fluids.InternalFluidTank tank;
 
     @Inject(
             method = "clear",

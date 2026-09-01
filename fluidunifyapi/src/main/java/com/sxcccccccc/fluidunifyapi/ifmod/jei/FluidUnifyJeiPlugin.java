@@ -12,7 +12,6 @@ import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -83,9 +82,9 @@ public class FluidUnifyJeiPlugin implements IModPlugin {
                     boolean isWasher = machine.equals("industrialforegoing:washing_factory");
                     boolean isFermenter = machine.equals("industrialforegoing:fermentation_station");
                     Fluid nativeFluid = isWasher
-                            ? ModuleCore.MEAT.getSourceFluid().get()
-                            : isFermenter ? ModuleCore.RAW_ORE_MEAT.getSourceFluid().get()
-                            : ModuleCore.FERMENTED_ORE_MEAT.getSourceFluid().get();
+                            ? (Fluid) ModuleCore.MEAT.getSourceFluid().get()
+                            : isFermenter ? ModuleCore.RAW_ORE_MEAT.getSourceFluid()
+                            : ModuleCore.FERMENTED_ORE_MEAT.getSourceFluid();
                     if (!isNativeInput(ForgeRegistries.FLUIDS.getKey(nativeFluid).toString(), template)) {
                         continue;
                     }
@@ -188,10 +187,5 @@ public class FluidUnifyJeiPlugin implements IModPlugin {
     private static boolean isNativeInput(String nativeFluidId, Fluid template) {
         var loc = ForgeRegistries.FLUIDS.getKey(template);
         return loc != null && loc.toString().equals(nativeFluidId);
-    }
-
-    @SuppressWarnings("unused")
-    private static Registry<Item> items() {
-        return ForgeRegistries.ITEMS;
     }
 }
