@@ -1,14 +1,12 @@
 package com.sxcccccccc.fluidunifyapi.mixin.ifmod;
 
 import com.hrznstudio.titanium.component.fluid.FluidTankComponent;
-import com.mojang.logging.LogUtils;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry.Decision;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -16,7 +14,6 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
 /**
@@ -51,17 +48,6 @@ public abstract class FluidTankComponentValidatorMixin {
     private static final Map<FluidTankComponent<?>, Predicate<FluidStack>> NATIVE_VALIDATORS =
             Collections.synchronizedMap(new WeakHashMap<>());
 
-    // ==================== 临时诊断日志（定位后删） ====================
-    private static final Logger LOGGER = LogUtils.getLogger();
-    private static final Map<String, Integer> DIAG_COUNT = new ConcurrentHashMap<>();
-
-    private static void diag(String machineId, String msg) {
-        int n = DIAG_COUNT.merge(machineId, 1, Integer::sum);
-        if (n <= 5) {
-            LOGGER.info("[fluidunifyapi-diag] {}: {}", machineId, msg);
-        }
-    }
-
     /**
      * @reason 补丁驱动的 validator 宽限（见类注释）；原生体逻辑在
      * ACCEPT/NEUTRAL 分支经 fillForced 完整保留。
@@ -78,64 +64,45 @@ public abstract class FluidTankComponentValidatorMixin {
         }
         Object harness = self.getComponentHarness();
         if (harness == null) {
-            diag("no-harness", "fill bypassed: componentHarness is null");
             return self.fillForced(resource, action);
         }
         String machineId = MachineAdapters.machineIdOf(harness.getClass());
         if (machineId == null || !UnifiedFluidRegistry.hasPatch(machineId)) {
-            if (machineId == null) {
-                diag("no-mapping", "fill bypassed: harness " + harness.getClass().getSimpleName()
-                        + " not in machine table");
-            }
             return self.fillForced(resource, action);
         }
 
         Fluid fluid = resource.getFluid();
-        diag(machineId, "fill(" + fluidKey(fluid) + ", " + action + ") harness=" + harness.getClass().getSimpleName());
         // 探针：找命中本罐的补丁（模板流体被原生 validator 接受 = 该补丁目标口）
         for (var patch : UnifiedFluidRegistry.rawPatches(machineId)) {
             Fluid template = UnifiedFluidRegistry.resolveFluidId(patch.templateFluid);
             if (template == null) {
-                diag(machineId, "patch template unresolvable: " + patch.templateFluid);
                 continue;
             }
             boolean portMatched = self.isFluidValid(new FluidStack(template, 1));
-            diag(machineId, "patch template=" + patch.templateFluid + " portMatched=" + portMatched);
             if (!portMatched) {
                 continue;
             }
             Decision d = UnifiedFluidRegistry.decide(machineId, template, fluid);
-            diag(machineId, "decide(template=" + patch.templateFluid + ", candidate=" + fluidKey(fluid) + ") = " + d);
             if (d == Decision.ACCEPT) {
                 // 换宽限 validator 走原生 fillForced（= Forge FluidTank.fill，防混装/
                 // 合并逐字节原生）；拿不到原生 validator 就按原生语义（拒绝）处理。
                 Predicate<FluidStack> original = nativeValidatorOf(self);
                 if (original == null) {
-                    diag(machineId, "ACCEPT but native validator reflection failed -> reject");
                     return 0;
                 }
                 self.setValidator(ALWAYS_TRUE);
                 try {
-                    int filled = self.fillForced(resource, action);
-                    diag(machineId, "ACCEPT -> fillForced returned " + filled);
-                    return filled;
+                    return self.fillForced(resource, action);
                 } finally {
                     self.setValidator(original);
                 }
             }
             if (d == Decision.REJECT) {
-                diag(machineId, "REJECT -> 0");
                 return 0;
             }
             // NEUTRAL：该补丁与本流体无关，继续查下一补丁
         }
-        diag(machineId, "no patch hit -> native fillForced");
         return self.fillForced(resource, action);
-    }
-
-    private static String fluidKey(Fluid fluid) {
-        var loc = net.minecraftforge.registries.ForgeRegistries.FLUIDS.getKey(fluid);
-        return loc == null ? String.valueOf(fluid) : loc.toString();
     }
 
     /**
