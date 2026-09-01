@@ -1,14 +1,23 @@
 package com.sxcccccccc.fluidunifyapi.mixin.ifmod;
 
 import com.hrznstudio.titanium.component.fluid.FluidTankComponent;
+import com.mojang.logging.LogUtils;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry.Decision;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 /**
  * IF 通用咽喉点：Titanium {@link FluidTankComponent}（IF 全部 23 台 validator 机器
@@ -16,13 +25,16 @@ import org.spongepowered.asm.mixin.Overwrite;
  * net.minecraftforge.fluids.capability.templates.FluidTank）。
  *
  * <p>@Overwrite fill：原生体 = {@code tankAction.canFill() ? super.fill(...) : 0}。
- * validator 字段在父类 Forge FluidTank（@Shadow 字段不爬父链，够不到），但
- * {@code isFluidValid()}（validator 判定的公开通道）与 {@code fillForced()}
- * （= 原生 fill 去掉 validator 检查，isEmpty/isFluidEqual 防混装/合并逐字节保留）
- * 都是公开 API——探针用前者、放行用后者，无需反射无需换 validator：</p>
+ * 关键事实（2026-09-01 javap 3.8.35 实证）：{@code fillForced} 只跳过
+ * tankAction 门禁，<b>不跳过 validator</b>——它 invokespecial Forge
+ * FluidTank.fill，而 Forge fill 第一行就是 {@code isFluidValid} 检查。
+ * 所以 ACCEPT 放行必须临时把 validator 换成 always-true 再走 fillForced
+ * （= Forge 原生 fill：容量/模拟/非空罐 isFluidEqual 防混装逐字节保留），
+ * finally 恢复。原生 validator 经反射按罐缓存（validator 字段在 Forge
+ * FluidTank 父类，@Shadow 够不到；本 mod 从不 mixin Forge FluidTank）。</p>
  * <ul>
- *   <li>NEUTRAL：走 fillForced（= 原生语义）；</li>
- *   <li>ACCEPT：走 fillForced（门禁宽限、防混装/合并仍原生）；</li>
+ *   <li>NEUTRAL：走 fillForced（= 原生语义，validator 未被替换）；</li>
+ *   <li>ACCEPT：validator 临时换 always-true + fillForced，finally 恢复；</li>
  *   <li>REJECT：直接 0（REPLACE 模式否决模板流体）。</li>
  * </ul>
  *
@@ -32,6 +44,23 @@ import org.spongepowered.asm.mixin.Overwrite;
  */
 @Mixin(value = FluidTankComponent.class, remap = false)
 public abstract class FluidTankComponentValidatorMixin {
+
+    private static final Predicate<FluidStack> ALWAYS_TRUE = stack -> true;
+
+    /** 罐 → 原生 validator（首次 fill 时反射缓存；只在换宽限前读，缓存永不改写）。 */
+    private static final Map<FluidTankComponent<?>, Predicate<FluidStack>> NATIVE_VALIDATORS =
+            Collections.synchronizedMap(new WeakHashMap<>());
+
+    // ==================== 临时诊断日志（定位后删） ====================
+    private static final Logger LOGGER = LogUtils.getLogger();
+    private static final Map<String, Integer> DIAG_COUNT = new ConcurrentHashMap<>();
+
+    private static void diag(String machineId, String msg) {
+        int n = DIAG_COUNT.merge(machineId, 1, Integer::sum);
+        if (n <= 5) {
+            LOGGER.info("[fluidunifyapi-diag] {}: {}", machineId, msg);
+        }
+    }
 
     /**
      * @reason 补丁驱动的 validator 宽限（见类注释）；原生体逻辑在
@@ -49,33 +78,81 @@ public abstract class FluidTankComponentValidatorMixin {
         }
         Object harness = self.getComponentHarness();
         if (harness == null) {
+            diag("no-harness", "fill bypassed: componentHarness is null");
             return self.fillForced(resource, action);
         }
         String machineId = MachineAdapters.machineIdOf(harness.getClass());
         if (machineId == null || !UnifiedFluidRegistry.hasPatch(machineId)) {
+            if (machineId == null) {
+                diag("no-mapping", "fill bypassed: harness " + harness.getClass().getSimpleName()
+                        + " not in machine table");
+            }
             return self.fillForced(resource, action);
         }
 
         Fluid fluid = resource.getFluid();
+        diag(machineId, "fill(" + fluidKey(fluid) + ", " + action + ") harness=" + harness.getClass().getSimpleName());
         // 探针：找命中本罐的补丁（模板流体被原生 validator 接受 = 该补丁目标口）
         for (var patch : UnifiedFluidRegistry.rawPatches(machineId)) {
             Fluid template = UnifiedFluidRegistry.resolveFluidId(patch.templateFluid);
             if (template == null) {
+                diag(machineId, "patch template unresolvable: " + patch.templateFluid);
                 continue;
             }
             boolean portMatched = self.isFluidValid(new FluidStack(template, 1));
+            diag(machineId, "patch template=" + patch.templateFluid + " portMatched=" + portMatched);
             if (!portMatched) {
                 continue;
             }
             Decision d = UnifiedFluidRegistry.decide(machineId, template, fluid);
+            diag(machineId, "decide(template=" + patch.templateFluid + ", candidate=" + fluidKey(fluid) + ") = " + d);
             if (d == Decision.ACCEPT) {
-                return self.fillForced(resource, action);
+                // 换宽限 validator 走原生 fillForced（= Forge FluidTank.fill，防混装/
+                // 合并逐字节原生）；拿不到原生 validator 就按原生语义（拒绝）处理。
+                Predicate<FluidStack> original = nativeValidatorOf(self);
+                if (original == null) {
+                    diag(machineId, "ACCEPT but native validator reflection failed -> reject");
+                    return 0;
+                }
+                self.setValidator(ALWAYS_TRUE);
+                try {
+                    int filled = self.fillForced(resource, action);
+                    diag(machineId, "ACCEPT -> fillForced returned " + filled);
+                    return filled;
+                } finally {
+                    self.setValidator(original);
+                }
             }
             if (d == Decision.REJECT) {
+                diag(machineId, "REJECT -> 0");
                 return 0;
             }
             // NEUTRAL：该补丁与本流体无关，继续查下一补丁
         }
+        diag(machineId, "no patch hit -> native fillForced");
         return self.fillForced(resource, action);
+    }
+
+    private static String fluidKey(Fluid fluid) {
+        var loc = net.minecraftforge.registries.ForgeRegistries.FLUIDS.getKey(fluid);
+        return loc == null ? String.valueOf(fluid) : loc.toString();
+    }
+
+    /**
+     * 反射读 Forge FluidTank 的 protected validator 字段（运行时官方名，Forge 类
+     * 不做 SRG 重映射；本 mod 从不 mixin Forge FluidTank，反射读字段合规）。
+     */
+    @SuppressWarnings("unchecked")
+    private static Predicate<FluidStack> nativeValidatorOf(FluidTankComponent<?> tank) {
+        return NATIVE_VALIDATORS.computeIfAbsent(tank, t -> {
+            try {
+                Field f = net.minecraftforge.fluids.capability.templates.FluidTank.class
+                        .getDeclaredField("validator");
+                f.setAccessible(true);
+                return (Predicate<FluidStack>) f.get(t);
+            } catch (Throwable e) {
+                return null;
+            }
+        });
     }
 }

@@ -152,13 +152,16 @@ public class FluidUnifyJeiPlugin implements IModPlugin {
         return out;
     }
 
-    /** BioReactorTile.VALID 的反射读取（客户端只读枚举，避免引 BioReactorTile 的其余依赖）。 */
+    /** BioReactorTile.VALID 的反射读取（客户端只读枚举，避免引 BioReactorTile 的其余依赖）。
+     *  3.5.22 实证 VALID 是 {@code TagKey<Item>[]} 数组不是 List——按 List 转型会
+     *  ClassCastException 被 catch 吞掉、条目永远为空。 */
     @SuppressWarnings("unchecked")
     private static List<TagKey<Item>> nativeBioreactorTags() {
         try {
             Class<?> cls = Class.forName("com.buuz135.industrial.block.generator.tile.BioReactorTile");
             java.lang.reflect.Field field = cls.getField("VALID");
-            return (List<TagKey<Item>>) field.get(null);
+            TagKey<Item>[] array = (TagKey<Item>[]) field.get(null);
+            return array == null ? List.of() : java.util.Arrays.asList(array);
         } catch (Throwable t) {
             return List.of();
         }
