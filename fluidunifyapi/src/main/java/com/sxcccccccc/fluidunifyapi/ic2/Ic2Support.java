@@ -103,7 +103,7 @@ public final class Ic2Support {
             if (m == null) {
                 Class<?> cls = Class.forName("ic2_120.content.fluid.ModFluids");
                 Object inst = cls.getField("INSTANCE").get(null);
-                m = cls.getMethod("getFluidFromModBucket", Class.forName("net.minecraft.class_1792"));
+                m = cls.getMethod("getFluidFromModBucket", Class.forName("net.minecraft.world.item.Item"));
                 modFluidsInstance = inst;
                 modFluidsBucketFluid = m;
             }
@@ -121,11 +121,30 @@ public final class Ic2Support {
     private static Fluid fluidOfCellVariant(ItemStack stack) {
         try {
             Class<?> kt = Class.forName("ic2_120.content.item.CellsAndBucketsKt");
-            Method m = kt.getMethod("getFluidCellVariant", Class.forName("net.minecraft.class_1799"));
+            Method m = kt.getMethod("getFluidCellVariant", Class.forName("net.minecraft.world.item.ItemStack"));
             Object variant = m.invoke(null, stack);
             return fluidOf(variant);
         } catch (Throwable t) {
             return null;
         }
+    }
+
+    // ==================== 槽位常量（反射一次缓存） ====================
+
+    private static volatile int geoFuelSlot = -1;
+
+    /** GeoGeneratorBlockEntity.FUEL_SLOT；取不到返回 -2（调用方守卫恒不命中，安全失效）。 */
+    public static int geoFuelSlotIndex() {
+        int v = geoFuelSlot;
+        if (v < 0) {
+            try {
+                Class<?> cls = Class.forName("ic2_120.content.block.machines.GeoGeneratorBlockEntity");
+                v = cls.getField("FUEL_SLOT").getInt(null);
+            } catch (Throwable t) {
+                v = -2;
+            }
+            geoFuelSlot = v;
+        }
+        return v;
     }
 }

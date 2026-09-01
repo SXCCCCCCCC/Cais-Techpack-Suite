@@ -23,7 +23,7 @@ public final class Ic2WaterFuelExtensionMixin {
     public abstract static class ExtensionGate {
 
         @Inject(
-                method = "isWaterFuel(Lnet/minecraft/class_1799;)Z",
+                method = "isWaterFuel(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 /**
  * IC2 地热发电机：岩浆输入（模板 minecraft:lava）。
  * 门禁点：$lavaTankInternal$1.canInsert + insert 覆写（两处 inline == LAVA）、
- * 岩浆桶入槽（isValid FUEL_SLOT 分支，RETURN 宽限）。
+ * 岩浆桶入槽（canPlaceInSlot FUEL_SLOT 分支，RETURN 宽限）。
  */
 public final class Ic2GeoGeneratorMixin {
 
@@ -68,14 +68,16 @@ public final class Ic2GeoGeneratorMixin {
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isValid(ILnet/minecraft/class_1799;)Z",
+                method = "canPlaceInSlot(ILnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
                 remap = false
         )
         private void fluidunifyapi$fuelSlot(int slot, @Coerce Object stackObj, CallbackInfoReturnable<Boolean> cir) {
-            if (cir.getReturnValueZ()) {
+            // 0.6 无 isValid；槽位判定 = canPlaceInSlot（m_7013_ 分发）。只宽限燃料槽，
+            // 防岩浆桶混进电池槽/空容器槽。
+            if (slot != Ic2Support.geoFuelSlotIndex() || cir.getReturnValueZ()) {
                 return;
             }
             Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOfItem((ItemStack) stackObj));

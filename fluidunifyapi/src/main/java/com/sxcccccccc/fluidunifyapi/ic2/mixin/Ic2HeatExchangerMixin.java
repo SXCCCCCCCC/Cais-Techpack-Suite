@@ -28,7 +28,7 @@ public final class Ic2HeatExchangerMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isHotCoolant(Lnet/minecraft/class_3611;)Z",
+                method = "isHotCoolant(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -44,7 +44,7 @@ public final class Ic2HeatExchangerMixin {
         }
 
         @Inject(
-                method = "isLava(Lnet/minecraft/class_3611;)Z",
+                method = "isLava(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -60,7 +60,7 @@ public final class Ic2HeatExchangerMixin {
         }
 
         @Inject(
-                method = "isCoolant(Lnet/minecraft/class_3611;)Z",
+                method = "isCoolant(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -76,7 +76,7 @@ public final class Ic2HeatExchangerMixin {
         }
 
         @Inject(
-                method = "isPahoehoe(Lnet/minecraft/class_3611;)Z",
+                method = "isPahoehoe(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -91,15 +91,16 @@ public final class Ic2HeatExchangerMixin {
             }
         }
 
-        /** 容器入槽：桶/单元流体命中四模板任一 ACCEPT 即放行。 */
+        /** 容器入槽（0.6 无 isValid）：输入满容器判定 = fheMatchesInputFilledContainer，
+         * 桶/单元流体命中四模板任一 ACCEPT 即放行。 */
         @Inject(
-                method = "isValid(ILnet/minecraft/class_1799;)Z",
+                method = "fheMatchesInputFilledContainer(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
                 remap = false
         )
-        private void fluidunifyapi$container(int slot, @Coerce Object stackObj, CallbackInfoReturnable<Boolean> cir) {
+        private void fluidunifyapi$container(@Coerce Object stackObj, CallbackInfoReturnable<Boolean> cir) {
             if (cir.getReturnValueZ()) {
                 return;
             }

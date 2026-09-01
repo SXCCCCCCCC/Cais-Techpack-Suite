@@ -47,7 +47,7 @@ public final class Ic2CondenserMixin {
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isWaterBucket(Lnet/minecraft/class_1799;)Z",
+                method = "isWaterBucket(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

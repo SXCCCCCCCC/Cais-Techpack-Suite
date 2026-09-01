@@ -50,7 +50,7 @@ public final class Ic2BlastFurnaceMixin {
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isCompressedAirFluidCell(Lnet/minecraft/class_1799;)Z",
+                method = "isCompressedAirFluidCell(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

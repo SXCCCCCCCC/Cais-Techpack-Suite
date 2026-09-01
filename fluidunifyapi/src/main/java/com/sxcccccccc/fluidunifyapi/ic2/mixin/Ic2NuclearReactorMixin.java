@@ -50,7 +50,7 @@ public final class Ic2NuclearReactorMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isCoolantInputContainer(Lnet/minecraft/class_1799;)Z",
+                method = "isCoolantInputContainer(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -71,7 +71,7 @@ public final class Ic2NuclearReactorMixin {
         }
 
         @Inject(
-                method = "isHotCoolantInputContainer(Lnet/minecraft/class_1799;)Z",
+                method = "isHotCoolantInputContainer(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -92,7 +92,7 @@ public final class Ic2NuclearReactorMixin {
         }
 
         @Inject(
-                method = "isCoolantFluid(Lnet/minecraft/class_3611;)Z",
+                method = "isCoolantFluid(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

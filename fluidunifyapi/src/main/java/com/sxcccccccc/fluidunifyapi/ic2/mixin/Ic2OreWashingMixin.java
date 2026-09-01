@@ -67,7 +67,7 @@ public final class Ic2OreWashingMixin {
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isWaterInput(Lnet/minecraft/class_1799;)Z",
+                method = "isWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

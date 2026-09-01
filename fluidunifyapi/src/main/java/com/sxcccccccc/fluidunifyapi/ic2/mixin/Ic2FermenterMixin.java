@@ -23,7 +23,7 @@ public final class Ic2FermenterMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isBiomass(Lnet/minecraft/class_3611;)Z",
+                method = "isBiomass(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -40,7 +40,7 @@ public final class Ic2FermenterMixin {
         }
 
         @Inject(
-                method = "isBiomassFilledContainer(Lnet/minecraft/class_1799;)Z",
+                method = "isBiomassFilledContainer(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

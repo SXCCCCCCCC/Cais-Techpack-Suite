@@ -22,7 +22,7 @@ public final class Ic2ReplicatorMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isUuMatter(Lnet/minecraft/class_3611;)Z",
+                method = "isUuMatter(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -39,7 +39,7 @@ public final class Ic2ReplicatorMixin {
         }
 
         @Inject(
-                method = "replicatorIsDrainableUuContainer(Lnet/minecraft/class_1799;)Z",
+                method = "replicatorIsDrainableUuContainer(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

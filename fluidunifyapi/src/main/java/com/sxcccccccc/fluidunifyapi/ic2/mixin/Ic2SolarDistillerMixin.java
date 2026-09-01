@@ -73,7 +73,7 @@ public final class Ic2SolarDistillerMixin {
     public abstract static class ContainerGate {
 
         @Inject(
-                method = "isWaterInputStack(Lnet/minecraft/class_1799;)Z",
+                method = "isWaterInputStack(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

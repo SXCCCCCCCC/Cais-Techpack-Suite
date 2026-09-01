@@ -22,7 +22,7 @@ public final class Ic2CropmatronMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isWater(Lnet/minecraft/class_3611;)Z",
+                method = "isWater(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -38,7 +38,7 @@ public final class Ic2CropmatronMixin {
         }
 
         @Inject(
-                method = "isWeedEx(Lnet/minecraft/class_3611;)Z",
+                method = "isWeedEx(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -55,7 +55,7 @@ public final class Ic2CropmatronMixin {
         }
 
         @Inject(
-                method = "cropmatronMatchesWaterInput(Lnet/minecraft/class_1799;)Z",
+                method = "cropmatronMatchesWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -76,7 +76,7 @@ public final class Ic2CropmatronMixin {
         }
 
         @Inject(
-                method = "cropmatronMatchesWeedExInput(Lnet/minecraft/class_1799;)Z",
+                method = "cropmatronMatchesWeedExInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,

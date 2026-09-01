@@ -23,7 +23,7 @@ public final class Ic2AnimalmatronMixin {
     public abstract static class Predicates {
 
         @Inject(
-                method = "isWater(Lnet/minecraft/class_3611;)Z",
+                method = "isWater(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -39,7 +39,7 @@ public final class Ic2AnimalmatronMixin {
         }
 
         @Inject(
-                method = "isWeedEx(Lnet/minecraft/class_3611;)Z",
+                method = "isWeedEx(Lnet/minecraft/world/level/material/Fluid;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -56,7 +56,7 @@ public final class Ic2AnimalmatronMixin {
         }
 
         @Inject(
-                method = "matchesWaterInput(Lnet/minecraft/class_1799;)Z",
+                method = "matchesWaterInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
@@ -77,7 +77,7 @@ public final class Ic2AnimalmatronMixin {
         }
 
         @Inject(
-                method = "matchesWeedExInput(Lnet/minecraft/class_1799;)Z",
+                method = "matchesWeedExInput(Lnet/minecraft/world/item/ItemStack;)Z",
                 at = @At("RETURN"),
                 cancellable = true,
                 require = 1,
