@@ -31,6 +31,14 @@ public final class MachineAdapters {
             "genetic_stabilizer", "genetic_replicator"
     );
 
+    // ==================== IU 物品侧配方族（管理器仅存在于 RecipesCore，流体内嵌 Input）====================
+    // 3.4.0.10 反编译实证：管理器注册在 RecipesCore（物品侧），RecipesFluidCore 无同名管理器；
+    // 流体作为 Input 内嵌 FluidStack 参与物品配方。机器经 InventoryRecipes(name, ..., fluidTank)
+    // 消费。配方族适配器对这些管理器走"物品侧克隆"路径。
+    public static final Set<String> IU_ITEM_RECIPE_MANAGERS = Set.of(
+            "elec_refractory_furnace", "plastic", "plasticplate"
+    );
+
     // ==================== IU 硬编码谓词族（BE 类名 → machineId 俗名）====================
     // 判定走通用三咽喉点（addTank 谓词包装 / acceptsFluid / InventoryFluidByList），
     // 运行时以"原生谓词接受哪个模板流体"定位输入口，无需逐罐表。
@@ -87,7 +95,16 @@ public final class MachineAdapters {
             Map.entry("BlockEntityGasWellTank", "industrialupgrade:gas_well_tank"),
             Map.entry("BlockEntityElectricLiquidTankInventory", "industrialupgrade:electric_liquid_tank"),
             Map.entry("BlockEntityLiquidTankInventory", "industrialupgrade:liquid_tank"),
-            Map.entry("BlockEntityLiquedTank", "industrialupgrade:liqued_tank")
+            Map.entry("BlockEntityLiquedTank", "industrialupgrade:liqued_tank"),
+            Map.entry("BlockEntityBlastFurnaceMain", "industrialupgrade:blast_furnace_main")
+    );
+
+    // ==================== IU 类名冲突机器（简单名相同、包不同，FQN 键精确区分）====================
+    // 两焦炉输入口类同名（cokeoven vs adv_cokeoven 包），简单名映射无法区分；
+    // machineIdOf 优先查本表（getName() 精确匹配）。
+    public static final Map<String, String> IU_FQN_TO_MACHINE = Map.of(
+            "com.denfop.blockentity.cokeoven.BlockEntityCokeOvenInputFluid", "industrialupgrade:coke_oven",
+            "com.denfop.blockentity.adv_cokeoven.BlockEntityCokeOvenInputFluid", "industrialupgrade:adv_coke_oven"
     );
 
     // ==================== IF 硬编码 isSame 族（BE 类名 → 方块注册名，3.5.22 实证）====================
@@ -157,7 +174,9 @@ public final class MachineAdapters {
         }
         if (machineId.startsWith("industrialupgrade:")) {
             String name = machineId.substring("industrialupgrade:".length());
-            return IU_RECIPE_MANAGERS.contains(name) || IU_BE_TO_MACHINE.containsValue(machineId);
+            return IU_RECIPE_MANAGERS.contains(name) || IU_ITEM_RECIPE_MANAGERS.contains(name)
+                    || IU_BE_TO_MACHINE.containsValue(machineId)
+                    || IU_FQN_TO_MACHINE.containsValue(machineId);
         }
         if (machineId.startsWith("industrialforegoing:")) {
             return IF_BE_TO_MACHINE.containsValue(machineId) || IF_DATAPACK_MACHINES.contains(machineId);
@@ -168,10 +187,21 @@ public final class MachineAdapters {
         return false;
     }
 
-    /** 机器 id 是否属于 IU 配方族（配方表驱动）。 */
+    /** 机器 id 是否属于 IU 配方族（配方表驱动，含物品侧管理器机型）。 */
     public static boolean isIuRecipeMachine(String machineId) {
-        return machineId.startsWith("industrialupgrade:")
-                && IU_RECIPE_MANAGERS.contains(machineId.substring("industrialupgrade:".length()));
+        if (!machineId.startsWith("industrialupgrade:")) {
+            return false;
+        }
+        String name = machineId.substring("industrialupgrade:".length());
+        return IU_RECIPE_MANAGERS.contains(name) || IU_ITEM_RECIPE_MANAGERS.contains(name);
+    }
+
+    /** 机器 id 是否属于 IU 物品侧配方族（管理器仅在 RecipesCore，流体内嵌 Input）。 */
+    public static boolean isIuItemRecipeMachine(String machineId) {
+        if (!machineId.startsWith("industrialupgrade:")) {
+            return false;
+        }
+        return IU_ITEM_RECIPE_MANAGERS.contains(machineId.substring("industrialupgrade:".length()));
     }
 
     /** 机器 id 是否属于 IF datapack 配方族（vanilla RecipeManager 驱动）。 */
@@ -179,8 +209,12 @@ public final class MachineAdapters {
         return IF_DATAPACK_MACHINES.contains(machineId);
     }
 
-    /** BE 类 → machineId（沿类层级向上查，基类规则覆盖子类）。IU/IF 通用探针路径用。 */
+    /** BE 类 → machineId（先 FQN 精确匹配同名类，再沿类层级向上查基类规则）。IU/IF 通用探针路径用。 */
     public static String machineIdOf(Class<?> beClass) {
+        String fqn = IU_FQN_TO_MACHINE.get(beClass.getName());
+        if (fqn != null) {
+            return fqn;
+        }
         Class<?> c = beClass;
         while (c != null && c != Object.class) {
             String simple = c.getSimpleName();

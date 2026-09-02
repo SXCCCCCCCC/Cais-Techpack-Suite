@@ -53,6 +53,89 @@ public final class IuRecipeFamilyApplier {
             return;
         }
         String name = patch.machineId.substring("industrialupgrade:".length());
+        if (MachineAdapters.isIuItemRecipeMachine(patch.machineId)) {
+            applyItemSidePatch(patch, name);
+            return;
+        }
+        applyFluidSidePatch(patch, name);
+    }
+
+    /**
+     * 物品侧管理器机型（elec_refractory_furnace/plastic/plasticplate）：管理器仅存在于
+     * RecipesCore（物品侧），流体内嵌在 BaseMachineRecipe.input 的 FluidStack 里，
+     * 无流体侧配方可克隆。补丁落法 = 物品侧配方克隆（输入流体换新流体，物品与输出照抄）。
+     */
+    private static void applyItemSidePatch(FluidPatch patch, String name) {
+        List<BaseMachineRecipe> recipes = Recipes.recipes.getRecipeList(name);
+        if (recipes == null || recipes.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "[fluidunifyapi] IU item-side machine " + patch.machineId
+                            + " has no item recipes registered");
+        }
+        Fluid template = UnifiedFluidRegistry.resolveFluidId(patch.templateFluid);
+        if (template == null) {
+            return; // 解析失败已由注册表打日志
+        }
+        List<BaseMachineRecipe> templateRecipes = new ArrayList<>();
+        for (BaseMachineRecipe r : recipes) {
+            if (itemInputHasTemplate(r.input, template)) {
+                templateRecipes.add(r);
+            }
+        }
+        if (templateRecipes.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "[fluidunifyapi] IU machine " + patch.machineId + " has no recipe taking fluid "
+                            + patch.templateFluid + " — template fluid does not exist on this machine");
+        }
+        if (patch.mode == Mode.REPLACE) {
+            recipes.removeAll(templateRecipes);
+            FluidUnifyApi.LOGGER.info("[fluidunifyapi] IU -recipe {}: removed {} item recipes taking {}",
+                    name, templateRecipes.size(), ForgeKey(template));
+        }
+        for (Fluid newFluid : expandAddedFluids(patch)) {
+            if (newFluid == template) {
+                continue;
+            }
+            for (BaseMachineRecipe templateRecipe : templateRecipes) {
+                if (itemInputHasTemplate(templateRecipe.input, newFluid)) {
+                    continue; // 已有该流体配方（幂等）
+                }
+                BaseMachineRecipe cloned = cloneItemRecipe(templateRecipe, template, newFluid);
+                if (!recipes.contains(cloned)) {
+                    Recipes.recipes.addRecipe(name, cloned);
+                    FluidUnifyApi.LOGGER.info("[fluidunifyapi] IU +recipe {}: input fluid {} -> {}",
+                            name, patch.templateFluid, ForgeKey(newFluid));
+                }
+            }
+        }
+    }
+
+    /** 克隆物品侧配方：输入里模板流体换新流体（同数量+NBT），物品输入与输出照抄。 */
+    private static BaseMachineRecipe cloneItemRecipe(BaseMachineRecipe template, Fluid from, Fluid to) {
+        com.denfop.api.recipe.IInput in = template.input;
+        FluidStack single = in.getFluid();
+        if (single != null && !single.isEmpty() && single.getFluid() == from) {
+            return new BaseMachineRecipe(
+                    new Input(new FluidStack(to, single.getAmount(), single.getTag()),
+                            in.getInputs().toArray(new IInputItemStack[0])),
+                    template.getOutput());
+        }
+        List<FluidStack> fluids = in.getFluidInputs();
+        if (fluids == null || fluids.isEmpty()) {
+            throw new IllegalArgumentException("[fluidunifyapi] item recipe input has no fluid to replace");
+        }
+        FluidStack[] replaced = new FluidStack[fluids.size()];
+        for (int i = 0; i < fluids.size(); i++) {
+            FluidStack fs = fluids.get(i);
+            replaced[i] = fs != null && fs.getFluid() == from
+                    ? new FluidStack(to, fs.getAmount(), fs.getTag())
+                    : fs.copy();
+        }
+        return new BaseMachineRecipe(new Input(replaced), template.getOutput());
+    }
+
+    /** 流体侧配方族主路径（原有逻辑）。 */
+    private static void applyFluidSidePatch(FluidPatch patch, String name) {
         RecipesFluidCore core = Recipes.recipes.getRecipeFluid();
         List<BaseFluidMachineRecipe> recipes = core.getRecipeList(name);
 
