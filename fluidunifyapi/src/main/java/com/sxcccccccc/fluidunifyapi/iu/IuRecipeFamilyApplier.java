@@ -16,6 +16,7 @@ import com.sxcccccccc.fluidunifyapi.core.FluidPatch.Mode;
 import com.sxcccccccc.fluidunifyapi.core.MachineAdapters;
 import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -332,17 +333,42 @@ public final class IuRecipeFamilyApplier {
     }
 
     private static boolean itemInputsEqual(List<IInputItemStack> a, List<IInputItemStack> b) {
+        if (a == null || b == null) {
+            return a == b; // Input(FluidStack...) 多流体形态 list 为 null，双侧 null 才等
+        }
         if (a.size() != b.size()) {
             return false;
         }
         for (int i = 0; i < a.size(); i++) {
             IInputItemStack x = a.get(i);
             IInputItemStack y = b.get(i);
+            if (x == null || y == null) {
+                return x == y;
+            }
             if (x.getAmount() != y.getAmount()) {
                 return false;
             }
+            if (x.hasTag() != y.hasTag()) {
+                return false;
+            }
+            if (x.hasTag()) {
+                // tag 输入（如 forge:crushed/*）：比 tag id——getInputs() 是解析列表，
+                // tag 空时两侧皆空会误判相等
+                TagKey<Item> tx = x.getTag();
+                TagKey<Item> ty = y.getTag();
+                if (tx == null || ty == null) {
+                    return tx == ty;
+                }
+                if (!tx.location().equals(ty.location())) {
+                    return false;
+                }
+                continue;
+            }
             List<ItemStack> xi = x.getInputs();
             List<ItemStack> yi = y.getInputs();
+            if (xi == null || yi == null) {
+                return xi == yi;
+            }
             if (xi.size() != yi.size()) {
                 return false;
             }
