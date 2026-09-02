@@ -83,6 +83,13 @@ public final class IuRecipeFamilyApplier {
             }
         }
         if (templateRecipes.isEmpty()) {
+            if (patch.mode == Mode.REPLACE) {
+                // REPLACE 重放（/reload、双端重复触发）：模板配方已被上次应用删除，
+                // 视为已应用完成直接返回——重放安全（ADD 仍 fail-fast 揪拼写错误）。
+                FluidUnifyApi.LOGGER.warn("[fluidunifyapi] IU {} REPLACE: no template recipes left, "
+                        + "assuming already applied (replay), skip", name);
+                return;
+            }
             throw new IllegalArgumentException(
                     "[fluidunifyapi] IU machine " + patch.machineId + " has no recipe taking fluid "
                             + patch.templateFluid + " — template fluid does not exist on this machine");
@@ -101,7 +108,9 @@ public final class IuRecipeFamilyApplier {
                     continue; // 已有该流体配方（幂等）
                 }
                 BaseMachineRecipe cloned = cloneItemRecipe(templateRecipe, template, newFluid);
-                if (!recipes.contains(cloned)) {
+                // BaseMachineRecipe 无 equals（3.4.0.10 反编译实证），contains 恒 false；
+                // 用输入流体（id+数量）自定义等价——我们的克隆只改流体，输入流体相同即重复。
+                if (!containsItemEquivalent(recipes, cloned)) {
                     Recipes.recipes.addRecipe(name, cloned);
                     FluidUnifyApi.LOGGER.info("[fluidunifyapi] IU +recipe {}: input fluid {} -> {}",
                             name, patch.templateFluid, ForgeKey(newFluid));
@@ -307,6 +316,38 @@ public final class IuRecipeFamilyApplier {
                 return;
             }
         }
+    }
+
+    /** 物品侧配方查重（幂等守卫）：输入流体（id+数量）全等即可——我们的克隆只改
+     * 流体，同目标流体的两个克隆其余部分必然相同（BaseMachineRecipe 无 equals）。 */
+    private static boolean containsItemEquivalent(List<BaseMachineRecipe> recipes, BaseMachineRecipe candidate) {
+        for (BaseMachineRecipe r : recipes) {
+            if (itemInputFluidsEqual(r.input, candidate.input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean itemInputFluidsEqual(com.denfop.api.recipe.IInput a, com.denfop.api.recipe.IInput b) {
+        FluidStack sa = a.getFluid();
+        FluidStack sb = b.getFluid();
+        if (sa != null && sb != null && !sa.isEmpty() && !sb.isEmpty()) {
+            return sa.getFluid() == sb.getFluid() && sa.getAmount() == sb.getAmount();
+        }
+        List<FluidStack> la = a.getFluidInputs();
+        List<FluidStack> lb = b.getFluidInputs();
+        if (la == null || lb == null || la.size() != lb.size()) {
+            return false;
+        }
+        for (int i = 0; i < la.size(); i++) {
+            FluidStack x = la.get(i);
+            FluidStack y = lb.get(i);
+            if (x == null || y == null || x.getFluid() != y.getFluid() || x.getAmount() != y.getAmount()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /** 配方查重（幂等守卫）：输入流体（id+数量）与输出（id+数量）全等。 */
