@@ -6,6 +6,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -150,6 +151,37 @@ public final class Ic2Support {
             return fluidOf(variant);
         } catch (Throwable t) {
             return null;
+        }
+    }
+
+    // ==================== 流体加热机第三方桶消耗（自 fluidunifyfix M2 迁移） ====================
+
+    /**
+     * 反射调机器自身例程完成"真插 + 空容器入槽"（SOP 真事务手法：直接调 fabric
+     * Storage.insert 传 null 事务会静默返 0）。任一环节不满足/异常返回 false。
+     */
+    public static boolean fireboxConsumeContainer(Object owner, Fluid fluid, ItemStack emptyContainer) {
+        try {
+            Class<?> cls = owner.getClass();
+            Method canInsert = cls.getDeclaredMethod("canInsertEmptyContainer", ItemStack.class);
+            Method tryInsert = cls.getDeclaredMethod("tryInsertEmptyContainer", ItemStack.class);
+            canInsert.setAccessible(true);
+            tryInsert.setAccessible(true);
+            Field f = cls.getDeclaredField("fuelTankInternal");
+            f.setAccessible(true);
+            Object tank = f.get(owner);
+            Method insertFuel = tank.getClass().getDeclaredMethod("tryInsertFuel", Fluid.class, long.class);
+            insertFuel.setAccessible(true);
+            if (!(canInsert.invoke(owner, emptyContainer) instanceof Boolean b) || !b) {
+                return false;
+            }
+            long inserted = insertFuel.invoke(tank, fluid, 1000L) instanceof Long l ? l : 0L;
+            if (inserted < 1000L) {
+                return false;
+            }
+            return tryInsert.invoke(owner, emptyContainer) instanceof Boolean ok && ok;
+        } catch (Throwable t) {
+            return false;
         }
     }
 

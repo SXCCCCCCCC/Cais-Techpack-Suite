@@ -42,6 +42,8 @@
     "ic2.Ic2CropmatronMixin$Predicates",
     "ic2.Ic2SteamKineticMixin$TankGate",
     "ic2.Ic2SteamKineticMixin$IoInsertGate",
-    "ic2.Ic2WaterFuelExtensionMixin$ExtensionGate"
+    "ic2.Ic2WaterFuelExtensionMixin$ExtensionGate",
+    "ic2.Ic2FluidHeatGeneratorMixin$Predicates",
+    "ic2.Ic2FluidHeatGeneratorMixin$FuelTypeGate"
   ]
 }

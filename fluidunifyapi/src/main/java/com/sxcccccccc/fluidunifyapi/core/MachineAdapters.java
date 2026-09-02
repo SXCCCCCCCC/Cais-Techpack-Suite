@@ -143,7 +143,8 @@ public final class MachineAdapters {
             "ic2_120:replicator",
             "ic2_120:animalmatron",
             "ic2_120:cropmatron",
-            "ic2_120:steam_kinetic_generator"
+            "ic2_120:steam_kinetic_generator",
+            "ic2_120:fluid_heat_generator"
     );
 
     private MachineAdapters() {
