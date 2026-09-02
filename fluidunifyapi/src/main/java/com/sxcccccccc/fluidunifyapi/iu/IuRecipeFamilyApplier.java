@@ -318,15 +318,41 @@ public final class IuRecipeFamilyApplier {
         }
     }
 
-    /** 物品侧配方查重（幂等守卫）：输入流体（id+数量）全等即可——我们的克隆只改
-     * 流体，同目标流体的两个克隆其余部分必然相同（BaseMachineRecipe 无 equals）。 */
+    /** 物品侧配方查重（幂等守卫）：输入流体（id+数量）与输入物品（数量+每元素
+     * 输入列表 id 序列）全等（BaseMachineRecipe 无 equals；同流体不同物品的配方
+     * 在电耐火炉等机型大量存在，只比流体会把第二个及以后的克隆误判为重复）。 */
     private static boolean containsItemEquivalent(List<BaseMachineRecipe> recipes, BaseMachineRecipe candidate) {
         for (BaseMachineRecipe r : recipes) {
-            if (itemInputFluidsEqual(r.input, candidate.input)) {
+            if (itemInputFluidsEqual(r.input, candidate.input)
+                    && itemInputsEqual(r.input.getInputs(), candidate.input.getInputs())) {
                 return true;
             }
         }
         return false;
+    }
+
+    private static boolean itemInputsEqual(List<IInputItemStack> a, List<IInputItemStack> b) {
+        if (a.size() != b.size()) {
+            return false;
+        }
+        for (int i = 0; i < a.size(); i++) {
+            IInputItemStack x = a.get(i);
+            IInputItemStack y = b.get(i);
+            if (x.getAmount() != y.getAmount()) {
+                return false;
+            }
+            List<ItemStack> xi = x.getInputs();
+            List<ItemStack> yi = y.getInputs();
+            if (xi.size() != yi.size()) {
+                return false;
+            }
+            for (int j = 0; j < xi.size(); j++) {
+                if (xi.get(j).getItem() != yi.get(j).getItem()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private static boolean itemInputFluidsEqual(com.denfop.api.recipe.IInput a, com.denfop.api.recipe.IInput b) {
