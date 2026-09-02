@@ -102,7 +102,11 @@ public final class MachineAdapters {
             // 配置口径（与 feature/iu-8-machine-gap 实现同名同 id）。
             Map.entry("BlockEntitySteamBioGenerator", "industrialupgrade:steam_bio_generator"),
             Map.entry("BlockEntityBioGenerator", "industrialupgrade:bio_generator"),
-            Map.entry("BlockEntityBlastFurnaceMain", "industrialupgrade:blast_furnace")
+            // 高炉主方块 + 流体输入口单元同族同 id（3.4.0.10 反编译：注册名
+            // blast_furnace_main；输入口单元 BlockEntityFluidInput 水罐 addTank、
+            // main 蒸汽罐 + 水槽，探针按原生谓词自动分口）
+            Map.entry("BlockEntityBlastFurnaceMain", "industrialupgrade:blast_furnace_main"),
+            Map.entry("BlockEntityFluidInput", "industrialupgrade:blast_furnace_main")
     );
 
     // ==================== IU 类名冲突机器（简单名相同、包不同，FQN 键精确区分）====================
