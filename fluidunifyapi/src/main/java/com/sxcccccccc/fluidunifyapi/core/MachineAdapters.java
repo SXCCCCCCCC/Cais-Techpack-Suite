@@ -96,7 +96,13 @@ public final class MachineAdapters {
             Map.entry("BlockEntityElectricLiquidTankInventory", "industrialupgrade:electric_liquid_tank"),
             Map.entry("BlockEntityLiquidTankInventory", "industrialupgrade:liquid_tank"),
             Map.entry("BlockEntityLiquedTank", "industrialupgrade:liqued_tank"),
-            Map.entry("BlockEntityBlastFurnaceMain", "industrialupgrade:blast_furnace_main")
+            // 蒸汽生物发电机有第二罐 fluidTank2（硬编码 fluidsteam 谓词，不受配方族
+            // setAcceptedFluids 替换影响）——必须走硬编码族探针路径；生物发电机仅
+            // fluidTank1（setAcceptedFluids 替换）配方族可覆盖，但两机成对登记以对齐
+            // 配置口径（与 feature/iu-8-machine-gap 实现同名同 id）。
+            Map.entry("BlockEntitySteamBioGenerator", "industrialupgrade:steam_bio_generator"),
+            Map.entry("BlockEntityBioGenerator", "industrialupgrade:bio_generator"),
+            Map.entry("BlockEntityBlastFurnaceMain", "industrialupgrade:blast_furnace")
     );
 
     // ==================== IU 类名冲突机器（简单名相同、包不同，FQN 键精确区分）====================
