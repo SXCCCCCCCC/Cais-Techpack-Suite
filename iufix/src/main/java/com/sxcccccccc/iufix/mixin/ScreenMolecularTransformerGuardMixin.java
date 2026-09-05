@@ -7,16 +7,8 @@ import com.denfop.api.recipe.InventoryRecipes;
 import com.denfop.api.recipe.MachineRecipe;
 import com.denfop.api.recipe.RecipeOutput;
 import com.denfop.blockentity.base.BlockEntityMolecularTransformer;
-import com.denfop.containermenu.ContainerMenuBaseMolecular;
 import com.denfop.recipe.IInputHandler;
 import com.denfop.recipe.IInputItemStack;
-import com.denfop.screen.ScreenIndustrialUpgrade;
-import com.denfop.utils.Localization;
-import com.denfop.utils.ModUtils;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -24,374 +16,75 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * 1.9.2/1.9.3：分子重组机 GUI 渲染 NPE 防线（crash-2026-09-05_09.49.29 / _11.01.41）。
+ * 1.9.6（终版，纯 @Redirect 无 @Overwrite）：分子重组机 GUI 渲染 NPE 防线。
  *
- * <p>根因：ScreenMolecularTransformer 的 queue(x64) 渲染分支裸调
- * {@code getOutput(i).getRecipe()} 且先读字段 {@code output[i]} 再解引用。
- * {@code getOutput} = 实时配方查表（{@code output[i] = inputSlot[i].process()}），
- * 无命中时合法返回 null，且会把这个 null **写回 output[i]**；而客户端 BE 的
- * 槽内容/缓存同步与渲染帧之间存在并发窗口（11:01 崩溃实锤：守卫
- * continue_proccess 判完缓存非空后、handler 读取前，缓存被另一线程
- * setRecipeOutput(null) 清掉）。1.9.2 的"回退缓存"方案因此可能拿到 null
- * 再被上层解引用——仍崩。
+ * <p>根因（1.9.4 插桩栈实锤）：单人档客户端容器 base 直指**服务端 BE**，
+ * 渲染线程（容器同步包 ClientboundContainerSetContentPacket → SlotInvSlot.set →
+ * InventoryRecipes.set → setRecipeOutput(null)）与 Server 线程（tick）无锁
+ * 读写同一个 {@code output[]} 字段。GUI 渲染分支守卫（continue_proccess）
+ * 读缓存，绘制却解引用实时查表结果——任何时刻缓存/查表都可能被另一线程
+ * 写空，两处渲染方法（m_7286_ 渲染体、drawForegroundLayer 工具提示）共
+ * 6 个裸解引用点（字段 output[i] 读取 ×2、getOutput(i) 调用 ×4）。
  *
- * <p>1.9.3 双轨防线：
+ * <p>方案：原方法体一行不动（背景底图/工具提示/超类调用全部原样），
+ * 两组 @Redirect 堵死 6 个解引用点，保证被解引用值永不为 null：
  * <ul>
- * <li>m_7286_（渲染体，两次崩溃现场）：@Overwrite 整体替换，原逻辑等价复刻
- * （super.m_7286_ → renderBackground；this.draw → drawString 内联；
- * guiLeft/guiTop → getGuiLeft/getGuiTop），整个方法包 try-catch(Throwable)，
- * 任何异常（含竞态 NPE）拦截 + 节流诊断日志，渲染帧放弃本次绘制不崩游戏。</li>
- * <li>drawForegroundLayer（工具提示层，同源竞态）：保留原方法（super 调用
- * 不动），两个 @Redirect 堵死窗口——GETFIELD output 重定向返回"非空安全
- * 数组"（null 元素换一次性假配方），getOutput 调用重定向：实时命中→直通，
- * null→缓存（命中打诊断），缓存也 null→假配方兜底，绝不返回 null。</li>
+ * <li>GETFIELD {@code output} → 返回"null 元素换成假配方"的安全副本；</li>
+ * <li>INVOKE {@code getOutput} → 实时命中直通；null→缓存（命中打节流
+ * 诊断日志）；缓存也 null→假配方兜底。</li>
  * </ul>
+ * 1.9.2 的教训（handler 曾返回 null 被上层解引用）：兜底链末端是
+ * 懒加载的假配方（energy=1、空输入输出），绝不返回 null，也绝不参与
+ * 任何配方匹配（只喂显示代码）。
  */
 @Mixin(targets = "com.denfop.screen.ScreenMolecularTransformer", remap = false)
 public abstract class ScreenMolecularTransformerGuardMixin {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("iufix");
 
-    /** 节流：相同签名 5 秒内不重复打，防止 GUI 常驻期间逐帧刷屏。 */
+    /** 节流：相同签名 5 秒内不重复打。 */
     private static long lastLogNanos;
     private static String lastLogSignature;
 
     /** 兜底假配方：仅在实时与缓存都 null 的竞态帧返回给显示代码，永不参与匹配。 */
     private static MachineRecipe dummyRecipe;
 
-    /** 目标类自声明字段（运行时名不变，remap=false 字面匹配）。 */
-    @Shadow
-    public ContainerMenuBaseMolecular container;
+    // ===== m_7286_（渲染体）=====
 
-    /** leftPos/topPos（AbstractContainerScreen protected，@Shadow 不爬父链）→ 运行时反射。 */
-    private static final Field GUI_LEFT = iufix$findGuiField("f_97735_", "leftPos");
-    private static final Field GUI_TOP = iufix$findGuiField("f_97736_", "topPos");
-
-    private static Field iufix$findGuiField(String runtimeName, String devName) {
-        for (String name : new String[]{runtimeName, devName}) {
-            try {
-                Field field = AbstractContainerScreen.class.getDeclaredField(name);
-                field.setAccessible(true);
-                return field;
-            } catch (Exception ignored) {
-                // try next name
-            }
-        }
-        return null;
+    @Redirect(
+            method = "m_7286_",
+            at = @At(
+                    value = "FIELD",
+                    target = "Lcom/denfop/blockentity/base/BlockEntityMolecularTransformer;output:[Lcom/denfop/api/recipe/MachineRecipe;"
+            ),
+            require = 1
+    )
+    private MachineRecipe[] iufix$safeOutputRender(BlockEntityMolecularTransformer te) {
+        return iufix$safeOutput(te);
     }
 
-    private int iufix$guiLeft() {
-        try {
-            return GUI_LEFT == null ? 0 : GUI_LEFT.getInt(this);
-        } catch (Exception e) {
-            return 0;
-        }
+    @Redirect(
+            method = "m_7286_",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/denfop/blockentity/base/BlockEntityMolecularTransformer;getOutput(I)Lcom/denfop/api/recipe/MachineRecipe;"
+            ),
+            require = 1
+    )
+    private MachineRecipe iufix$guardGetOutputRender(BlockEntityMolecularTransformer te, int i) {
+        return iufix$guardGetOutput(te, i, "m_7286_");
     }
 
-    private int iufix$guiTop() {
-        try {
-            return GUI_TOP == null ? 0 : GUI_TOP.getInt(this);
-        } catch (Exception e) {
-            return 0;
-        }
-    }
+    // ===== drawForegroundLayer（工具提示层）=====
 
-    /** ScreenIndustrialUpgrade 的 public 方法：mixin 类非其子类，转型调用。 */
-    private void iufix$bindTexture() {
-        ((ScreenIndustrialUpgrade) (Object) this).bindTexture();
-    }
-
-    private void iufix$drawTexturedModalRect(GuiGraphics poseStack, int i, int i1, int i2, int i3, int i4, int i5) {
-        ((ScreenIndustrialUpgrade) (Object) this).drawTexturedModalRect(poseStack, i, i1, i2, i3, i4, i5);
-    }
-
-    private void iufix$renderBackground(GuiGraphics poseStack) {
-        ((Screen) (Object) this).renderBackground(poseStack);
-    }
-
-    /**
-     * super.m_7286_ 的非虚等价：直接反射调用 ScreenIndustrialUpgrade **声明**的
-     * m_7286_（=renderBg，负责 drawBackgroundAndTitle 画 GUI 底图 + elements 背景层）。
-     * 1.9.3 误用 Screen.renderBackground（原版深色底）导致 GUI 底图消失；1.9.5 修正。
-     */
-    private static final java.lang.reflect.Method PARENT_RENDER_BG = iufix$findParentRenderBg();
-
-    private static java.lang.reflect.Method iufix$findParentRenderBg() {
-        for (String name : new String[]{"m_7286_", "renderBg"}) {
-            try {
-                java.lang.reflect.Method m = ScreenIndustrialUpgrade.class.getDeclaredMethod(name, GuiGraphics.class, float.class, int.class, int.class);
-                m.setAccessible(true);
-                return m;
-            } catch (Exception ignored) {
-                // try next name
-            }
-        }
-        return null;
-    }
-
-    private void iufix$superRenderBg(GuiGraphics poseStack, float f, int x, int y) {
-        try {
-            if (PARENT_RENDER_BG != null) {
-                PARENT_RENDER_BG.invoke(this, poseStack, f, x, y);
-                return;
-            }
-        } catch (Exception ignored) {
-            // fall through
-        }
-        iufix$renderBackground(poseStack);
-    }
-
-    @Overwrite
-    protected void m_7286_(GuiGraphics poseStack, float f, int x, int y) {
-        try {
-            iufix$superRenderBg(poseStack, f, x, y);
-            iufix$bindTexture();
-            String input = Localization.translate("gui.MolecularTransformer.input") + ": ";
-            String output = Localization.translate("gui.MolecularTransformer.output") + ": ";
-            String energyPerOperation = Localization.translate("gui.MolecularTransformer.energyPerOperation") + ": ";
-            String progress = Localization.translate("gui.MolecularTransformer.progress") + ": ";
-            double chargeLevel = 20.0 * this.container.base.getProgress(0);
-            if (this.container.base.maxAmount == 1) {
-                if (!this.container.base.queue) {
-                    iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 22, iufix$guiTop() + 30, 240, 20, 16, 11);
-                } else {
-                    iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 42, iufix$guiTop() + 30, 240, 20, 16, 11);
-                }
-            } else if (!this.container.base.queue) {
-                iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 22, iufix$guiTop() + 30, 27, 244, 16, 11);
-            } else {
-                iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 42, iufix$guiTop() + 30, 27, 244, 16, 11);
-            }
-
-            if (this.container.base.maxAmount == 1) {
-                if (chargeLevel > 0.0
-                        && !this.container.base.inputSlot[0].isEmpty()
-                        && this.container.base.inputSlot[0].continue_proccess(this.container.base.outputSlot[0])) {
-                    MachineRecipe output1 = this.container.base.output[0];
-                    iufix$bindTexture();
-                    iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 23, iufix$guiTop() + 75, 242, 32, 14, (int) chargeLevel);
-                    if (!this.container.base.queue) {
-                        this.drawText(poseStack,
-                                input + ModUtils.cleanComponentString(this.container.base.inputSlot[0].get(0).getDisplayName().getString()),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 55,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        this.drawText(poseStack,
-                                output + ModUtils.cleanComponentString(output1.getRecipe().output.items.get(0).getDisplayName().getString()),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 65,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        this.drawText(poseStack,
-                                energyPerOperation + ModUtils.getString(this.container.base.energySlots[0]) + " EF",
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 75,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        if (this.container.base.getProgress(0) * 100.0 <= 100.0) {
-                            this.drawText(poseStack,
-                                    progress + (this.container.base.getProgress(0) <= 0.01 ? 0 : ModUtils.getString(this.container.base.getProgress(0) * 100.0)) + "%",
-                                    iufix$guiLeft() + 60,
-                                    iufix$guiTop() + 85,
-                                    ModUtils.convertRGBcolorToInt(255, 255, 255)
-                            );
-                        }
-
-                        this.drawText(poseStack,
-                                "EF/t: " + ModUtils.getString(this.container.base.perenergy),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 95,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        double hours = 0.0;
-                        double minutes = 0.0;
-                        double seconds = 0.0;
-                        List<Double> time = this.container.base.getTime(0);
-                        if (time.size() > 0) {
-                            hours = time.get(0);
-                            minutes = time.get(1);
-                            seconds = time.get(2);
-                        }
-
-                        String time1 = hours > 0.0 ? ModUtils.getString(hours) + Localization.translate("iu.hour") : "";
-                        String time2 = minutes > 0.0 ? ModUtils.getString(minutes) + Localization.translate("iu.minutes") : "";
-                        String time3 = seconds > 0.0 ? ModUtils.getString(seconds) + Localization.translate("iu.seconds") : "";
-                        this.drawText(poseStack,
-                                Localization.translate("iu.timetoend") + time1 + time2 + time3,
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 105,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                    } else if (this.container.base.outputSlot[0].get(0).isEmpty() || this.container.base.outputSlot[0].get(0).getCount() < 64) {
-                        int coef = (int) (this.container.base.maxEnergySlots[0] / output1.getRecipe().output.metadata.getDouble("energy"));
-                        this.drawText(poseStack,
-                                input
-                                        + output1.getRecipe().input.getInputs().get(0).getInputs().get(0).getCount() * coef
-                                        + "x"
-                                        + ModUtils.cleanComponentString(this.container.base.inputSlot[0].get(0).getDisplayName().getString()),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 55,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        this.drawText(poseStack,
-                                output
-                                        + this.container.base.getOutput(0).getRecipe().output.items.get(0).getCount() * coef
-                                        + "x"
-                                        + ModUtils.cleanComponentString(output1.getRecipe().output.items.get(0).getDisplayName().getString()),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 65,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        this.drawText(poseStack,
-                                energyPerOperation + ModUtils.getString(this.container.base.energySlots[0]) + " EF",
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 75,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        if (this.container.base.getProgress(0) * 100.0 <= 100.0) {
-                            this.drawText(poseStack,
-                                    progress + (this.container.base.getProgress(0) <= 0.01 ? 0 : ModUtils.getString(this.container.base.getProgress(0) * 100.0)) + "%",
-                                    iufix$guiLeft() + 60,
-                                    iufix$guiTop() + 85,
-                                    ModUtils.convertRGBcolorToInt(255, 255, 255)
-                            );
-                        }
-
-                        this.drawText(poseStack,
-                                "EF/t: " + ModUtils.getString(this.container.base.perenergy),
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 95,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        double hours = 0.0;
-                        double minutes = 0.0;
-                        double seconds = 0.0;
-                        List<Double> time = this.container.base.getTime(0);
-                        if (!time.isEmpty()) {
-                            hours = time.get(0);
-                            minutes = time.get(1);
-                            seconds = time.get(2);
-                        } else {
-                            seconds = 1.0;
-                        }
-
-                        String time1 = hours > 0.0 ? ModUtils.getString(hours) + Localization.translate("iu.hour") : "";
-                        String time2 = minutes > 0.0 ? ModUtils.getString(minutes) + Localization.translate("iu.minutes") : "";
-                        String time3 = seconds > 0.0 ? ModUtils.getString(seconds) + Localization.translate("iu.seconds") : "";
-                        this.drawText(poseStack,
-                                Localization.translate("iu.timetoend") + time1 + time2 + time3,
-                                iufix$guiLeft() + 60,
-                                iufix$guiTop() + 105,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                    }
-                }
-            } else if (this.container.base.maxAmount == 2) {
-                iufix$bindTexture();
-
-                for (int i = 0; i < this.container.base.maxAmount; i++) {
-                    chargeLevel = 20.0 * this.container.base.getProgress(i);
-                    if (chargeLevel > 0.0
-                            && !this.container.base.inputSlot[i].isEmpty()
-                            && this.container.base.inputSlot[i].continue_proccess(this.container.base.outputSlot[i])) {
-                        iufix$bindTexture();
-                        iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 26 + i * 20, iufix$guiTop() + 76, 44, 235, 14, (int) chargeLevel);
-                        this.drawText(poseStack,
-                                "EF/t: " + ModUtils.getString(this.container.base.perenergy),
-                                iufix$guiLeft() + 85,
-                                iufix$guiTop() + 55,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        double hours = 0.0;
-                        double minutes = 0.0;
-                        double seconds = 0.0;
-                        List<Double> time = this.container.base.getTime(i);
-                        if (!time.isEmpty()) {
-                            hours = time.get(0);
-                            minutes = time.get(1);
-                            seconds = time.get(2);
-                        } else {
-                            seconds = 1.0;
-                        }
-
-                        String time1 = hours > 0.0 ? ModUtils.getString(hours) + Localization.translate("iu.hour") : "";
-                        String time2 = minutes > 0.0 ? ModUtils.getString(minutes) + Localization.translate("iu.minutes") : "";
-                        String time3 = seconds > 0.0 ? ModUtils.getString(seconds) + Localization.translate("iu.seconds") : "";
-                        this.drawText(poseStack,
-                                Localization.translate("iu.timetoend") + time1 + time2 + time3,
-                                iufix$guiLeft() + 85,
-                                iufix$guiTop() + 65 + i * 10,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                    }
-                }
-            } else if (this.container.base.maxAmount == 4) {
-                iufix$bindTexture();
-
-                for (int ix = 0; ix < this.container.base.maxAmount; ix++) {
-                    chargeLevel = 20.0 * this.container.base.getProgress(ix);
-                    if (chargeLevel > 0.0
-                            && !this.container.base.inputSlot[ix].isEmpty()
-                            && this.container.base.inputSlot[ix].continue_proccess(this.container.base.outputSlot[ix])) {
-                        iufix$bindTexture();
-                        iufix$drawTexturedModalRect(poseStack, iufix$guiLeft() + 10 + ix * 19, iufix$guiTop() + 76, 44, 235, 14, (int) chargeLevel);
-                        this.drawText(poseStack,
-                                "EF/t: " + ModUtils.getString(this.container.base.perenergy),
-                                iufix$guiLeft() + 100,
-                                iufix$guiTop() + 55,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                        double hours = 0.0;
-                        double minutes = 0.0;
-                        double seconds = 0.0;
-                        List<Double> time = this.container.base.getTime(ix);
-                        if (!time.isEmpty()) {
-                            hours = time.get(0);
-                            minutes = time.get(1);
-                            seconds = time.get(2);
-                        } else {
-                            seconds = 1.0;
-                        }
-
-                        String time1 = hours > 0.0 ? ModUtils.getString(hours) + Localization.translate("iu.hour") : "";
-                        String time2 = minutes > 0.0 ? ModUtils.getString(minutes) + Localization.translate("iu.minutes") : "";
-                        String time3 = seconds > 0.0 ? ModUtils.getString(seconds) + Localization.translate("iu.seconds") : "";
-                        this.drawText(poseStack,
-                                Localization.translate("iu.timetoend") + time1 + time2 + time3,
-                                iufix$guiLeft() + 100,
-                                iufix$guiTop() + 65 + ix * 10,
-                                ModUtils.convertRGBcolorToInt(255, 255, 255)
-                        );
-                    }
-                }
-            }
-        } catch (Throwable t) {
-            iufix$logRenderFailure(t, "m_7286_", this.container.base, 0);
-        }
-    }
-
-    /** 等价于 ScreenIndustrialUpgrade.draw（protected 跨包不可直接调用），内联其实现。 */
-    private void drawText(GuiGraphics poseStack, String s, int i, int i1, int i2) {
-        poseStack.drawString(Minecraft.getInstance().font, s, i, i1, i2, false);
-    }
-
-    /**
-     * drawForegroundLayer 竞态防线之一：GETFIELD output 重定向。
-     * 若数组里出现 null（缓存被并发 setRecipeOutput(null) 清掉的窗口），
-     * 返回 null 元素换成假配方的安全副本，随后的 output[i].getRecipe() 不再 NPE。
-     */
     @Redirect(
             method = "drawForegroundLayer",
             at = @At(
@@ -400,7 +93,26 @@ public abstract class ScreenMolecularTransformerGuardMixin {
             ),
             require = 1
     )
-    private MachineRecipe[] iufix$safeOutputField(BlockEntityMolecularTransformer te) {
+    private MachineRecipe[] iufix$safeOutputForeground(BlockEntityMolecularTransformer te) {
+        return iufix$safeOutput(te);
+    }
+
+    @Redirect(
+            method = "drawForegroundLayer",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/denfop/blockentity/base/BlockEntityMolecularTransformer;getOutput(I)Lcom/denfop/api/recipe/MachineRecipe;"
+            ),
+            require = 1
+    )
+    private MachineRecipe iufix$guardGetOutputForeground(BlockEntityMolecularTransformer te, int i) {
+        return iufix$guardGetOutput(te, i, "drawForegroundLayer");
+    }
+
+    // ===== 兜底逻辑 =====
+
+    /** 字段读兜底：null 元素换假配方的安全副本，随后 output[i].getRecipe() 不再 NPE。 */
+    private static MachineRecipe[] iufix$safeOutput(BlockEntityMolecularTransformer te) {
         MachineRecipe[] arr = te.output;
         boolean hasNull = false;
         for (MachineRecipe r : arr) {
@@ -421,29 +133,18 @@ public abstract class ScreenMolecularTransformerGuardMixin {
         return safe;
     }
 
-    /**
-     * drawForegroundLayer 竞态防线之二：getOutput 调用重定向。
-     * 实时命中→直通；null→缓存（命中打诊断）；缓存也 null→假配方兜底，绝不返回 null。
-     */
-    @Redirect(
-            method = "drawForegroundLayer",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lcom/denfop/blockentity/base/BlockEntityMolecularTransformer;getOutput(I)Lcom/denfop/api/recipe/MachineRecipe;"
-            ),
-            require = 1
-    )
-    private MachineRecipe iufix$guardGetOutputForeground(BlockEntityMolecularTransformer te, int i) {
+    /** 调用兜底：实时命中→直通；null→缓存（打诊断）；缓存也 null→假配方。绝不返回 null。 */
+    private static MachineRecipe iufix$guardGetOutput(BlockEntityMolecularTransformer te, int i, String site) {
         MachineRecipe fresh = te.getOutput(i);
         if (fresh != null) {
             return fresh;
         }
         MachineRecipe cached = te.getRecipeOutput(i);
-        iufix$logNullDiagnostics(te, i, "drawForegroundLayer", cached);
+        iufix$logNullDiagnostics(te, i, site, cached);
         return cached != null ? cached : iufix$dummyRecipe();
     }
 
-    /** 兜底假配方（懒加载）：energy=1、空输入输出，仅供显示代码解引用，绝不参与匹配。 */
+    /** 兜底假配方（懒加载）：energy=1、空输入输出，仅供显示代码解引用。 */
     private static MachineRecipe iufix$dummyRecipe() {
         MachineRecipe d = dummyRecipe;
         if (d == null) {
@@ -466,25 +167,7 @@ public abstract class ScreenMolecularTransformerGuardMixin {
         return d;
     }
 
-    private static void iufix$logRenderFailure(Throwable t, String site, BlockEntityMolecularTransformer te, int i) {
-        String sig = site + '|' + t.getClass().getName();
-        long now = System.nanoTime();
-        if (sig.equals(lastLogSignature) && now - lastLogNanos < 5_000_000_000L) {
-            return;
-        }
-        lastLogSignature = sig;
-        lastLogNanos = now;
-        StringBuilder sb = new StringBuilder();
-        sb.append("[iufix] ScreenMolecularTransformer ").append(site).append(" 渲染异常已拦截（防崩）: ")
-                .append(t.getClass().getSimpleName()).append(": ").append(t.getMessage()).append('\n');
-        sb.append("  渲染线程: ").append(Thread.currentThread().getName()).append('\n');
-        StackTraceElement[] st = t.getStackTrace();
-        for (int j = 0; j < st.length && j < 30; j++) {
-            sb.append("    at ").append(st[j]).append('\n');
-        }
-        sb.append(iufix$dumpMachineState(te, i));
-        LOGGER.warn(sb.toString());
-    }
+    // ===== 诊断日志 =====
 
     private static void iufix$logNullDiagnostics(BlockEntityMolecularTransformer te, int i, String site, MachineRecipe cached) {
         String sig = i + "|null|" + iufix$recipeDesc(cached);
@@ -502,7 +185,7 @@ public abstract class ScreenMolecularTransformerGuardMixin {
         LOGGER.warn(sb.toString());
     }
 
-    /** 竞态现场快照：输入槽内容 / 缓存配方 / 本槽快照 / 全局配方表。自带 try-catch，绝不再炸渲染。 */
+    /** 竞态现场快照：输入槽内容 / 缓存配方 / 本槽快照 / 全局配方表。自带 try-catch。 */
     private static String iufix$dumpMachineState(BlockEntityMolecularTransformer te, int i) {
         StringBuilder sb = new StringBuilder();
         try {
