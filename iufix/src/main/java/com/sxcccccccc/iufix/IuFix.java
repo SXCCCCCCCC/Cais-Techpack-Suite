@@ -59,7 +59,10 @@ import net.minecraftforge.fml.common.Mod;
 public class IuFix {
 
     public IuFix() {
-        System.out.println("[iufix] 1.4.3-hotfix5 已加载：IE 模式代理层 + 村庄铁砧世界生成路径修复 + 铁砧朝向随 jigsaw 房屋旋转（state+BE 双轨）+ Jade 铁砧 data 空守卫（修复 hotfix4 注入落错重载）");
+        // 1.7.0：iufix.json 配置（默认生成 config/iufix.json，cooling=true=原版行为），
+        // 写入 CoolComponent.cooling 静态总开关，配合 IUCoolComponentMixin 覆盖 NBT 重载路径。
+        IuFixConfig.load();
+        System.out.println("[iufix] 1.7.0 已加载：散热需求总开关（iufix.json 键 cooling，默认 true=原版；false=被冷却端机器温度恒 0 永不停机）+ 镐挖规则=任意 minecraft:pickaxes 或 forge:tools/paxels tag 工具可挖一切 IU 机器（1.6.0 覆盖 1.3.2 铁镐门槛，取消 TieredItem/tier 检查）；此前修复：IE 模式代理层 + 村庄铁砧生成/朝向 + 污染 debuff 停用 + 扫描枪 UI 守卫 + ComponentProcess 空罐守卫 + 流体抽取等");
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(CleanMultiblockCommand.class);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ChunkLoadCollisionRefreshFix.class);
     }

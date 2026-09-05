@@ -12,6 +12,7 @@
         "PollutionDebuffDisableMixin",
         "BlockEntityBaseSetRemovedGuard",
         "IUHarvestToolMixin",
+        "IUCoolComponentMixin",
         "PollutionTerrainProcessDisableMixin",
         "EnvironmentalLayerTickDisableMixin",
         "ForgeTransmogrifierIUCompatMixin",
@@ -22,12 +23,15 @@
         "BlockEntityBaseFacingFromStateMixin",
         "BlockEntityBaseCanPlaceMixin",
         "BlockComponentProviderJadeDataGuard",
-        "LoginGiftDisableMixin"
+        "LoginGiftDisableMixin",
+        "Basemachine3SelfDropMixin",
+        "AssemblerSlotLimitOneMixin"
     ],
     "client": [
         "ScreenScannerMixin",
         "ScreenVeinSensorMixin",
-        "ScreenIndustrialUpgradeTextWrapMixin"
+        "ScreenIndustrialUpgradeTextWrapMixin",
+        "ScreenMolecularTransformerGuardMixin"
     ],
     "injectors": {
         "defaultRequire": 0
