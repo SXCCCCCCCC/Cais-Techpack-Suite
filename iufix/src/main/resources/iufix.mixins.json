@@ -25,7 +25,8 @@
         "BlockComponentProviderJadeDataGuard",
         "LoginGiftDisableMixin",
         "Basemachine3SelfDropMixin",
-        "AssemblerSlotLimitOneMixin"
+        "AssemblerSlotLimitOneMixin",
+        "MolecularTransformerCacheTraceMixin"
     ],
     "client": [
         "ScreenScannerMixin",

@@ -445,6 +445,11 @@ public abstract class ScreenMolecularTransformerGuardMixin {
         StringBuilder sb = new StringBuilder();
         sb.append("[iufix] ScreenMolecularTransformer ").append(site).append(" 渲染异常已拦截（防崩）: ")
                 .append(t.getClass().getSimpleName()).append(": ").append(t.getMessage()).append('\n');
+        sb.append("  渲染线程: ").append(Thread.currentThread().getName()).append('\n');
+        StackTraceElement[] st = t.getStackTrace();
+        for (int j = 0; j < st.length && j < 30; j++) {
+            sb.append("    at ").append(st[j]).append('\n');
+        }
         sb.append(iufix$dumpMachineState(te, i));
         LOGGER.warn(sb.toString());
     }
@@ -474,6 +479,7 @@ public abstract class ScreenMolecularTransformerGuardMixin {
             sb.append("  BE: queue=").append(te.queue)
                     .append(", maxAmount=").append(te.maxAmount)
                     .append(", 位置=").append(te.getBlockPos()).append('\n');
+            sb.append("  当前线程: ").append(Thread.currentThread().getName()).append('\n');
             sb.append("  输入槽[").append(i).append("]: ").append(iufix$stackDesc(stack)).append('\n');
             sb.append("  缓存配方[").append(i).append("]: ").append(iufix$recipeDesc(te.getRecipeOutput(i))).append('\n');
             sb.append("  本槽 recipe_list 快照 (").append(slot.getRecipe_list() == null ? "null" : slot.getRecipe_list().size())
