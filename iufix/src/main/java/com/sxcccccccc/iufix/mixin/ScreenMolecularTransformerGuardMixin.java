@@ -120,10 +120,42 @@ public abstract class ScreenMolecularTransformerGuardMixin {
         ((Screen) (Object) this).renderBackground(poseStack);
     }
 
+    /**
+     * super.m_7286_ 的非虚等价：直接反射调用 ScreenIndustrialUpgrade **声明**的
+     * m_7286_（=renderBg，负责 drawBackgroundAndTitle 画 GUI 底图 + elements 背景层）。
+     * 1.9.3 误用 Screen.renderBackground（原版深色底）导致 GUI 底图消失；1.9.5 修正。
+     */
+    private static final java.lang.reflect.Method PARENT_RENDER_BG = iufix$findParentRenderBg();
+
+    private static java.lang.reflect.Method iufix$findParentRenderBg() {
+        for (String name : new String[]{"m_7286_", "renderBg"}) {
+            try {
+                java.lang.reflect.Method m = ScreenIndustrialUpgrade.class.getDeclaredMethod(name, GuiGraphics.class, float.class, int.class, int.class);
+                m.setAccessible(true);
+                return m;
+            } catch (Exception ignored) {
+                // try next name
+            }
+        }
+        return null;
+    }
+
+    private void iufix$superRenderBg(GuiGraphics poseStack, float f, int x, int y) {
+        try {
+            if (PARENT_RENDER_BG != null) {
+                PARENT_RENDER_BG.invoke(this, poseStack, f, x, y);
+                return;
+            }
+        } catch (Exception ignored) {
+            // fall through
+        }
+        iufix$renderBackground(poseStack);
+    }
+
     @Overwrite
     protected void m_7286_(GuiGraphics poseStack, float f, int x, int y) {
         try {
-            iufix$renderBackground(poseStack);
+            iufix$superRenderBg(poseStack, f, x, y);
             iufix$bindTexture();
             String input = Localization.translate("gui.MolecularTransformer.input") + ": ";
             String output = Localization.translate("gui.MolecularTransformer.output") + ": ";

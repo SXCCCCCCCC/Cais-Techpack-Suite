@@ -50,6 +50,15 @@ public abstract class MolecularTransformerCacheTraceMixin {
             lastLogNanos = now;
 
             StackTraceElement[] st = Thread.currentThread().getStackTrace();
+            // 已知的正常路径（1.9.4 栈追踪实锤）：客户端容器同步包
+            // ClientPacketListener → AbstractContainerMenu.initializeContents → SlotInvSlot.set
+            // → InventoryRecipes.set → setRecipeOutput(null)——渲染线程上写服务端 BE，
+            // 每次槽被同步为空都会发生，属于 IU 单人档的正常同步行为，不再记录。
+            for (StackTraceElement e : st) {
+                if (e.getClassName().contains("ClientPacketListener")) {
+                    return;
+                }
+            }
             StringBuilder sb = new StringBuilder();
             sb.append("[iufix] 缓存 output[").append(i).append("] 被置 null（side=").append(side)
                     .append(", thread=").append(thread)
