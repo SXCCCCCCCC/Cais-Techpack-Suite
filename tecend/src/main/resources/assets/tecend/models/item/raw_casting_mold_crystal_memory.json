@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tecend:item/raw_casting_mold_crystal_memory"
+  }
+}

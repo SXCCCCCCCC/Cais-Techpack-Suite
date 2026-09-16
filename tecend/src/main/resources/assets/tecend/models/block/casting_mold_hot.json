@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "tecend:block/mold_bottom",
+    "up": "tecend:block/mold_top_hot",
+    "north": "tecend:block/mold_side_z",
+    "south": "tecend:block/mold_side_z",
+    "west": "tecend:block/mold_side_x",
+    "east": "tecend:block/mold_side_x",
+    "particle": "tecend:block/mold_side_x"
+  }
+}
