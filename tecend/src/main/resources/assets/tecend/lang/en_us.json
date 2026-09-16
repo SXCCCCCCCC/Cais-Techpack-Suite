@@ -24,5 +24,6 @@
   "item.tecend.perfect_mold": "Perfect Mold",
   "item.tecend.raw_casting_mold_crystal_memory": "Crude Perfect Mold Crystal",
   "block.tecend.filled_casting_mold": "Casting Mold (Trophy Cast)",
-  "block.tecend.cooled_casting_mold": "Casting Mold (Cooled Trophy)"
+  "block.tecend.cooled_casting_mold": "Casting Mold (Cooled Trophy)",
+  "tecend.trophy.uncarved": "Ancient Trophy (Uncarved)"
 }

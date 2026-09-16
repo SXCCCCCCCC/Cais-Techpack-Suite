@@ -24,5 +24,6 @@
   "item.tecend.perfect_mold": "完美模具",
   "item.tecend.raw_casting_mold_crystal_memory": "粗制完美模具水晶",
   "block.tecend.filled_casting_mold": "含奖杯的浇筑模具",
-  "block.tecend.cooled_casting_mold": "冷却的含奖杯的浇筑模具"
+  "block.tecend.cooled_casting_mold": "冷却的含奖杯的浇筑模具",
+  "tecend.trophy.uncarved": "远古奖杯（未雕琢）"
 }

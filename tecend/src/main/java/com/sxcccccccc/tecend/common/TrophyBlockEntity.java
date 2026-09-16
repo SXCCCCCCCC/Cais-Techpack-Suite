@@ -37,8 +37,8 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
  * <p>{@code BlockEntity} 本身不带名字 API（原版只有部分 BE 实现 {@link Nameable}），所以这里自己实现。</p>
  */
 public class TrophyBlockEntity extends BlockEntity implements Nameable {
-    /** 阶段属性（原版共享 AGE_4：0..4 五档，默认值 0 = 完成态） */
-    public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
+    /** 阶段属性（原版共享 AGE_5：0..5 六档，默认值 0 = 完成态） */
+    public static final IntegerProperty AGE = BlockStateProperties.AGE_5;
 
     /** 物品 NBT 里携带阶段/充能进度的键（战利品表 copy_nbt 抄的就是它俩） */
     public static final String TAG_TYPE = "type";
@@ -46,12 +46,16 @@ public class TrophyBlockEntity extends BlockEntity implements Nameable {
     /** 自定义名键（原版约定，容器类 BE 同名） */
     public static final String TAG_CUSTOM_NAME = "CustomName";
 
-    /** 阶段编号：0 = 完成（默认），4 = 远古；进度按 age 递减 */
+    /** 阶段编号：0 = 完成（默认）… 5 = 未雕琢；进度按 age 递减 */
     public static final int STAGE_FINISHED = 0;
     public static final int STAGE_UNCHARGED = 1;
     public static final int STAGE_ROUGH_TRIMMED = 2;
     public static final int STAGE_ROUGH_CAST = 3;
     public static final int STAGE_ANCIENT = 4;
+    /** 雕琢之前的远古奖杯（第 ⑥ 步的输入态） */
+    public static final int STAGE_UNCARVED = 5;
+    /** 阶段上界：夹取与创造栏遍历都用它，加档只改这里 */
+    public static final int STAGE_MAX = STAGE_UNCARVED;
 
     /** 名称键按阶段索引；阶段 0（完成）为 null = 不给自定义名，保留原版物品名 */
     private static final String[] STAGE_NAME_KEYS = {
@@ -60,6 +64,7 @@ public class TrophyBlockEntity extends BlockEntity implements Nameable {
             "tecend.trophy.rough_trimmed",
             "tecend.trophy.rough_cast",
             "tecend.trophy.ancient",
+            "tecend.trophy.uncarved",
     };
 
     private int type = STAGE_FINISHED;
@@ -113,7 +118,7 @@ public class TrophyBlockEntity extends BlockEntity implements Nameable {
     }
 
     public void setStage(int stage) {
-        int clamped = Math.max(STAGE_FINISHED, Math.min(stage, STAGE_ANCIENT));
+        int clamped = Math.max(STAGE_FINISHED, Math.min(stage, STAGE_MAX));
         if (clamped == type) {
             return;
         }
@@ -165,7 +170,7 @@ public class TrophyBlockEntity extends BlockEntity implements Nameable {
     public void load(CompoundTag tag) {
         super.load(tag);
         if (tag.contains(TAG_TYPE)) {
-            type = Math.max(STAGE_FINISHED, Math.min(tag.getInt(TAG_TYPE), STAGE_ANCIENT));
+            type = Math.max(STAGE_FINISHED, Math.min(tag.getInt(TAG_TYPE), STAGE_MAX));
         }
         charge = tag.getLong(TAG_CHARGE);
         if (tag.contains(TAG_CUSTOM_NAME, 8)) {

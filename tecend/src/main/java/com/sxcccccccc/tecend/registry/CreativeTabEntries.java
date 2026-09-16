@@ -53,7 +53,7 @@ public final class CreativeTabEntries {
 
         // 奖杯五个阶段：同一个物品 + 不同 BlockEntityTag.type
         // 阶段 0 = 金奖杯（完成，默认）… 4 = 远古奖杯；从远古往完成列，符合"逐步推进"的阅读顺序
-        for (int stage = TrophyBlockEntity.STAGE_ANCIENT; stage >= TrophyBlockEntity.STAGE_FINISHED; stage--) {
+        for (int stage = TrophyBlockEntity.STAGE_MAX; stage >= TrophyBlockEntity.STAGE_FINISHED; stage--) {
             event.accept(trophyStack(stage));
         }
 

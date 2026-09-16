@@ -70,6 +70,6 @@ public abstract class TrophyBlockMixin implements EntityBlock {
     }
 
     private static int clamp(int type) {
-        return Math.max(TrophyBlockEntity.STAGE_FINISHED, Math.min(type, TrophyBlockEntity.STAGE_ANCIENT));
+        return Math.max(TrophyBlockEntity.STAGE_FINISHED, Math.min(type, TrophyBlockEntity.STAGE_MAX));
     }
 }
