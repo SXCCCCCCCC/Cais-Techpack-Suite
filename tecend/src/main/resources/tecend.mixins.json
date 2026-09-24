@@ -4,9 +4,17 @@
   "package": "com.sxcccccccc.tecend.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "tecend.refmap.json",
+  "plugin": "com.sxcccccccc.tecend.mixin.TecendMixinPlugin",
   "mixins": [
     "TrophyBlockMixin",
-    "RunnerupTrophyHardnessMixin"
+    "TrophyRotateMixin",
+    "TrophyIc2Mixin",
+    "TrophyAeMixin",
+    "TrophyIuMixin",
+    "TrophyPncMixin",
+    "RunnerupTrophyHardnessMixin",
+    "FridgeMoldCoolingMixin",
+    "QuantumQuarryFragmentMixin"
   ],
   "client": [],
   "injectors": {

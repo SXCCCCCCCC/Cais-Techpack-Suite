@@ -35,7 +35,9 @@ JARS=(
     productivebees-*.jar
     beyonddimensions-*.jar
     pylons-*.jar
+    balm-*.jar
     cookingforblockheads-*.jar
+    jei-*.jar
 )
 
 copied=0

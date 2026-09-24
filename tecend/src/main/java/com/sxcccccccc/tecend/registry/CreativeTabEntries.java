@@ -120,8 +120,8 @@ public final class CreativeTabEntries {
     private static ItemStack trophyStack(int stage) {
         ItemStack stack = new ItemStack(ProofOfHonorModBlocks.CHAMPIONPLATFORM.get());
 
-        // 名字：物品 id 只有一个、lang 键也只有一个，五个阶段靠 lang 分不开 —— 只能写自定义名。
-        // 用可翻译组件，才会跟随客户端语言。阶段 0（完成）不给名字（保留原版名）。
+        // 名字：物品 id 只有一个、lang 键也只有一个，七个阶段靠 lang 分不开 —— 只能写自定义名。
+        // 用可翻译组件，才会跟随客户端语言。完成态（阶段 0）也叫「金奖杯」（设计稿的产物名）。
         Component stageName = TrophyBlockEntity.stageName(stage);
         if (stageName != null) {
             stack.setHoverName(stageName);

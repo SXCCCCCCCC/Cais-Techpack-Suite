@@ -1,7 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "minecraft:item/bucket",
-    "layer1": "tecend:block/acidic_fragment_solution_still"
+    "layer0": "tecend:item/bucket_acidic_fragment_solution"
   }
 }

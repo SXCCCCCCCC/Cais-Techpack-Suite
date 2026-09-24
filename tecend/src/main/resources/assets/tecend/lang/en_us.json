@@ -1,10 +1,19 @@
 {
   "material.tecend.trophy_fragment": "Trophy Fragment",
   "block.tecend.casting_mold": "Casting Mold",
+  "tecend.trophy.finished": "Gold Trophy",
+  "tecend.trophy.charge": "Charge %s%%",
+  "tecend.trophy.route.fe": "FE %s%%",
+  "tecend.trophy.route.gt": "GT (EU) %s%%",
+  "tecend.trophy.route.ic2": "IC2 (EU) %s%%",
+  "tecend.trophy.route.ae": "AE %s%%",
+  "tecend.trophy.route.ef": "IU (EF) %s%%",
+  "tecend.trophy.route.su": "Create (Stress) %s%%",
+  "tecend.trophy.route.pnc": "PnC (Air) %s%%",
   "tecend.trophy.ancient": "Ancient Trophy",
   "tecend.trophy.rough_cast": "Rough Trophy (Unfinished)",
   "tecend.trophy.rough_trimmed": "Rough Trophy (Unsandblasted)",
-  "tecend.trophy.uncharged": "Uncharged Trophy",
+  "tecend.trophy.uncharged": "Gold Trophy (Uncharged)",
   "fluid_type.tecend.gold_pig": "Gold Pig",
   "block.tecend.gold_pig": "Gold Pig",
   "item.tecend.gold_pig_bucket": "Bucket of Gold Pig",
@@ -25,5 +34,6 @@
   "item.tecend.raw_casting_mold_crystal_memory": "Crude Perfect Mold Crystal",
   "block.tecend.filled_casting_mold": "Casting Mold (Trophy Cast)",
   "block.tecend.cooled_casting_mold": "Casting Mold (Cooled Trophy)",
-  "tecend.trophy.uncarved": "Ancient Trophy (Uncarved)"
+  "tecend.trophy.uncarved": "Ancient Trophy (Uncarved)",
+  "tecend.trophy.sprued": "Rough Trophy (Sprue Untrimmed)"
 }

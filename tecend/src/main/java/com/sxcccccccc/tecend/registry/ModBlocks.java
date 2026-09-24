@@ -1,6 +1,7 @@
 package com.sxcccccccc.tecend.registry;
 
 import com.sxcccccccc.tecend.TecEnd;
+import com.sxcccccccc.tecend.common.FilledCastingMoldBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -42,9 +43,14 @@ public final class ModBlocks {
     public static final RegistryObject<Block> CASTING_MOLD =
             BLOCKS.register("casting_mold", () -> new Block(moldProps()));
 
-    /** 含奖杯的浇筑模具（已浇筑、未冷却） */
+    /**
+     * 含奖杯的浇筑模具（已浇筑、未冷却）。
+     *
+     * <p>三个模具里只有这一个用自定义类：第 ⑪ 步的「自然冷却」要它放下时排一个方块刻，
+     * 五分钟之后自己变成下面那个冷却态。</p>
+     */
     public static final RegistryObject<Block> FILLED_CASTING_MOLD =
-            BLOCKS.register("filled_casting_mold", () -> new Block(moldProps()));
+            BLOCKS.register("filled_casting_mold", () -> new FilledCastingMoldBlock(moldProps()));
 
     /** 冷却的含奖杯的浇筑模具 */
     public static final RegistryObject<Block> COOLED_CASTING_MOLD =

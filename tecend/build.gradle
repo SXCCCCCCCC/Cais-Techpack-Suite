@@ -105,6 +105,10 @@ dependencies {
     compileOnly fg.deobf(files('libs/productivebees-1.20.1-12.6.0.jar'))               // 7 蜜蜡（资源蜜蜂）
     compileOnly fg.deobf(files('libs/beyonddimensions-1.20.1-forge-0.7.27.jar'))       // 14 不稳定时空碎片·破碎的时空结晶
     compileOnly fg.deobf(files('libs/pylons-1.20.1-4.3.0.jar'))                        // 9 生物过滤卡（猪，不走杀生路线）
+    // balm 是 CFB 的前置库：FridgeBlockEntity 的父类 BalmBlockEntity、以及它实现的
+    // BalmMenuProvider 都在这个 jar 里。不接进 classpath，连 getContainer() 那一句都编译不过
+    // （javac 解析 FridgeBlockEntity 的类型层次时要加载它们）。
+    compileOnly fg.deobf(files('libs/balm-forge-1.20.1-7.3.42.jar'))
     compileOnly fg.deobf(files('libs/cookingforblockheads-forge-1.20.1-16.0.15.jar'))  // 11 冰箱
     compileOnly fg.deobf(files('libs/gtse-1.3.1.jar'))                                 // 设计流程未直接用到；包里存在的 GTCEu 附属（harvester/nether_collector/mob_simulator，另自带一台 void_miner）——先接上备用
 
@@ -113,11 +117,18 @@ dependencies {
     // 三档方块：championplatform（金，用的网格是 custom/championship_trophy）/ runnerup_trophy / thirdplacetrophy。
     compileOnly fg.deobf(files('libs/proof_of_honor-1.0.0-forge-1.20.1.jar'))
 
+    // ---------- JEI ----------
+    // 只给 client 侧那个 JEI 插件 mixin 用（往 IF 的 JEICustomPlugin.registerRecipes 里补我们的矿链条目）。
+    compileOnly fg.deobf(files('libs/jei-1.20.1-forge-15.48.0.179.jar'))
+
     // ---------- GTCEu 的 jarjar 嵌套依赖 ----------
     // gtceu 把 LDLib / MixinExtras 压在 META-INF/jarjar/ 里，javac 看不到嵌套 jar 的类
     // （SOP §5）。已解到 libs/jarjar/ 供编译期解析；运行时由 gtceu 的 jarjar 展开，不会双份。
     compileOnly files('libs/jarjar/ldlib-forge-1.20.1-1.0.40.b.jar')
     compileOnly files('libs/jarjar/mixinextras-forge-0.5.3.jar')
+    // create 同样把 Ponder / Registrate / flywheel / MixinExtras 压在 jarjar 里。
+    // KineticBlockEntity 的祖先链经过 Ponder 的 VirtualBlockEntity，所以要 Ponder 才编译得过。
+    compileOnly files('libs/jarjar/Ponder-Forge-1.20.1-1.0.91.jar')
 }
 
 mixin {

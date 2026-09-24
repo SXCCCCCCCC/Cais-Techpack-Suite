@@ -141,3 +141,6 @@ versionRange="[0,)"
 modId="proof_of_honor"
 mandatory=false
 versionRange="[0,)"
+# 奖杯物品要抢注 proof_of_honor:championplatform（注册同名条目，后注册者胜出）。
+# 注册事件按 mod 加载顺序同步派发，必须确保我们在它之后注册。
+ordering="AFTER"

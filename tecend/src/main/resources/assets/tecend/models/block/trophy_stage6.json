@@ -9,7 +9,7 @@
       "parent": "proof_of_honor:custom/championship_trophy",
       "render_type": "solid",
       "textures": {
-        "0": "tecend:block/trophy_rough_cast"
+        "0": "tecend:block/trophy_rough_trimmed"
       }
     },
     "sprue": {
