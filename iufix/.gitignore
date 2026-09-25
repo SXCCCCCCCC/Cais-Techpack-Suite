@@ -12,3 +12,6 @@ logs/
 eclipse/
 bin/
 classes/
+
+# Third-party mod jars (compile-time only, not redistributed)
+libs/

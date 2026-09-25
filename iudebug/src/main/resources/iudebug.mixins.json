@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iudebug.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iudebug.refmap.json",
+    "mixins": [
+        "MolecularInitOverwriteMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

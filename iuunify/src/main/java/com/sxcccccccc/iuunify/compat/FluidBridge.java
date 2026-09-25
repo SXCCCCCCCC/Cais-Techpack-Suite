@@ -313,17 +313,4 @@ public final class FluidBridge {
             return fallback;
         }
     }
-
-    /**
-     * 静态一致性校验：反射解析出的方法必须为非 null 且签名合理（防 fabric
-     * 版本升级后静默错位）。仅日志用途，不抛出。
-     */
-    static void sanityCheck() {
-        Objects.requireNonNull(ctxWithInitial, "withInitial");
-        Objects.requireNonNull(ctxFind, "find");
-        Objects.requireNonNull(storageInsert, "Storage.insert");
-        Objects.requireNonNull(storageExtract, "Storage.extract");
-        Objects.requireNonNull(txOpenOuter, "Transaction.openOuter");
-        Modifier.isStatic(ctxWithInitial.getModifiers());
-    }
 }

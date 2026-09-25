@@ -2,6 +2,7 @@
     "required": true,
     "minVersion": "0.8",
     "package": "com.sxcccccccc.iufix.mixin",
+    "plugin": "com.sxcccccccc.iufix.asm.IufixTransformPlugin",
     "compatibilityLevel": "JAVA_17",
     "refmap": "iufix.refmap.json",
     "mixins": [
@@ -26,7 +27,8 @@
         "LoginGiftDisableMixin",
         "Basemachine3SelfDropMixin",
         "AssemblerSlotLimitOneMixin",
-        "MolecularTransformerCacheTraceMixin"
+        "MolecularTransformerCacheTraceMixin",
+        "ItemStackUpgradeModulesCtorFixMixin"
     ],
     "client": [
         "ScreenScannerMixin",

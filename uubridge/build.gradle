@@ -72,6 +72,12 @@ dependencies {
     // ItemCrystalMemory / IUItem），reobfJar 打包时把对原版成员的引用重映射回 SRG；
     // mixin 目标串按运行时真名写（remap=false，字符串原样进 jar）。
     compileOnly fg.deobf(files('libs/IndustrialUpgrade-1.20.1-3.4.0.10.jar'))
+
+    // 前置依赖 OneEnoughItem（OEI，Forge 原生，用户裁决 0.1.3 起硬绑定）：
+    // OEI 已解析/校验过 oei|oef|oeb:replacements/*.json 并维护运行时缓存
+    // （ItemReplacementCache），uubridge 直接读其公开 API 做成本归一化，
+    // 不重复读数据包（避免两处真相源漂移）。
+    compileOnly fg.deobf(files('libs/OneEnoughItem-1.0.8.jar'))
 }
 
 mixin {

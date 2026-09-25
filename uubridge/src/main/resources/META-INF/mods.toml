@@ -29,3 +29,10 @@ description='''${mod_description}'''
     versionRange="[3.4.0.10,)"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="oneenoughitem"
+    mandatory=true
+    versionRange="[1.0.8,)"
+    ordering="NONE"
+    side="BOTH"

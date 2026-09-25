@@ -10,3 +10,6 @@ out/
 .project
 .settings/
 bin/
+
+# Third-party mod jars (compile-time only, not redistributed)
+libs/

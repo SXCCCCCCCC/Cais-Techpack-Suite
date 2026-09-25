@@ -10,15 +10,14 @@
         "DeferredRegisterPhaseMixin",
         "IUFluidCastTargetsMixin",
         "IUCoreRegisterItemTabMixin",
-        "FluidsTankRegisterMixin",
-        "InternalFluidTankAcceptMixin",
         "TransferApiForgeCompatItemBridgeMixin",
-        "InventoryFluidByListAcceptMixin",
-        "InventoryTankAcceptMixin",
-        "RecipesFluidCoreMatchMixin",
-        "FluidHandlerRecipeConsumeMixin",
-        "FluidTankFillUnifiedMixin",
-        "InventoryFluidTransferDrainMixin"
+        "InventoryBlastFurnaceSwapMixin",
+        "RecipeInputStackMatchedMixin",
+        "ItemInputStackMatchMixin",
+        "PrimalSiliconCrystalHandlerActivateMixin",
+        "SolidFluidMixerSodiumRedirectMixin",
+        "PlasticPlateCreatorSodiumRedirectMixin",
+        "AlloySmelterSodiumRedirectMixin"
     ],
     "client": [],
     "injectors": {

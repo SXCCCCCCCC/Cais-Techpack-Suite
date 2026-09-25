@@ -1,5 +1,6 @@
 package com.sxcccccccc.uubridge;
 
+import com.sxcccccccc.uubridge.compat.UuBridgeNetwork;
 import net.minecraftforge.fml.common.Mod;
 
 /**
@@ -29,5 +30,6 @@ import net.minecraftforge.fml.common.Mod;
 public class UuBridge {
 
     public UuBridge() {
+        UuBridgeNetwork.register();
     }
 }

@@ -1,0 +1,7 @@
+* text=auto
+
+*.jar   binary
+*.png   binary
+*.ogg   binary
+*.nbt   binary
+*.docx  binary

@@ -164,6 +164,46 @@ public final class UuCostFiller {
      * @return 成本（uB），或 null（不可复制 / IC2 未装 / 版本变化——反射失败一律
      *         回 null；此时表内容为空、IU 复制机全停，日志与启动表现可定位）
      */
+    /**
+     * 公开成本查询入口（供 OeiUuCostNormalizer 快照使用）。
+     * 服务端语义：synced 表为 null → 白名单 → 动态索引（与 {@link #queryIc2CostUb} 一致）。
+     */
+    public static Integer queryCostUb(String itemId) {
+        return queryIc2CostUb(itemId);
+    }
+
+    /** 公开索引 ready 查询入口（供 OeiUuCostNormalizer 时序判断使用）。 */
+    public static boolean indexReady() {
+        return isIc2IndexReady();
+    }
+
+    /**
+     * 强制重填：重置两段式标志后立即重填 IU replicator 表。
+     * 服务端在成本归一化写入后调用；客户端由 UuBridgeNetwork 的重填包触发。
+     */
+    public static void forceRefill() {
+        synchronized (LOCK) {
+            filled = false;
+            lastFillIndexReady = false;
+        }
+        ensureFill();
+    }
+
+    /**
+     * 公开 IC2 配置实例入口（供 OeiUuCostNormalizer 反射白名单/重发使用），惰性初始化。
+     * IC2 未装时返回 null，调用方异常走静默降级。
+     */
+    public static Object ic2ConfigInstance() {
+        if (ic2ConfigInstance == null) {
+            try {
+                Class<?> cls = Class.forName("ic2_120.config.Ic2Config");
+                ic2ConfigInstance = cls.getField("INSTANCE").get(null);
+            } catch (Exception ignored) {
+            }
+        }
+        return ic2ConfigInstance;
+    }
+
     private static Integer queryIc2CostUb(String itemId) {
         try {
             if (ic2CostUbMethod == null) {

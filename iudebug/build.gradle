@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -75,6 +76,13 @@ dependencies {
     // ReloadableServerResources，反射查 RecipeManager 内部 recipes map 类型区分时机。
     // compileOnly 即可；reobf 由 FG 按官方映射处理我方对 MC 类的引用。
     compileOnly files('libs/kubejs-forge-2001.6.5-build.26.jar')
+
+    // mixin 支持（v1.2.0 分子重构机 init() @Overwrite 需要）——照抄 iufix。
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+}
+
+mixin {
+    config "${mod_id}.mixins.json"
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -101,10 +109,9 @@ tasks.named('jar', Jar).configure {
                 'Implementation-Title'    : project.name,
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-                // v1.1.0：mixin 路线整体废弃（功能1 改纯事件+反射删
-                // DeferredRegister.entries，见 IuRegistrationBlocker），
-                // manifest 不再需要 MixinConfigs / MixinConnector 属性。
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                // v1.2.0：分子重构机 init() @Overwrite 重新引入 mixin（功能1 仍是纯事件+反射）。
+                'MixinConfigs'            : "${mod_id}.mixins.json"
         ])
     }
     finalizedBy 'reobfJar'
