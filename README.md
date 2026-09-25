@@ -1,6 +1,6 @@
 # Cai's Techpack Suite
 
-`1.20.1-Tec` 整合包配套的自研 Minecraft mod 工程合集。
+`1.20.1-Tec` 整合包配套自写 Minecraft mod 工程合集。
 A collection of hand-written Minecraft mods built for the `1.20.1-Tec` modpack.
 
 **中文** ｜ [English](#english)
@@ -11,20 +11,12 @@ A collection of hand-written Minecraft mods built for the `1.20.1-Tec` modpack.
 
 ## 这是什么
 
-本仓库是 `1.20.1-Tec` 整合包配套的一批自研 mod。整合包以 **GregTech CEu Modern** 为主线，
-把 **Industrial Upgrade**、**IC2 Refabricated**、**Industrial Foregoing**、**Mekanism**、
-**Immersive Engineering**、**Thermal Series**、**Create** 等多条科技线接到同一个世界里，
+本仓库是 `1.20.1-Tec` 整合包配套的一批自研 mod。整合包将 **Industrial Upgrade**、**IC2 Refabricated**、**Industrial Foregoing**、**Mekanism**、
+**Immersive Engineering**、**Thermal Series**、**Create**、**GregTech CEu Modern** 等多条科技线接到同一个世界里，
 并借 **Sinytra Connector** 让 Fabric 侧 mod 与 Forge 侧共存。
 
 跨这么多 mod 会暴露大量上游 bug 与互不兼容；每条科技线又要统一材料与流体口径。
-本仓库就是这些工作的产物——**26 个修复 / 桥接 mod、1 个内容 mod、1 个 addon、1 个翻译工程**。
-
-设计原则有两条，贯穿全部工程：
-
-1. **只调上游公开 API，或做 mixin 注入，不复制上游代码。** 上游里 GTCEu / GTCA 是 LGPL、
-   Industrial Upgrade 是 AGPL，抄码会把 copyleft 拖进本仓库。
-2. **尽量不改原版 Minecraft 类。** 原版类被 Forge 补丁和众多第三方 mixin 共同依赖，
-   改动风险高、跨版本易碎；确需修改时先确认 Mojira 上有对应报告。
+本仓库致力于解决这些问题，包含**26 个修复 / 桥接 mod、1 个内容 mod、1 个 addon、1 个翻译工程**。
 
 ## 环境
 
@@ -32,9 +24,9 @@ A collection of hand-written Minecraft mods built for the `1.20.1-Tec` modpack.
 |---|---|
 | Minecraft | 1.20.1 |
 | Forge | 47.4.10 |
-| Java | **17**（构建时必须显式指定，见下） |
-| Gradle | 8.8（各工程带 wrapper） |
-| Sinytra Connector | 1.0.0-beta.49（部分工程依赖其桥接行为） |
+| Java | **17** |
+| Gradle | 8.8 |
+| Sinytra Connector | 1.0.0-beta.49 |
 
 ## 目录结构
 
@@ -48,14 +40,14 @@ Cais-Techpack-Suite/
 
 ### Industrial Upgrade 系列
 
-Industrial Upgrade（作者 Denfop）是 IC2 的精神续作，本包把它接回 IC2 与 GT 的双重语境。
+Industrial Upgrade（作者 Denfop）是 IC2 的精神续作，但可惜的是高版本作者声明与IC2不兼容，本包重新实现了兼容性，并尝试将其与 IC2 及本包剩余mod产生联动。
 
 | 工程 | 版本 | 用途 |
 |---|---|---|
 | `iufix` | 1.9.7 | IU 修复合集，27 个 mixin：污染 debuff 屏蔽、世界生成 NPE、镐挖等级门槛、WorldEdit 状态往返、多胞方块碰撞与铁砧朝向、Jade 数据守卫、分子重组机 GUI NPE、太空组装机 AE 自动化等 |
 | `iuunify` | 0.5.7 | IU × IC2 流体统一：钚换源、分子重构机配方配置化、输入匹配 |
-| `iuspeed` | 1.5.0 | IU 配方机提速：电编程台 25×、太空系统 10× |
-| `iuchancefix` | 1.0.0 | 矿物分离机煤粉合金配方确定性化（chance 75 → 100），使 AE2 能编码确定样板 |
+| `iuspeed` | 1.5.0 | IU 机器提速 |
+| `iuchancefix` | 1.0.0 | 矿物分离机煤粉合金配方确定性化，使 AE2 能编码确定样板 |
 | `uubridge` | 0.1.3 | IU × IC2 的 UU 链桥：晶体记忆双向读写、UU 成本按族内最小值归一化 |
 | `iudebug` | 1.2.1 | IU **破坏性**调试工具：按 config 取消指定注册；默认全关 |
 
@@ -64,8 +56,8 @@ Industrial Upgrade（作者 Denfop）是 IC2 的精神续作，本包把它接�
 | 工程 | 版本 | 用途 |
 |---|---|---|
 | `gtjeimbfix` | 1.0.0 | GTCEu 多方块 JEI 信息页悬停抛 `IndexOutOfBoundsException`——槽名反查的 flat widget 下标在渲染期已过期 |
-| `gtnoboomfix` | 1.0.0 | 关闭 GTCEu 全部爆炸与伤害机制（本整合包的设计决定，非上游 bug） |
-| `creativetabfix` | 1.0.0 | GTCA 物品不进任何创造页：`GTRegistrate` 从不安装 `DisplayItemsGenerator`。用 Forge 公开事件实现，零 mixin、不引用 GTCEu 类型 |
+| `gtnoboomfix` | 1.0.0 | 关闭 GTCEu 全部爆炸与伤害机制 |
+| `creativetabfix` | 1.0.0 | 修复 GTCA 物品不进任何创造页 |
 
 ### IC2 / Mekanism / Immersive Engineering 系列
 
@@ -87,7 +79,7 @@ Industrial Upgrade（作者 Denfop）是 IC2 的精神续作，本包把它接�
 
 | 工程 | 版本 | 用途 |
 |---|---|---|
-| `fluidunifyapi` | 0.1.0 | 可配置的「机器输入流体」API，覆盖 IC2 Refabricated、Industrial Foregoing、Industrial Upgrade。**只改输入侧定义**（配方表 / 谓词 / 判定点），输出侧、流体身份与 Forge `FluidTank` 混液语义零接触 |
+| `fluidunifyapi` | 0.1.0 | 可配置的「机器输入流体」API，覆盖 IC2 Refabricated、Industrial Foregoing、Industrial Upgrade。**用法见 [该目录 README](fluidunifyapi/README.md)** |
 
 ### Connector / 前置库系列
 
@@ -156,9 +148,7 @@ JAVA_HOME="C:/Program Files/Java/jdk-17" ./gradlew.bat build
 | `maaddon/` 中的贴图 | **LGPL-2.1**，来自 Industrial Agriculture；详见该目录 `THIRD_PARTY_NOTICES.md` 与 `LICENSE.LGPL-2.1` |
 | `thermal_guide_zhcn/` | **CC BY-NC-SA 4.0** |
 
-`thermal_guide_zhcn/` 是 Thermal Series 指南书的翻译作品，原文权利归 Team CoFH 所有
-（其许可为 "CoFH - Don't Be A Jerk"）。该翻译以**资源包形态**分发：只新增译文文件，
-运行时覆盖显示，不修改也不重分发原 mod；使用者需自行安装原 mod。
+`thermal_guide_zhcn/` 是 Thermal Series 指南书的翻译作品，原文权利归 Team CoFH 所有。
 
 ## 已知情况
 
@@ -176,23 +166,15 @@ JAVA_HOME="C:/Program Files/Java/jdk-17" ./gradlew.bat build
 
 This repository holds a set of hand-written Minecraft mods for the `1.20.1-Tec` modpack.
 
-The pack centres on **GregTech CEu Modern** and wires several other tech lines into one world:
-**Industrial Upgrade**, **IC2 Refabricated**, **Industrial Foregoing**, **Mekanism**,
-**Immersive Engineering**, **Thermal Series** and **Create** — using **Sinytra Connector**
-to let Fabric-side mods coexist with Forge ones.
+The pack wires **Industrial Upgrade**, **IC2 Refabricated**, **Industrial Foregoing**,
+**Mekanism**, **Immersive Engineering**, **Thermal Series**, **Create** and
+**GregTech CEu Modern** into one world — using **Sinytra Connector** to let Fabric-side
+mods coexist with Forge ones.
 
 Sharing a world between that many mods exposes a large number of upstream bugs and
 incompatibilities, and the tech lines also need their materials and fluids reconciled.
-This repository is the result: **26 fixes / bridges, 1 content mod, 1 addon and 1 translation project**.
-
-Two principles run through everything here:
-
-1. **Call upstream public APIs, or inject via mixins. Never copy upstream code.**
-   GTCEu / GTCA are LGPL and Industrial Upgrade is AGPL upstream; copying would pull
-   copyleft into this repository.
-2. **Avoid modifying vanilla Minecraft classes.** Vanilla classes are relied on by Forge
-   patches and many third-party mixins alike; changes there are risky and fragile across
-   versions. Where a change is genuinely needed, a Mojira report is confirmed first.
+This repository works on exactly that, and contains
+**26 fixes / bridges, 1 content mod, 1 addon and 1 translation project**.
 
 ## Environment
 
@@ -200,9 +182,9 @@ Two principles run through everything here:
 |---|---|
 | Minecraft | 1.20.1 |
 | Forge | 47.4.10 |
-| Java | **17** (must be selected explicitly when building) |
-| Gradle | 8.8 (wrapper included per project) |
-| Sinytra Connector | 1.0.0-beta.49 (some projects depend on its bridging behaviour) |
+| Java | **17** |
+| Gradle | 8.8 |
+| Sinytra Connector | 1.0.0-beta.49 |
 
 ## Layout
 
@@ -217,15 +199,16 @@ Cais-Techpack-Suite/
 
 ### Industrial Upgrade
 
-Industrial Upgrade (by Denfop) is a spiritual successor to IC2; this pack reconnects it
-to both IC2 and GregTech.
+Industrial Upgrade (by Denfop) is a spiritual successor to IC2, but the author has declared
+it incompatible with IC2 on newer versions. This pack re-implements that compatibility and
+links it up with IC2 and the rest of the pack's mods.
 
 | Project | Version | Purpose |
 |---|---|---|
 | `iufix` | 1.9.7 | IU fix collection, 27 mixins: pollution debuff suppression, worldgen NPE, harvest-tier gate, WorldEdit state round-trip, multi-cell collision and anvil facing, Jade data guards, molecular transformer GUI NPE, space assembler AE automation, and more |
 | `iuunify` | 0.5.7 | IU × IC2 fluid unification: plutonium sourcing, configurable molecular recipes, input matching |
-| `iuspeed` | 1.5.0 | IU machine speed multipliers: electric workbench 25×, space systems 10× |
-| `iuchancefix` | 1.0.0 | Makes the mineral separator's coal-dust alloy recipe deterministic (chance 75 → 100) so AE2 can encode a stable pattern |
+| `iuspeed` | 1.5.0 | IU machine speed multipliers |
+| `iuchancefix` | 1.0.0 | Makes the mineral separator's coal-dust alloy recipe deterministic, so AE2 can encode a stable pattern |
 | `uubridge` | 0.1.3 | IU × IC2 UU chain bridge: bidirectional crystal memory, UU cost normalised to the family minimum |
 | `iudebug` | 1.2.1 | **Destructive** IU debug tool: cancels selected registrations via config; off by default |
 
@@ -234,8 +217,8 @@ to both IC2 and GregTech.
 | Project | Version | Purpose |
 |---|---|---|
 | `gtjeimbfix` | 1.0.0 | GTCEu multiblock JEI info page throws `IndexOutOfBoundsException` on hover — the flat-widget index baked from slot names goes stale at render time |
-| `gtnoboomfix` | 1.0.0 | Disables all GTCEu explosion and damage mechanics (a pack design decision, not an upstream bug) |
-| `creativetabfix` | 1.0.0 | GTCA items land in no creative tab: `GTRegistrate` never installs a `DisplayItemsGenerator`. Implemented purely with a documented Forge event — no mixins, no GTCEu types referenced |
+| `gtnoboomfix` | 1.0.0 | Disables all GTCEu explosion and damage mechanics |
+| `creativetabfix` | 1.0.0 | Fixes GTCA items not appearing in any creative tab |
 
 ### IC2 / Mekanism / Immersive Engineering
 
@@ -257,7 +240,7 @@ to both IC2 and GregTech.
 
 | Project | Version | Purpose |
 |---|---|---|
-| `fluidunifyapi` | 0.1.0 | A configurable *machine fluid-input* API covering IC2 Refabricated, Industrial Foregoing and Industrial Upgrade. It only changes input-side definitions (recipe tables, predicates, decision points) and never touches output, fluid identity, or Forge `FluidTank` mixing semantics |
+| `fluidunifyapi` | 0.1.0 | A configurable *machine fluid-input* API covering IC2 Refabricated, Industrial Foregoing and Industrial Upgrade. **See [its README](fluidunifyapi/README.md) for usage** |
 
 ### Connector / library mods
 
@@ -330,10 +313,7 @@ Each project is governed by the license in its own `LICENSE` file:
 | `thermal_guide_zhcn/` | **CC BY-NC-SA 4.0** |
 
 `thermal_guide_zhcn/` is a translation of the Thermal Series guidebook; copyright in the
-original text belongs to Team CoFH (licensed under "CoFH - Don't Be A Jerk"). The
-translation is distributed as a **resource pack**: it only adds translated files that
-override display at runtime, and neither modifies nor redistributes the original mod.
-Users must install the original mod themselves.
+original text belongs to Team CoFH.
 
 ## Known caveats
 
