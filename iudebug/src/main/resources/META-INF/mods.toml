@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# v1.1.0 feature 1 timing guarantee (pure events + reflection, mixin abandoned):
+# ordering="BEFORE" = iudebug is loaded before industrialupgrade (FML dependency
+# topological sort). In the REGISTRY phase RegisterEvent is dispatched per mod
+# container in mod order (GameData.postRegisterEvents ->
+# ModLoader.postEventWrapContainerInModOrder -> each container's own mod bus),
+# so this mod's RegisterEvent handler runs before IU's DeferredRegister.addEntries.
+# See IuRegistrationBlocker javadoc.
+[[dependencies.${mod_id}]]
+    modId="industrialupgrade"
+    mandatory=true
+    versionRange="[3.4.0.10,)"
+    ordering="BEFORE"
+    side="BOTH"
