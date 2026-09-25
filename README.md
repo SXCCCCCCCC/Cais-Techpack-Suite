@@ -106,7 +106,7 @@ JAVA_HOME="C:/Program Files/Java/jdk-17" ./gradlew.bat build
 
 - 除 `tecend/`（**LGPL-3.0**）外，均为 **MIT**。
 - `maaddon/` 含来自 Industrial Agriculture 的贴图，其许可为 **LGPL-2.1**，详见该目录的 `THIRD_PARTY_NOTICES.md`。
-- `thermal_guide_zhcn/` 是 Thermal Series 指南书的翻译作品，以**资源包形态**分发（不修改、不重分发原 mod），使用者需自行安装原 mod。
+- `thermal_guide_zhcn/` 是 Thermal Series 指南书的翻译作品，适用 **CC BY-NC-SA 4.0**；以**资源包形态**分发（不修改、不重分发原 mod），使用者需自行安装原 mod。
 
 ## 说明
 

@@ -6,7 +6,7 @@
 
 口径：
 - id 一律取自 `local/kubejs/export/registries/{item,block,fluid}.json` 与 `export/recipes/`，每个都逐条命中过。
-- 机制描述取自 `D:\Projects\游戏\Minecraft\tools\src\` 的源码仓库；某家若无源码仓库，则只用注册表证据，不做机制断言。
+- 机制描述取自上游 mod 的源码仓库；某家若无源码仓库，则只用注册表证据，不做机制断言。
 - **标「未核实」的不要直接写进设计稿。**
 
 ---

@@ -1,0 +1,23 @@
+本目录是 Thermal Series 帕秋莉指南书的简体中文翻译，采用
+
+    Attribution-NonCommercial-ShareAlike 4.0 International
+    (CC BY-NC-SA 4.0)
+
+进行许可。协议全文：https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
+
+协议要点
+--------
+  署名 (BY)     转载或改编时注明来源。
+  非商业 (NC)   不得用于商业用途。
+  相同方式共享 (SA)
+                改编后对外分发时，需以同样的 CC BY-NC-SA 4.0 发布。
+
+原作品
+------
+被翻译的指南书原文权利归 Team CoFH 所有，其许可为
+"CoFH - Don't Be A Jerk (Learn, Don't Steal)"。
+
+本翻译以资源包形态分发：只新增 assets/thermal/patchouli_books/guidebook/zh_cn/
+下的译文文件，运行时覆盖显示，不修改、不重分发原 mod。使用者需自行安装原 mod。
+
+产物在 out/ 下；work/ 为加工目录（含解包的上游素材），不随本仓库分发。

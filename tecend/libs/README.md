@@ -23,7 +23,7 @@ GTCEu 把 LDLib 和 MixinExtras 压在自己的 `META-INF/jarjar/` 里，javac �
 
 ## 查 API 用哪里的源码
 
-按 SOP：**先读 `D:\Projects\游戏\Minecraft\tools\src\` 里已有的源码参照，不要对已有的用 javap/vineflower**。
+按 SOP：**先读已有的源码参照，不要对已有的用 javap/vineflower**。
 
 | 上游 | 源码参照 |
 |---|---|

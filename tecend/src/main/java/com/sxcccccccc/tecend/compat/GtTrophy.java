@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
  * {@code getForgeEnergyItem(ItemStack)}，javap 实证 —— 不是 8.0.0 源码里那种对 Item 的 instanceof），
  * 所以挂一份 {@code GTCapability.CAPABILITY_ELECTRIC_ITEM} 就能进 EU 那条路。</p>
  *
- * <p>实现照 endeavor 指南的骨架，唯一改动是<b>不检查 {@code chargerTier >= tier}</b>：
+ * <p>实现照实现指南的骨架，唯一改动是<b>不检查 {@code chargerTier >= tier}</b>：
  * GT 自带的实现带这个门槛，会让所有低档充电器直接返回 0（不是"很慢"）。</p>
  */
 public final class GtTrophy {

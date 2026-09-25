@@ -18,7 +18,8 @@ import random
 
 from PIL import Image
 
-OUT = r"D:\Projects\游戏\Minecraft\tecend\src\main\resources\assets\tecend\textures"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "src", "main", "resources", "assets", "tecend", "textures")
 
 # ---------------------------------------------------------------- 奖杯侧影
 # 依据 proof_of_honor championship_trophy 模型实测轮廓：

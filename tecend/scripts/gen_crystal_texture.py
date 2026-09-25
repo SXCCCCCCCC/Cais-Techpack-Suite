@@ -16,7 +16,7 @@ import os
 
 from PIL import Image
 
-ROOT = r"D:\Projects\游戏\Minecraft\tecend"
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "scripts", "raw_casting_mold_crystal_memory_16x16.png")
 DST = os.path.join(ROOT, "src", "main", "resources", "assets", "tecend",
                    "textures", "item", "raw_casting_mold_crystal_memory.png")
