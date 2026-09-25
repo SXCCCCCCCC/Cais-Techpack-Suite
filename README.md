@@ -7,9 +7,11 @@
 ```
 Cais-Techpack-Suite/
 ├── <工程名>/            每个目录是一个独立 Gradle 工程
-├── disabled/            已退役 / 已取消的工程，保留源码备查，不部署
 └── thermal_guide_zhcn/  Thermal Series 指南书简体中文翻译（资源包形态，非 mod）
 ```
+
+已退役 / 已取消的工程（`acfix`、`fluidqinshihuangdi`、`jeitransferfix`、`oeifix`）不在本仓库内，
+保留在上一级目录 `1.20.1-Tec/disabled/` 备查，不部署、不发布。
 
 ## 工程一览
 
@@ -86,15 +88,6 @@ Cais-Techpack-Suite/
 | 工程 | 用途 |
 |---|---|
 | `thermal_guide_zhcn` | Thermal Series 帕秋莉指南书简体中文翻译，以资源包形态分发（产物在 `out/`） |
-
-### disabled/
-
-| 工程 | 退役原因 |
-|---|---|
-| `acfix` | Applied Create 应力 P2P 隧道守卫，法医审计后定案关闭 |
-| `oeifix` | OEI 性能修复，实测无效后全量回滚 |
-| `fluidqinshihuangdi` | `fluidunifyapi` 的前身 |
-| `jeitransferfix` | JEI × 精妙背包升级台 `+` 按钮修复；上游 SophisticatedCore `1.20.1-1.3.78.2249` 已修，退役 |
 
 ## 构建
 
