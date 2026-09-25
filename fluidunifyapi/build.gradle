@@ -1,0 +1,131 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // ===== 目标/交互 mod（compileOnly；jar 见 libs/，来自 1.20.1-Tec 包 mods/）=====
+
+    // IU 3.4.0.10：运行时配方 API（Recipes.recipes / RecipesFluidCore / BaseFluidMachineRecipe）
+    // 与 mixin 目标（Fluids / InternalFluidTank / InventoryFluidByList）。fg.deobf 后源码可直接引用。
+    compileOnly fg.deobf(files('libs/IndustrialUpgrade-1.20.1-3.4.0.10.jar'))
+
+    // Titanium 3.8.35：mixin 目标 FluidTankComponent（IF 全部机器的油箱基类）
+    compileOnly fg.deobf(files('libs/titanium-1.20.1-3.8.35.jar'))
+
+    // KubeJS 插件 API（KubeJSPlugin / EventGroup / RecipesEventJS / RecipeSchema）
+    // + rhino + architectury（KubeJS 的编译期传递依赖）
+    compileOnly fg.deobf(files('libs/kubejs-forge-2001.6.5-build.26.jar'))
+    compileOnly fg.deobf(files('libs/rhino-forge-2001.2.3-build.10.jar'))
+    compileOnly fg.deobf(files('libs/architectury-9.2.14-forge.jar'))
+
+    // kjsindustrialforegoing：IF datapack 配方族的现成 KubeJS RecipeSchema
+    //（dissolution_chamber 等 6 类；流体输入补丁经它落到 vanilla RecipeManager）
+    compileOnly fg.deobf(files('libs/kjsindustrialforegoing-1.0.jar'))
+
+    // IF 3.5.22 本体：DissolutionChamberRecipe / ModuleCore / IndustrialRecipeTypes /
+    // OreFluidEntry* / ReactorRecipeWrapper（datapack 配方克隆 + JEI 条目构造）
+    compileOnly fg.deobf(files('libs/industrial-foregoing-1.20.1-3.5.22.jar'))
+
+    // JEI API：本 mod 自带的 JEI 插件（给 IF 现有分类补"新输入流体"条目）
+    compileOnly fg.deobf(files('libs/jei-1.20.1-forge-15.48.0.179.jar'))
+
+    // IC2 Refabricated 0.6（Connector/Fabric）：mixin 目标用 targets 字符串，
+    // 不直接引用其类型；裸 compileOnly 仅为让 Mixin AP 校验目标类存在。
+    compileOnly files('libs/industrialcraft2-refabricated-1.20.1-fabric.0.6.jar')
+}
+
+mixin {
+    add sourceSets.main, 'fluidunifyapi.refmap.json'
+    config 'fluidunifyapi.mixins.json'
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version, forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : mod_id,
+                "Specification-Vendor"    : mod_authors,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : mod_authors,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs"            : "fluidunifyapi.mixins.json"
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

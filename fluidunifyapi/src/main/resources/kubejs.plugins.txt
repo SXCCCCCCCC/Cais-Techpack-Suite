@@ -1,0 +1,2 @@
+# fluidunifyapi KubeJS 插件（机制同 GTCEu / kjsindustrialforegoing）
+com.sxcccccccc.fluidunifyapi.kubejs.FluidUnifyKubeJSPlugin

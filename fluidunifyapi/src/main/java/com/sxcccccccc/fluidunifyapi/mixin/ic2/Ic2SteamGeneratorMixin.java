@@ -1,0 +1,83 @@
+package com.sxcccccccc.fluidunifyapi.mixin.ic2;
+
+import com.sxcccccccc.fluidunifyapi.core.UnifiedFluidRegistry;
+import com.sxcccccccc.fluidunifyapi.ic2.Ic2Support;
+import net.minecraft.world.level.material.Fluid;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+/**
+ * IC2 蒸汽发生器（锅炉）水输入口。两个门禁点（0.6 jar javap 实证类名）：
+ * <ul>
+ *   <li>{@code $waterTank$1.canInsert(FluidVariant)}：原生 WATER || DISTILLED_WATER；</li>
+ *   <li>{@code $ioStorage$1.insert(FluidVariant, long, TransactionContext)}：同判定。</li>
+ * </ul>
+ * 模板口径 = [minecraft:water, ic2_120:distilled_water]（多模板 consultAny）。
+ * 蒸汽输出侧不碰（用户裁决：只改输入）。
+ */
+public final class Ic2SteamGeneratorMixin {
+
+    private static final String MACHINE = "ic2_120:steam_generator";
+
+    @Mixin(targets = "ic2_120.content.block.machines.SteamGeneratorBlockEntity$waterTank$1", remap = false)
+    public abstract static class WaterTankGate {
+
+        @Inject(
+                method = "canInsert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;)Z",
+                at = @At("HEAD"),
+                cancellable = true,
+                require = 1,
+                remap = false
+        )
+        private void fluidunifyapi$canInsert(@Coerce Object variant, CallbackInfoReturnable<Boolean> cir) {
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
+            if (fluid == null) {
+                return;
+            }
+            boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.ic2Fluid("distilled_water");
+            boolean widened = UnifiedFluidRegistry.acceptOverrideAny(MACHINE,
+                    new Fluid[]{Ic2Support.water(), Ic2Support.ic2Fluid("distilled_water")}, fluid, nativeResult);
+            if (widened != nativeResult) {
+                cir.setReturnValue(widened);
+                cir.cancel();
+            }
+        }
+    }
+
+    @Mixin(targets = "ic2_120.content.block.machines.SteamGeneratorBlockEntity$ioStorage$1", remap = false)
+    public abstract static class IoInsertGate {
+
+        @Inject(
+                method = "insert(Lnet/fabricmc/fabric/api/transfer/v1/fluid/FluidVariant;JLnet/fabricmc/fabric/api/transfer/v1/transaction/TransactionContext;)J",
+                at = @At("HEAD"),
+                cancellable = true,
+                require = 1,
+                remap = false
+        )
+        private void fluidunifyapi$insert(@Coerce Object variant, long maxAmount, @Coerce Object tx,
+                                          CallbackInfoReturnable<Long> cir) {
+            Fluid fluid = Ic2Support.normalize(Ic2Support.fluidOf(variant));
+            if (fluid == null) {
+                return;
+            }
+            boolean nativeResult = fluid == Ic2Support.water() || fluid == Ic2Support.ic2Fluid("distilled_water");
+            boolean widened = UnifiedFluidRegistry.acceptOverrideAny(MACHINE,
+                    new Fluid[]{Ic2Support.water(), Ic2Support.ic2Fluid("distilled_water")}, fluid, nativeResult);
+            if (widened && !nativeResult) {
+                // ioStorage 原生体有内联硬判定（非水非蒸馏水 return 0L）——放行落原生
+                // 体也会被拒，ACCEPT 时直接身份保持插水罐（罐 canInsert 已被加宽）
+                long r = Ic2Support.directInsert(this, "waterTank", variant, maxAmount, tx);
+                if (r >= 0L) {
+                    cir.setReturnValue(r);
+                    cir.cancel();
+                }
+            } else if (!widened) {
+                cir.setReturnValue(0L);
+                cir.cancel();
+            }
+        }
+    }
+}
