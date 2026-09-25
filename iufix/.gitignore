@@ -1,0 +1,14 @@
+# Gradle / ForgeGradle
+build/
+.gradle/
+run/
+out/
+logs/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+eclipse/
+bin/
+classes/

@@ -1,0 +1,40 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iufix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iufix.refmap.json",
+    "mixins": [
+        "ComponentProcessNullFix",
+        "BlockFluidIUDrainMixin",
+        "BlockEntityScannerAccessor",
+        "ApiaryRenderNullFix",
+        "PollutionDebuffDisableMixin",
+        "BlockEntityBaseSetRemovedGuard",
+        "IUHarvestToolMixin",
+        "IUCoolComponentMixin",
+        "PollutionTerrainProcessDisableMixin",
+        "EnvironmentalLayerTickDisableMixin",
+        "ForgeTransmogrifierIUCompatMixin",
+        "BlockCollisionProxyGetDelegatedShapeGuard",
+        "BlockEntityCollisionProxyIEModeMixin",
+        "MultiCellCollisionManagerRefreshMixin",
+        "BlockStateBaseFacingRotateMixin",
+        "BlockEntityBaseFacingFromStateMixin",
+        "BlockEntityBaseCanPlaceMixin",
+        "BlockComponentProviderJadeDataGuard",
+        "LoginGiftDisableMixin",
+        "Basemachine3SelfDropMixin",
+        "AssemblerSlotLimitOneMixin",
+        "MolecularTransformerCacheTraceMixin"
+    ],
+    "client": [
+        "ScreenScannerMixin",
+        "ScreenVeinSensorMixin",
+        "ScreenIndustrialUpgradeTextWrapMixin",
+        "ScreenMolecularTransformerGuardMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 0
+    }
+}
