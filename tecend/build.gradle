@@ -1,0 +1,172 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+
+    runs {
+        configureEach {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        data {
+            workingDirectory project.file('run-data')
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven { url = 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+// ==========================================================================================
+// 上游依赖接线
+//
+// 全部 compileOnly —— 编译期从 libs/ 解析，运行期由整合包 mods/ 提供（本 mod 不打包它们）。
+//   · Forge 系上游的生产 jar 是 SRG 重映射产物，必须 fg.deobf 解混淆后源码才能直接引用其类型；
+//     reobfJar 打包时把我们对原版成员的引用重映射回 SRG。
+//   · IC2 Refabricated 是 Fabric mod（经 Sinytra Connector 运行）：**不要**用 mods/ 里的原始 jar
+//     （intermediary，fg.deobf 会报错）。用 Connector 的重映射缓存
+//     mods/.connector/industrialcraft2-refabricated-*.jar 里那个 *_mapped_srg_1.20.1.jar ——
+//     它已经是「mojmap 类名 + SRG 成员名」，与 Forge mod 生产 jar 同形，可直接 fg.deobf
+//     （javap 实证：Method net/minecraft/core/DefaultedRegistry.m_6612_）。IC2 或 Connector 升级后
+//     要重新从 .connector 取一份。
+//   · libs/*.jar 不进 git（158M）；换机或重建时跑 scripts/collect-libs.sh 从整合包收集。
+//
+// 每条后面的注释 = 它在 docs/设计流程.md 里对应哪一步。
+// ==========================================================================================
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // ---------- 核心科技线 ----------
+    compileOnly fg.deobf(files('libs/gtceu-1.20.1-7.5.3.jar'))                         // 1 void_miner / 2 macerator / 3 王水·化学浸洗机 / 4 大型化学反应釜·酿造室 / 8 UU / 11 真空冷冻机 / 12·13 切割机 / 15 EU
+    compileOnly fg.deobf(files('libs/gtca-1.20.1-2.2.0.jar'))                          // 6 金纳米机器人 / 7 质子 / 9 热反应室
+    compileOnly fg.deobf(files('libs/ImmersiveEngineering-1.20.1-10.2.0-183.jar'))     // 1 斗轮挖掘机 / 2 crusher / 10 灌装机 / 13 锯木机
+    compileOnly fg.deobf(files('libs/IndustrialUpgrade-1.20.1-3.4.0.10.jar'))         // 1 量子采石场 / 2 macerator / 7 质子丸·质子核心 / 9 遗传稳定器 / 12 流式反应釜 / 13 切割机 / 15 GEF
+    compileOnly fg.deobf(files('libs/industrialcraft2-refabricated-1.20.1-fabric.0.6_mapped_srg_1.20.1.jar')) // 3 洗矿场 / 8 UU复制 / 11 强化石 / 15 EU —— Connector 重映射版（运行时真身）
+    compileOnly fg.deobf(files('libs/Mekanism-1.20.1-10.4.16.80.jar'))                // 2 crusher / 3 化学溶解室·清洗机·结晶器 / 4 反质子合成器 / 13 锯木机 / 15 J
+    compileOnly fg.deobf(files('libs/create-1.20.1-6.0.8.jar'))                        // 2 粉碎轮 / 3 搅拌 / 5 25残片合成 / 6 砂纸打磨 / 9 超级加热搅拌 / 10 注液 / 12 锅 / 13 动力锯 / 14 喷砂 / 15 SU
+
+    // ---------- 设计流程用到的其它上游 ----------
+    compileOnly fg.deobf(files('libs/createoreexcavation-1.20-1.6.5.jar'))             // 1 矿物钻井
+    compileOnly fg.deobf(files('libs/titanium-1.20.1-3.8.35.jar'))                     // IF 前置库
+    compileOnly fg.deobf(files('libs/industrial-foregoing-1.20.1-3.5.22.jar'))         // 1 镭射钻 / 3 洗矿场·发酵站·流体筛分机 / 9 生物捕捉器（猪）
+    compileOnly fg.deobf(files('libs/cofh_core-1.20.1-11.0.2.56.jar'))                 // Thermal 系前置（RF capability）
+    compileOnly fg.deobf(files('libs/thermal_expansion-1.20.1-11.0.1.29.jar'))         // 2 machine_pulverizer / 4 结晶器 / 13 锯木机 / 15 RF
+    compileOnly fg.deobf(files('libs/thermal_foundation-1.20.1-11.0.6.70.jar'))        // 15 RF（能量接口在 foundation）
+    compileOnly fg.deobf(files('libs/pneumaticcraft-repressurized-6.0.23+mc1.20.1.jar')) // 6 装配控制器多方块 / 9 压力室·刷怪笼核心（猪）/ 14 热气动加工机
+    compileOnly fg.deobf(files('libs/appliedenergistics2-forge-15.4.10.jar'))          // 11 熵变机械臂 / 14 世界交互接口 / 15 AE
+    compileOnly fg.deobf(files('libs/MysticalAgriculture-1.20.1-7.0.24.jar'))          // 5 祭坛魔法路线
+    compileOnly fg.deobf(files('libs/MysticalAgradditions-1.20.1-7.0.12.jar'))         // 5 究极精华块
+    compileOnly fg.deobf(files('libs/productivebees-1.20.1-12.6.0.jar'))               // 7 蜜蜡（资源蜜蜂）
+    compileOnly fg.deobf(files('libs/beyonddimensions-1.20.1-forge-0.7.27.jar'))       // 14 不稳定时空碎片·破碎的时空结晶
+    compileOnly fg.deobf(files('libs/pylons-1.20.1-4.3.0.jar'))                        // 9 生物过滤卡（猪，不走杀生路线）
+    // balm 是 CFB 的前置库：FridgeBlockEntity 的父类 BalmBlockEntity、以及它实现的
+    // BalmMenuProvider 都在这个 jar 里。不接进 classpath，连 getContainer() 那一句都编译不过
+    // （javac 解析 FridgeBlockEntity 的类型层次时要加载它们）。
+    compileOnly fg.deobf(files('libs/balm-forge-1.20.1-7.3.42.jar'))
+    compileOnly fg.deobf(files('libs/cookingforblockheads-forge-1.20.1-16.0.15.jar'))  // 11 冰箱
+    compileOnly fg.deobf(files('libs/gtse-1.3.1.jar'))                                 // 设计流程未直接用到；包里存在的 GTCEu 附属（harvester/nether_collector/mob_simulator，另自带一台 void_miner）——先接上备用
+
+    // 奖杯的方块/模型/材质来源（ARR，仅本地包内使用，不对外分发）。奖杯的三种中间形态由我们 mixin
+    // 它的方块类挂 BlockEntity + 一个 BlockState 属性实现；跨 mod mixin 必须 remap = false（SOP §2）。
+    // 三档方块：championplatform（金，用的网格是 custom/championship_trophy）/ runnerup_trophy / thirdplacetrophy。
+    compileOnly fg.deobf(files('libs/proof_of_honor-1.0.0-forge-1.20.1.jar'))
+
+    // ---------- JEI ----------
+    // 只给 client 侧那个 JEI 插件 mixin 用（往 IF 的 JEICustomPlugin.registerRecipes 里补我们的矿链条目）。
+    compileOnly fg.deobf(files('libs/jei-1.20.1-forge-15.48.0.179.jar'))
+
+    // ---------- GTCEu 的 jarjar 嵌套依赖 ----------
+    // gtceu 把 LDLib / MixinExtras 压在 META-INF/jarjar/ 里，javac 看不到嵌套 jar 的类
+    // （SOP §5）。已解到 libs/jarjar/ 供编译期解析；运行时由 gtceu 的 jarjar 展开，不会双份。
+    compileOnly files('libs/jarjar/ldlib-forge-1.20.1-1.0.40.b.jar')
+    compileOnly files('libs/jarjar/mixinextras-forge-0.5.3.jar')
+    // create 同样把 Ponder / Registrate / flywheel / MixinExtras 压在 jarjar 里。
+    // KineticBlockEntity 的祖先链经过 Ponder 的 VirtualBlockEntity，所以要 Ponder 才编译得过。
+    compileOnly files('libs/jarjar/Ponder-Forge-1.20.1-1.0.91.jar')
+}
+
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+}
+
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [
+            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
+            forge_version: forge_version, forge_version_range: forge_version_range,
+            loader_version_range: loader_version_range,
+            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors: mod_authors, mod_description: mod_description,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1',
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs'            : "${mod_id}.mixins.json"
+        ])
+    }
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

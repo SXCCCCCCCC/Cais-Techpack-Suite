@@ -1,0 +1,60 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "type": "forge:partial_nbt",
+    "item": "proof_of_honor:championplatform",
+    "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+  },
+  "loops": 10,
+  "transitionalItem": {
+    "item": "proof_of_honor:championplatform",
+    "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+  },
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "type": "forge:partial_nbt",
+          "item": "proof_of_honor:championplatform",
+          "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+        },
+        {
+          "item": "create:sand_paper"
+        }
+      ],
+      "results": [
+        {
+          "item": "proof_of_honor:championplatform",
+          "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+        }
+      ]
+    },
+    {
+      "type": "create:filling",
+      "ingredients": [
+        {
+          "type": "forge:partial_nbt",
+          "item": "proof_of_honor:championplatform",
+          "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+        },
+        {
+          "fluidTag": "forge:distilled_water",
+          "amount": 1000
+        }
+      ],
+      "results": [
+        {
+          "item": "proof_of_honor:championplatform",
+          "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.uncarved\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:5}}"
+        }
+      ]
+    }
+  ],
+  "results": [
+    {
+      "item": "proof_of_honor:championplatform",
+      "nbt": "{display:{Name:'{\"translate\":\"tecend.trophy.ancient\"}'},BlockEntityTag:{id:\"tecend:trophy\",type:4}}"
+    }
+  ]
+}

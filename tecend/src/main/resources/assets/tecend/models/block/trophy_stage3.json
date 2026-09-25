@@ -1,0 +1,19 @@
+{
+  "loader": "forge:composite",
+  "parent": "proof_of_honor:custom/championship_trophy",
+  "textures": {
+    "particle": "minecraft:block/gold_block"
+  },
+  "children": {
+    "base": {
+      "parent": "proof_of_honor:custom/championship_trophy",
+      "render_type": "solid",
+      "textures": {
+        "0": "tecend:block/trophy_rough_cast"
+      }
+    },
+    "sprue": {
+      "parent": "tecend:block/trophy_sprue"
+    }
+  }
+}

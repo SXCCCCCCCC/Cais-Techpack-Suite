@@ -1,0 +1,22 @@
+# Gradle / ForgeGradle
+build/
+.gradle/
+run/
+run-data/
+out/
+logs/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+eclipse/
+bin/
+classes/
+
+# 上游 jar：约 160M，不进仓库；用 scripts/collect-libs.sh 从整合包收集
+libs/*.jar
+libs/jarjar/*.jar
+
+# 本机临时
+*.log

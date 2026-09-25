@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.sxcccccccc.tecend.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "tecend.refmap.json",
+  "plugin": "com.sxcccccccc.tecend.mixin.TecendMixinPlugin",
+  "mixins": [
+    "TrophyBlockMixin",
+    "TrophyRotateMixin",
+    "TrophyIc2Mixin",
+    "TrophyAeMixin",
+    "TrophyIuMixin",
+    "TrophyPncMixin",
+    "RunnerupTrophyHardnessMixin",
+    "FridgeMoldCoolingMixin",
+    "QuantumQuarryFragmentMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,146 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+description="${mod_description}"
+authors="${mod_authors}"
+
+[[dependencies.${mod_id}]]
+modId="forge"
+mandatory=true
+versionRange="${forge_version_range}"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="minecraft"
+mandatory=true
+versionRange="${minecraft_version_range}"
+ordering="NONE"
+side="BOTH"
+
+# ==========================================================================================
+# 上游依赖
+#
+# 全部 mandatory=false —— 本 mod 每条上游代码路径都过了 Compat.isLoaded 门禁（见
+# compat/Compat.java），缺任一上游都不会导致加载失败，只是对应流程走不通；dev 的
+# runClient 里本来就没有这些 mod（没有把它们加进 runtime classpath），所以不能写 mandatory。
+# 整合包里这些是必装项：缺哪个，docs/设计流程.md 里对应步骤的机器/配方就不存在。
+#
+# versionRange **必须显式写**（实测踩坑 2026-09-15）：省掉它不是"默认全匹配"，而是空范围
+# —— 空范围谁都匹配不上，20 个上游全部报 "Mod tecend only supports <modid>"，
+# mod 会被判 broken state 直接崩游戏（crash-report 里一堆 "only supports ..."）。
+# 这里统一写 "[0,)"：只表达"版本不限"，是否可用交给 Compat 门禁与实测，
+# 避免各上游版本串格式差异（有的带 mc 前缀、有的用 jar 版本占位）造成误判。
+#
+# 另注意：本文件会被 processResources 的 Groovy 模板 expand 过一遍，注释里同样不能出现
+# 美元符号开头的占位式写法（会被当占位符解析：花括号那种报 Missing property，裸符号报模板语法错）；
+# 这也是本文件与 gradle.properties 里 description 都避开美元符号的原因。
+# ==========================================================================================
+
+[[dependencies.${mod_id}]]
+modId="gtceu"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="gtca"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="gtse"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="immersiveengineering"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="industrialupgrade"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="ic2_120"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="mekanism"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="create"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="createoreexcavation"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="industrialforegoing"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="thermal_expansion"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="pneumaticcraft"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="ae2"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="mysticalagriculture"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="mysticalagradditions"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="productivebees"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="beyonddimensions"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="pylons"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="cookingforblockheads"
+mandatory=false
+versionRange="[0,)"
+
+[[dependencies.${mod_id}]]
+modId="proof_of_honor"
+mandatory=false
+versionRange="[0,)"
+# 奖杯物品要抢注 proof_of_honor:championplatform（注册同名条目，后注册者胜出）。
+# 注册事件按 mod 加载顺序同步派发，必须确保我们在它之后注册。
+ordering="AFTER"
