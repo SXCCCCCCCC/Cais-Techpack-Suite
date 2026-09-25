@@ -1,0 +1,27 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iuunify.mixin",
+    "plugin": "com.sxcccccccc.iuunify.asm.IuUnifyTransformPlugin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iuunify.refmap.json",
+    "mixins": [
+        "FluidNameRedirectMixin",
+        "DeferredRegisterPhaseMixin",
+        "IUFluidCastTargetsMixin",
+        "IUCoreRegisterItemTabMixin",
+        "FluidsTankRegisterMixin",
+        "InternalFluidTankAcceptMixin",
+        "TransferApiForgeCompatItemBridgeMixin",
+        "InventoryFluidByListAcceptMixin",
+        "InventoryTankAcceptMixin",
+        "RecipesFluidCoreMatchMixin",
+        "FluidHandlerRecipeConsumeMixin",
+        "FluidTankFillUnifiedMixin",
+        "InventoryFluidTransferDrainMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 0
+    }
+}
