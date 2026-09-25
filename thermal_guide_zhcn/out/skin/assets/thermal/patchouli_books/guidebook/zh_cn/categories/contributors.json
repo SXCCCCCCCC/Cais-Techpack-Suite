@@ -1,0 +1,7 @@
+{
+  "name": "参与者",
+  "description": "由这些亲爱的人们带给你！感谢所有提供帮助的人们及 Discord 中所有提供建议和反馈的人。最由衷地感谢 King，感谢他容忍我们，让我们着手这个项目，并在这么多年来为我们带来了这些所有的模组，并且从未要求任何回报。",
+  "icon": "minecraft:poppy",
+  "parent": "thermal:links",
+  "sortnum": 20
+}

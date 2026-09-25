@@ -1,0 +1,23 @@
+{
+  "name": "背包",
+  "icon": "thermal:satchel",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "背包是可以装东西的包包。这很简单明了。按 \"$(k:cofh.mode_change_increment)\" 切换自动收集模式，根据过滤器限制，物品会在拾取时自动存储。它可以在工匠工作台中升级。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:tools/satchel",
+      "title": "背包",
+      "text": "它可以在工作台中用任何普通染料染色，和/或用信素安全锁锁定。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)"
+    }
+  ]
+}

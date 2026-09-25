@@ -1,0 +1,17 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.mekmmuufix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "mekmmuufix.refmap.json",
+    "mixins": [
+        "TileEntityReplicatorMixin",
+        "TileEntityFluidReplicatorMixin",
+        "TileEntityReplicatingFactoryMixin"
+    ],
+    "client": [
+        "MoreMachineRecipeRegistryHelperMixin"
+    ],
+    "server": [
+    ]
+}

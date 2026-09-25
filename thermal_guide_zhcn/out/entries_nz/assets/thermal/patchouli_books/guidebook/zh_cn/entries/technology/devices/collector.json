@@ -1,0 +1,24 @@
+{
+  "name": "真空箱子",
+  "icon": "thermal:device_collector",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "|mod:thermal_expansion,mod:thermal_dynamics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "真空箱子是一种可以在其影响范围内拾取物品的装置。当安装了$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)时，它可以拾取经验球。基本上，真空箱子收集以其为中心的 9x9x9 区域，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)将其扩大到 15x15x15。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_collector",
+      "title": "真空箱子",
+      "text": "当由红石控制时，真空箱子会在打开时立即拾取物品。这样，它会在脉冲时永远可靠地启动。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)"
+    }
+  ]
+}

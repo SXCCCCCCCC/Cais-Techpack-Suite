@@ -1,0 +1,24 @@
+{
+  "name": "红石发信炸药",
+  "icon": "thermal:redstone_tnt",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "红石发信炸药在爆炸时会产生红石通量激发场，启动其影响范围内的任何红石元件和装置。该场域将持续 10 秒。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:redstone_tnt",
+      "B.recipe": "thermal:redstone_grenade_4"
+    },
+    {
+      "flag": "&mod:thermal_innovation,mod:thermal_locomotion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:redstone_tnt_minecart",
+      "title": "红石发信炸药矿车"
+    }
+  ]
+}

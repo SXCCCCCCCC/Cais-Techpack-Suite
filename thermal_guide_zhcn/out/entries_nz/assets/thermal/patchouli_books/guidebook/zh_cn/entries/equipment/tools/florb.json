@@ -1,0 +1,17 @@
+{
+  "name": "流体球",
+  "icon": "thermal:florb",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "流体球。即「流体之球」的简称，显然。可容纳一桶流体。而且你还能把它们扔出去！注意：它们只能装可以在世界中放置的流体。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:florb_8",
+      "title": "流体球"
+    }
+  ]
+}

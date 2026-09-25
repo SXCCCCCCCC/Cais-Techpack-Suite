@@ -1,0 +1,32 @@
+{
+  "name": "流体单元",
+  "icon": "thermal:fluid_cell",
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "category": "thermal:storage",
+
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "流体单元可用于存储和分配流体。流体单元的起始容量为 32,000 mb，最大输入/输出速率为 8,000 mb/t，可以使用升级组件进行改进。它一次只能存储一种流体。每侧都可以设定为输入/输出能量，单元可以设定为自动输入/输出。提供与充满程度成比例的比较器输出。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fluid_cell_frame",
+      "B.recipe": "thermal:fluid_cell"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "可以精确设置流体单元的传输速率。在 GUI 中，流体测量计的两侧是输入和输出传输速率。这些可以使用 \"+\" 和 \"-\" 按钮手动设定，以精确控制流体传输速率。左/右键点击将以每刻 50/10 mb 的比率更改。Ctrl + 点击以 5/1 的比率更改。Shift + 点击以 1000/100 的比率更改。Ctrl + Shift + 点击以 10k/1k 的比率更改。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "可以用铁桶右击流体单元以一次填充或清空一个桶。请注意，目前 Forge 存在一个错误，即尝试将不可装桶的流体装桶会使你的桶失效！"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "鱼饵",
+  "icon": "thermal:aquachow",
+  "read_by_default": true,
+  "category": "thermal:materials",
+  "flag": "mod:thermal_cultivation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "可以在$(l:thermal:technology/devices/fisher)水产捕捞器$(/l)中使用各种类型的鱼饵以增强或改变其捕鱼能力。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:aquachow_4",
+      "text": "水产饲料是鱼类无法抗拒的独特成分混合物；它提高了捕捞器的自然捕捞能力。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:deep_aquachow_4",
+      "text": "底栖水产饲料帮助捕捞器从更深的地方捕捞东西，提高捕捞河豚、海带、海晶石、墨水囊、海绵、偶尔甚至是三叉戟等物品的几率。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:junk_net",
+      "text": "垃圾打捞网可以让捕捞器收集垃圾物品，例如拴绳、睡莲、骨头、水瓶和皮革。正如谚语所说：「一个人的垃圾是另一个人的宝藏。」或类似的说法。"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Discord",
+  "icon": "thermal:signalum_gear",
+  "category": "thermal:links",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:link",
+      "url": "https://discord.com/invite/uRKrnbH",
+      "link_text": "Discord",
+      "text": "遇到技术问题？还有问题？有建议？想要一个友好的地方？想更轻松地知道你最喜爱的热力模组何时更新？加入我们的 Discord 吧 :D"
+
+
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "thermal:signalum_ingot",
+      "text": "有趣的事实！信素因其传输红石信号的能力而得名！"
+    }
+  ]
+
+}

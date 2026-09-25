@@ -1,0 +1,18 @@
+{
+  "name": "知识浓缩器",
+  "icon": "thermal:xp_storage_augment",
+  "category": "thermal:augments",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/xp_storage_augment",
+      "title": "知识浓缩器",
+      "text": "知识浓缩器增强元件允许机器或装置从配方或世界中收集经验值。它以 2.5k 经验值的最大存储量开始，乘以$(l:thermal:technology/augments/integral_components)整合元件$(/l)提供的缩放比例。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "安装后，一个类似于 $(l:thermal:equipment/tools/xp_crystal)洞见水晶$(/l)的小图标将出现在方块 GUI 的右下角。玩家可以点击此图标来提取存储在机器中的经验值。"
+    }
+  ]
+}

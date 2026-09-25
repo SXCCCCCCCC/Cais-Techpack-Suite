@@ -1,0 +1,16 @@
+{
+  "name": "辅助处理筛",
+  "icon": "thermal:machine_output_augment",
+  "category": "thermal:augments",
+
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_output_augment",
+      "title": "辅助处理筛",
+      "text": "辅助处理筛将副产物输出的几率提升 15%，但也将每次操作使用的能量提升 1.25 倍。"
+    }
+  ]
+}

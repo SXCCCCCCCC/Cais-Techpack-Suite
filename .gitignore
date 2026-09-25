@@ -1,0 +1,41 @@
+# 构建产物
+.gradle/
+build/
+run/
+run-data/
+bin/
+classes/
+*.log
+*.log.gz
+hs_err_pid*.log
+replay_pid*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+eclipse/
+
+# 第三方 mod jar —— 编译期依赖，绝不再分发
+libs/*
+!libs/README.md
+!**/libs/README.md
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+!**/gradle/wrapper/gradle-wrapper.jar
+
+# 备份与禁用件
+*.bak
+*.bak-*
+*.disabled
+
+# 翻译工程的工作目录：含 Thermal 原版权素材与解包 jar，不入库
+thermal_guide_zhcn/work/
+
+# 系统
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,23 @@
+{
+  "name": "Connected Textures Mod",
+  "icon": "thermal:enderium_gear",
+  "category": "thermal:links",
+  "read_by_default": true,
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:link",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/ctm",
+      "link_text": "CTM",
+      "text": "你是否知道安装了 CTM 后，末影玻璃等一些材质会连接起来并且看起来很漂亮？你装了吗？做得好。你没有？你在等什么？！"
+
+
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "thermal:enderium_ingot",
+      "text": "有趣的事实！末影合金因其扭曲时空的末影特性而得名！"
+    }
+  ]
+
+}

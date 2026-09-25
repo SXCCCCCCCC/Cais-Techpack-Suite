@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iuchancefix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iuchancefix.refmap.json",
+    "mixins": [
+        "HandlerHoChanceMixin",
+        "SteamHandlerHoChanceMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 0
+    }
+}

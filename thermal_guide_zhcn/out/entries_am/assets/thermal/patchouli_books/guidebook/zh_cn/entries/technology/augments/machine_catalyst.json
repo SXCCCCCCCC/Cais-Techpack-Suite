@@ -1,0 +1,16 @@
+{
+  "name": "触媒回收室",
+  "icon": "thermal:machine_catalyst_augment",
+  "category": "thermal:augments",
+
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_catalyst_augment",
+      "title": "触媒回收室",
+      "text": "触媒回收室降低 0.8 倍使用催化剂的几率，但也将每次操作使用的能量提升 1.25 倍。"
+    }
+  ]
+}

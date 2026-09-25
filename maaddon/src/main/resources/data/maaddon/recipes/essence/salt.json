@@ -1,0 +1,23 @@
+{
+  "type": "cucumber:shaped_no_mirror",
+  "conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "maaddon:salt"
+    }
+  ],
+  "pattern": [
+    "EEE",
+    "E E",
+    "EEE"
+  ],
+  "key": {
+    "E": {
+      "item": "mysticalagriculture:salt_essence"
+    }
+  },
+  "result": {
+    "item": "mekanism:salt",
+    "count": 16
+  }
+}

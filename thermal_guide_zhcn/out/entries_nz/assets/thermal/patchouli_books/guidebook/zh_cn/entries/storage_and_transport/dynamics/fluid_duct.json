@@ -1,0 +1,24 @@
+{
+  "name": "流体管道",
+  "icon": "thermal:fluid_duct",
+  "read_by_default": true,
+  "flag": "mod:thermal_dynamics",
+  "category": "thermal:ducts",
+
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "流体管道用于输送流体。一段管道网络在同一时间只能容纳和传输一种流体。流体管道（视窗）可以让你看到里面的流体。为了从$(l:thermal:technology/devices/introduction)装置$(/l)和其他不能自动输出流体的方块中抽取流体，需要安装伺服器连接件。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fluid_duct_4",
+      "B.recipe": "thermal:fluid_duct_windowed_4"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "连接件兼容性",
+      "text": "$(li)过滤器$(li)伺服器$(li)涡轮伺服器"
+    }
+  ]
+}

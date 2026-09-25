@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.mafgllibfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "mafgllibfix.refmap.json",
+    "mixins": [
+    ],
+    "client": [
+        "InitializationHandlerMixin",
+        "ConfigManagerMixin"
+    ],
+    "server": [
+    ]
+}

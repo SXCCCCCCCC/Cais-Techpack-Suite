@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sxcccccccc.cofhlightfix.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "cofhlightfix.refmap.json",
+  "mixins": [],
+  "client": [
+    "TransientLightManagerMixin"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "防化套装",
+  "icon": "thermal:hazmat_chestplate",
+  "category": "thermal:armor",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "防化套装将保护你免受环境危害，例如燃烧、摔落伤害和状态异常。需要整套防化套装才能提供全面保护！防止状态效果和火焰时会消耗耐久度。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:hazmat_fabric",
+      "text": "$(o)橙色可疑$()"
+
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:armor/hazmat_helmet",
+      "B.recipe": "thermal:armor/hazmat_chestplate"
+
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:armor/hazmat_leggings",
+      "B.recipe": "thermal:armor/hazmat_boots"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.gtjeimbfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "gtjeimbfix.refmap.json",
+    "mixins": [
+    ],
+    "client": [
+        "MultiblockInfoSlotFixMixin"
+    ],
+    "server": [
+    ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "祛魔能源炉",
+  "icon": "thermal:dynamo_disenchantment",
+  "category": "thermal:dynamos",
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "祛魔能源炉使用书本等附魔物品产生红石通量。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:dynamo_disenchantment",
+      "title": "祛魔能源炉"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)"
+    }
+  ]
+}

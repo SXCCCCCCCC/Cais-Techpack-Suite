@@ -1,0 +1,18 @@
+{
+  "name": "物品过滤规制",
+  "icon": "thermal:item_filter_augment",
+  "category": "thermal:augments",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/item_filter_augment",
+      "title": "物品过滤规制",
+      "text": "物品过滤规制升级组件允许机器、装置或装备有选择地接受物品。过滤器可以在独立的 GUI 中配置，可以通过按住 Shift + 右击安装它的方块或物品，或通过方块 GUI 中的标签来访问。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "最多可以将 15 个物品添加到过滤器中，并具有在黑名单/白名单与忽略/匹配 NBT 之间切换的选项。"
+    }
+  ]
+}

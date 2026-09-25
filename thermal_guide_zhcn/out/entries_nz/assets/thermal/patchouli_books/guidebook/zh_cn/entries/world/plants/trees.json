@@ -1,0 +1,26 @@
+{
+  "name": "树木",
+  "icon": "thermal:rubberwood_sapling",
+  "read_by_default": true,
+  "flag": "mod:thermal_foundation",
+  "category": "thermal:plants",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "热力基础新增了一种树（以及相关的木制品）——橡胶木！随着进度不断推进，更多内容会持续推出。"
+    },
+    {
+      "type": "2-2_item_page",
+
+      "A.title": "橡胶木树",
+      "A.item1": "thermal:rubberwood_sapling",
+      "A.item2": "thermal:rubberwood_leaves",
+      "A.text": "想获得树苗，去找流浪商人。",
+
+      "B.title": "橡胶木",
+      "B.item1": "thermal:rubberwood_log",
+      "B.item2": "thermal:stripped_rubberwood_log",
+      "B.text": "含有大量胶乳的木材，且具有防火特性。"
+    }
+  ]
+}

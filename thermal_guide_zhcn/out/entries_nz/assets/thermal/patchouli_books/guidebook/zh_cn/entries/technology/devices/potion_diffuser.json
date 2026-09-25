@@ -1,0 +1,28 @@
+{
+  "name": "药水雾化器",
+  "icon": "thermal:device_potion_diffuser",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "药水雾化器是一种会定期消耗$(l:thermal:technology/potion_fluid)药水溶液$(/l)以将药水效果散播给附近生物的装置。与普通药水相比，以这种方式获得的效果持续时间缩短 1/4。当没有生物在其影响范围内时，它会自动停止运作。基本上，雾化器在以它为中心的 9x9x9 区域散播药水效果，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)增强元件扩大到 15x15x15。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_potion_diffuser",
+      "title": "药水雾化器",
+      "text": "试剂，即红石和荧石，可以分别以持续时间为代价来增加持续时间和提升效果等级（最高 IV）。单个试剂物品可维持雾化器运作 16 次。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "当由红石控制时，雾化器会在打开时套用药水效果，只要它的范围内有生物。这样，它会在脉冲时始终可靠地启动。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)$(li)$(l:thermal:technology/augments/potion_amplifier)炼金放大器$(/l)$(li)$(l:thermal:technology/augments/potion_duration)炼金延长器$(/l)"
+    }
+  ]
+}

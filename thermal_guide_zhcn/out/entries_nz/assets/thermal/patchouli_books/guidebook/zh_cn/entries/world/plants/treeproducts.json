@@ -1,0 +1,97 @@
+{
+  "name": "树木产物",
+  "icon": "thermal:sawdust",
+  "read_by_default": true,
+  "category": "thermal:plants",
+  "pages": [
+    {
+      "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+      "type": "thermal:1-1_item_page",
+
+      "A.title": "树汁",
+      "A.item": "thermal:sap_bucket",
+      "A.text": "一种含糖流体，曾经在$(l:thermal:technology/devices/tree_extractor)深色橡木$(/l)中携带水和养分。",
+
+      "B.title": "树脂",
+      "B.item": "thermal:resin_bucket",
+      "B.text": "一种黏稠的流体，可以从橡木、白桦木、云杉木和金合欢木中$(l:thermal:technology/devices/tree_extractor)收获$(/l)。"
+    },
+    {
+      "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+      "type": "thermal:1_item_page",
+
+      "title": "植物胶乳",
+      "item": "thermal:latex_bucket",
+      "text": "一种稠密的乳状聚合物胶乳，可以从丛林中$(l:thermal:technology/devices/tree_extractor)收获$(/l)。主要用于制作橡胶。"
+    },
+
+    {
+      "flag": "&!mod:thermal_expansion,!mod:thermal_cultivation",
+      "type": "thermal:double_crafting_page",
+
+      "title": "橡胶",
+      "A.recipe": "thermal:rubber_from_dandelion",
+      "B.recipe": "thermal:rubber_from_vine"
+    },
+    {
+      "flag": "&!mod:thermal_expansion,!mod:thermal_cultivation",
+      "type": "2_item_page",
+
+      "title": "橡胶",
+      "item1": "thermal:rubber",
+      "item2": "thermal:cured_rubber",
+      "text": "一种来自胶乳凝固的弹性防水材料。它可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉中对橡胶进行硫化。"
+    },
+
+    {
+      "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+      "type": "thermal:double_crafting_page",
+
+      "title": "橡胶",
+      "A.recipe": "thermal:rubber_from_dandelion",
+      "B.recipe": "thermal:rubber_3"
+    },
+    {
+      "flag": "&mod:thermal_cultivation,!mod:thermal_expansion",
+      "type": "smelting",
+
+      "A.recipe": "thermal:smelting/cured_rubber_from_smelting",
+      "text": "一种来自胶乳凝固的弹性防水材料。它可以直接将乳胶桶放在工作台上制作，也可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉中对橡胶进行硫化。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "3_alloy_page",
+      "title": "橡胶",
+      "recipe": "thermal:machines/smelter/smelter_cured_rubber",
+
+      "text": "一种来自胶乳凝固的弹性防水材料。它可以直接将乳胶桶放在工作台上制作，也可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉或感应炉中对橡胶进行硫化。"
+    },
+
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "2-1_item_page",
+
+      "A.title": "锯末",
+      "A.item1": "thermal:sawdust",
+      "A.item2": "thermal:sawdust_block",
+      "A.text": "一堆通过$(l:thermal:technology/machines/pulverizer)粉碎$(/l)原木或$(l:thermal:technology/machines/sawmill)切割$(/l)木材得到的小木片。方块形态是可燃燃料。",
+
+      "B.title": "糖浆",
+      "B.item": "thermal:syrup_bucket",
+      "B.text": "一种浓稠可口的流体，让任何烙饼的不幸遭遇都值得。通过$(l:thermal:technology/machines/refinery)精炼$(/l)树汁产生。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "2-1_item_page",
+
+      "A.title": "松香",
+      "A.item1": "thermal:rosin",
+      "A.item2": "thermal:rosin_block",
+      "A.text": "一种固体、$(l:thermal:technology/machines/refinery)精炼$(/l)形态的树脂。可当作可燃燃料。",
+
+      "B.title": "树油",
+      "B.item": "thermal:tree_oil_bucket",
+      "B.text": "一种精油，是$(l:thermal:technology/machines/refinery)精炼$(/l)树脂的副产品。可以当作$(l:thermal:technology/dynamos/compression)压缩能源炉$(/l)的燃料。"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "遥控起爆器",
+  "icon": "thermal:detonator",
+  "read_by_default": true,
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "遥控起爆器用于引爆，并且一次引爆多达 16 个炸药！首先放置所有炸药，然后用起爆器右击每个炸药。指示灯将变成黄色，表示至少有 1 个炸药已启动。接着可以将模式更改为引爆，此时指示灯将变为绿色，再次右击将引爆所有已启动的炸药。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:tools/detonator",
+      "text": "按 \"$(k:cofh.mode_change_increment)\" 变更模式。"
+    }
+  ]
+}

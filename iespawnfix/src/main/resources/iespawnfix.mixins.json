@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iespawnfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iespawnfix.refmap.json",
+    "mixins": [
+        "SpawnInterdictionHandlerMixin"
+    ],
+    "client": [
+    ],
+    "server": [
+    ]
+}

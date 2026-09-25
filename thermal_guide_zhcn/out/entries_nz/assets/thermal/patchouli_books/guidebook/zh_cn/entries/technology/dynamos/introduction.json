@@ -1,0 +1,18 @@
+{
+  "name": "介绍 - 能源炉",
+  "icon": "thermal:iron_gear",
+  "category": "thermal:dynamos",
+  "sortnum": -2,
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "能源炉从各种类型的燃料中产生红石通量。它们有一个线圈侧，由能源炉产能时发光的亮红色小方块表示。红石通量仅从线圈侧输出，燃料从任何其他侧接受。在没有任何升级的情况下，能源炉可产生高达 40 RF/t 的功率。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "能源炉有一个内部缓冲器，可以使用$(l:thermal:technology/augments/integral_components)整合元件$(/l)升级，但不能使用通量线圈增强。能源炉将根据此缓冲区的饱满程度自动限制其红石通量输出和燃料使用。当为空时，能源炉将以其最大红石通量输出工作。充满时，能源炉将以 10% 的输出工作，即使产生的红石通量被浪费，也会使用燃料。缓冲器只有在能源炉产能时才会自动输出，闲置时会逐渐衰减。"
+    }
+  ]
+}

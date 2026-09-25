@@ -1,0 +1,24 @@
+{
+  "name": "通量磁铁",
+  "icon": "thermal:flux_magnet",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "通量磁铁是一种使用红石通量将附近的物品拉入玩家物品栏的工具。拿着它右击会吸取附近的物品。按 \"$(k:cofh.mode_change_increment)\" 切换自动磁吸模式，附近的物品会被自动拉入。它可以在工匠工作台中充能和升级。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:flux_magnet",
+      "title": "通量磁铁",
+      "text": "它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "流体储罐矿车",
+  "icon": "thermal:fluid_minecart",
+  "read_by_default": true,
+  "flag": "mod:thermal_locomotion",
+  "category": "thermal:locomotion",
+
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "流体储罐矿车可用于存储流体。矿车的初始容量为 32,000 mb，可以使用增强元件提升。它一次只能存储一种流体。你可以使用兼容的容器（例如桶）手动向矿车中添加或取出流体。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fluid_cell_frame",
+      "B.recipe": "thermal:fluid_minecart"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "也可以直接用桶右键点击流体储罐矿车，一次一桶地填充或倒空。注意：目前 Forge 存在一个 Bug，对不可装桶的流体使用桶会导致你的桶凭空消失！请期待一种可以实现有趣物流的传输铁轨！"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)"
+    }
+  ]
+}

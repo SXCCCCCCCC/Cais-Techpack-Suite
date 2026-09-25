@@ -1,0 +1,24 @@
+{
+  "name": "药水箭袋",
+  "icon": "thermal:potion_quiver",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用于存储和灌注具有药水效果的箭。右击你手中的箭袋，将箭矢从你的物品栏转移到箭袋中。按 \"$(k:cofh.mode_change_increment)\" 切换灌注，每个箭矢需要 50mb 存储的 $(l:thermal:technology/potion_fluid)药水$(/l)。可以在工匠工作台中填充和升级箭袋。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:potion_quiver",
+      "title": "药水箭袋",
+      "text": "它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高流体容量。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/potion_amplifier)炼金放大器$(/l)$(li)$(l:thermal:technology/augments/potion_duration)炼金延长器$(/l)"
+    }
+  ]
+}

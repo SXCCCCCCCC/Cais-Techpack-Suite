@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "mysticalagriculture:salt_crop",
+    "mysticalagriculture:plastic_crop",
+    "mysticalagriculture:pink_slime_crop"
+  ]
+}

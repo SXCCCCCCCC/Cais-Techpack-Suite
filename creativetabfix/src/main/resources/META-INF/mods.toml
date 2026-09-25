@@ -1,0 +1,40 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+# 非强制依赖：本模组不引用 GTCEu 的任何类型，纯粹靠 Forge 事件把物品补进标签页。
+# 声明 AFTER 只是为了让目标标签页（gtca:main）先由 GTCA 注册出来。
+[[dependencies.${mod_id}]]
+    modId="gtceu"
+    mandatory=false
+    versionRange="[7.5.3,8.0.0)"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="gtca"
+    mandatory=false
+    versionRange="[2.2.0,3.0.0)"
+    ordering="AFTER"
+    side="BOTH"

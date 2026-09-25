@@ -1,0 +1,23 @@
+{
+  "name": "通量电锯",
+  "icon": "thermal:flux_saw",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "使用红石通量轻松挖掘木头类型的方块。右击像往常一样将原木剥皮。它可以在工匠工作台中充能和升级。安装径向范围拓展后，按 \"$(k:cofh.mode_change_increment)\" 可在砍伐半径之间切换。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:saw_blade",
+      "B.recipe": "thermal:flux_saw"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)"
+    }
+  ]
+}

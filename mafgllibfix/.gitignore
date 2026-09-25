@@ -1,0 +1,8 @@
+/.gradle/
+/build/
+/run/
+/run-data/
+/libs/
+*.log
+*.jar
+!.gradle/wrapper/gradle-wrapper.jar

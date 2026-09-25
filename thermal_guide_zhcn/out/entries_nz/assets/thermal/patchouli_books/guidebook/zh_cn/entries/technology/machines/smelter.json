@@ -1,0 +1,24 @@
+{
+  "name": "感应炉",
+  "icon": "thermal:machine_smelter",
+  "category": "thermal:machines",
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "感应炉",
+      "text": "感应炉是一种将多种物品熔炼在一起，生产合金的机器。它还可以将矿物熔炼成锭和宝石，受$(l:thermal:world/materials/catalysts)催化剂$(/l)影响。熔炼矿石有机会产生富炉渣作为副产物，可当作催化剂或制造$(l:thermal:world/plants/phytogro)植育一号$(/l)。熔炼砾石会产生燧石和炉渣。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:machine_smelter",
+      "title": "感应炉"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)$(li)$(l:thermal:technology/augments/machine_catalyst)触媒回收室$(/l)"
+    }
+  ]
+}

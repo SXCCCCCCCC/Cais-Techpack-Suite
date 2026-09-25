@@ -1,0 +1,7 @@
+{
+  "name": "生物",
+  "description": "水、土、火、电。很久以前，四种元素无法共存。然而，当新增下界之后，一切都改变了。只有 King Lemming，所有 CoFH 模组的大师，才能新增其他元素。",
+  "icon": "thermal:blizz_rod",
+  "parent": "thermal:world",
+  "sortnum": 3
+}

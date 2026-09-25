@@ -1,0 +1,15 @@
+{
+  "name": "通量效率升级",
+  "icon": "thermal:machine_efficiency_augment",
+  "category": "thermal:augments",
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_efficiency_augment",
+      "title": "通量效率升级",
+      "text": "通量效率升级使每次操作使用的红石通量降低 0.9 倍，但也将机器的最大红石通量使用率降低 10%。"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "末影侵扰炸药",
+  "icon": "thermal:ender_tnt",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "末影侵扰炸药会产生持续 10 秒的影抑，将其中的大多数生物/玩家传送到最多 128 个方块外的随机位置。最初的爆炸会造成伤害并阻止末影人和末影螨传送 15 秒。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。像末影人一样，这些炸药在水下会失去效用！"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:ender_tnt",
+      "B.recipe": "thermal:ender_grenade_4"
+    },
+    {
+      "flag": "&mod:thermal_innovation,mod:thermal_locomotion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:ender_tnt_minecart",
+      "title": "末影侵扰炸药矿车"
+    }
+  ]
+}

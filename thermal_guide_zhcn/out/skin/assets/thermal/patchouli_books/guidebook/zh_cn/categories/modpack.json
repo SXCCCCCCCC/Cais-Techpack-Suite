@@ -1,0 +1,7 @@
+{
+  "name": "模组整合包制作者",
+  "description": "制作模组整合包，或更改热力系列的各个方面以获得乐趣？本节探讨热力支持调整和设置的所有酷炫方式。",
+  "icon": "thermal:wrench",
+  "parent": "thermal:guides",
+  "sortnum": 4
+}

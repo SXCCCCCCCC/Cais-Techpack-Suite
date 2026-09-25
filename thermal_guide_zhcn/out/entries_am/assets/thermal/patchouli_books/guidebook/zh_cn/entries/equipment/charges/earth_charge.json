@@ -1,0 +1,18 @@
+{
+  "name": "裂岩弹",
+  "icon": "thermal:earth_charge",
+  "category": "thermal:charges",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "裂岩弹用于立即开挖大地方块，例如泥土、草地、石头等。它也可以用于合成，将一些东西变成粉末，并将一些存储方块分解，例如将石英块分解为四个石英。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/basalz)割裂$(/l)效果并提供强大的击退效果。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:earth_charge_3",
+      "title": "裂岩弹",
+      "text": "$(o)传说这些曾经强大到足以打破基岩。$()"
+    }
+  ]
+}

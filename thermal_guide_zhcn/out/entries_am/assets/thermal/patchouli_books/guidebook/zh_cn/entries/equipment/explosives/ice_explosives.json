@@ -1,0 +1,24 @@
+{
+  "name": "冰川结冻炸药",
+  "icon": "thermal:ice_tnt",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "冰川结冻炸药会冻结一个区域中的方块，并给予其半径范围内的生物$(l:thermal:world/mobs/blizz)冻僵 II $(/l)效果。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:ice_tnt",
+      "B.recipe": "thermal:ice_grenade_4"
+    },
+    {
+      "flag": "&mod:thermal_innovation,mod:thermal_locomotion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:ice_tnt_minecart",
+      "title": "冰川结冻炸药矿车"
+    }
+  ]
+}

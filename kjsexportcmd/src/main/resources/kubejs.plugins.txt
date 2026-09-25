@@ -1,0 +1,1 @@
+com.sxcccccccc.kjsexportcmd.Ic2RecipeSchemaPlugin

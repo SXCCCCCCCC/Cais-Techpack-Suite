@@ -1,0 +1,22 @@
+{
+  "name": "King 的 Twitter",
+  "icon": "thermal:lumium_gear",
+  "category": "thermal:links",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:link",
+      "url": "https://twitter.com/KingLemmingCoFH",
+      "link_text": "Twitter",
+      "text": "想跟上 King 本人吗？在 Twitter 上关注他！"
+
+
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "thermal:lumium_ingot",
+      "text": "有趣的事实！流明因其发光特性而得名！"
+    }
+  ]
+
+}

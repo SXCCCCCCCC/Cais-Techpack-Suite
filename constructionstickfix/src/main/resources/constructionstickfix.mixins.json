@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sxcccccccc.constructionstickfix.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "constructionstickfix.refmap.json",
+  "mixins": [
+    "StickUpgradesSelectableMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "通量链接放大器",
+  "icon": "thermal:machine_speed_augment",
+  "category": "thermal:augments",
+
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_speed_augment",
+      "title": "通量链接放大器",
+      "text": "通量链接放大器升级组件提升了 100% 最大红石通量使用率，但也将每次操作使用的红石通量提升 1.1 倍。"
+    }
+  ]
+}

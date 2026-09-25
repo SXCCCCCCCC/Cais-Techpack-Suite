@@ -1,0 +1,16 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.gtnoboomfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "gtnoboomfix.refmap.json",
+    "mixins": [
+        "CreativeEnergyContainerMachineMixin",
+        "FluidPipeBlockEntityMixin",
+        "IExplosionMachineMixin"
+    ],
+    "client": [
+    ],
+    "server": [
+    ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "瀑冰弹",
+  "icon": "thermal:ice_charge",
+  "category": "thermal:charges",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "瀑冰弹可用于在方块上放置雪、将水转化成冰以及将熔岩转化为黑曜石。后两者也可以在工作台上使用铁桶来完成。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/blizz)冻僵$(/l)效果并冻结一小块区域。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:ice_charge_3",
+      "title": "瀑冰弹"
+    }
+  ]
+}

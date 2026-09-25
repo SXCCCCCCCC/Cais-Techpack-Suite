@@ -1,0 +1,8 @@
+{
+  "name": "机器",
+  "description": "本节详细介绍每台机器的功能。机器需要红石通量才能运行。",
+  "icon": "thermal:machine_furnace",
+  "parent": "thermal:technology",
+  "flag": "mod:thermal_expansion",
+  "sortnum": 1
+}

@@ -1,0 +1,23 @@
+{
+  "name": "蓄水器",
+  "icon": "thermal:device_water_gen",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "蓄水器是一种根据你的需要生成无限水的装置。为了让它产生水，必须至少有 2 个与装置侧面相邻的水源方块。装置上方或下方的水源方块将不计算在内。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_water_gen",
+      "title": "蓄水器"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)"
+    }
+  ]
+}

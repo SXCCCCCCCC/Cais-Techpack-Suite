@@ -1,0 +1,23 @@
+{
+  "name": "洒水壶",
+  "icon": "thermal:watering_can",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "flag": "mod:thermal_cultivation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "用于浇灌作物以加速其生长。它可以在工匠工作台中填充和扩容。安装径向范围拓展后，按 \"$(k:cofh.mode_change_increment)\" 在浇水半径之间切换。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高水容量。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:watering_can",
+      "title": "洒水壶"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)"
+    }
+  ]
+}

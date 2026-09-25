@@ -1,0 +1,16 @@
+{
+  "name": "循环处理升级",
+  "icon": "thermal:machine_cycle_augment",
+  "category": "thermal:augments",
+
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_cycle_augment",
+      "title": "循环处理升级",
+      "text": "循环处理升级允许机器的有效输出被反馈到它的输入栏中。对自动化很有用。"
+    }
+  ]
+}

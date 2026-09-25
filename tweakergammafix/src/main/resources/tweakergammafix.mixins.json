@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.tweakergammafix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "tweakergammafix.refmap.json",
+    "mixins": [
+    ],
+    "client": [
+        "ClientTickHandlerMixin",
+        "OptionsMixin"
+    ],
+    "server": [
+    ]
+}

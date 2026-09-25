@@ -1,0 +1,32 @@
+{
+  "name": "暴雪人",
+  "icon": "thermal:blizz_rod",
+  "category": "thermal:mobs",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "thermal:3_item_page",
+      "title": "暴雪人",
+      "item1": "thermal:blizz_rod",
+      "item2": "thermal:blizz_powder",
+      "item3": "thermal:blizz_spawn_egg",
+      "text": "暴雪人是一种在寒冷生物群系中生成的生物。它有 10 颗心，近距离造成 3.5 颗心的伤害。它射出的弹射物造成 2.5 颗心的伤害并套用冻僵效果。它有几率掉落暴雪立方，可以制作或粉碎成暴雪粉。"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "thermal:blizz",
+      "title": "暴雪人",
+      "text": "冻僵：每级降低 30% 移动速度和 0.4 秒攻击速度。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "行为",
+      "text": "暴雪人是一种冷漠的元素生物，会向它的敌人倾泻弹射物。它会飞到它的目标上方并在它周围的区域产生坠落的弹射物。如果足够近，它会在目标上方盘旋。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "攻略",
+      "text": "对付暴雪人最简单的方法是使用远程武器。在近战中，最好直接面对暴雪人并承受伤害以进入近战范围。"
+    }
+  ]
+}

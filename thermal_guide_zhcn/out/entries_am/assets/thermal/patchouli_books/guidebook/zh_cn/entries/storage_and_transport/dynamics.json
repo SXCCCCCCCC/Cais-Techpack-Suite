@@ -1,0 +1,39 @@
+{
+  "name": "《热动力学》在哪里？",
+  "icon": "thermal:iron_gear",
+  "read_by_default": true,
+  "category": "thermal:storage_and_transport",
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "《热动力学》目前被搁置，因为热力系列的其他功能正在充实。请耐心等待！以下页面将有其他推荐的管道模组。"
+    },
+    {
+      "type": "patchouli:link",
+      "title": "XNet",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/xnet",
+      "link_text": "Curseforge 链接",
+      "text": "XNet 是一款功能强大的模组，可以在一条线缆中传输物品、流体、红石通量等。每个网络都需要一个控制器，通过它可以设定网络以控制多个频道上的输入、输出、过滤、堆叠大小等。涉及到轻微的学习曲线，但可操作性几乎是无与伦比的。"
+    },
+    {
+      "type": "patchouli:link",
+      "title": "Refined Pipes",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/refined-pipes",
+      "link_text": "Curseforge 链接",
+      "text": "要获得更像 1.12 热动力学的体验，请尝试 Refined Pipes。管道和提取器以不同的速度进入不同的层次。对于那些已经熟悉 1.12 热动力学的人来说，这个模组应该感觉像家一样。"
+    },
+    {
+      "type": "patchouli:link",
+      "title": "Integrated Tunnels",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/integrated-tunnels",
+      "link_text": "Curseforge 链接",
+      "text": "Integrated Dynamics 是一个非常强大的模组，可以评估关于生物、容器等的各种数值。Tunnels 是它的扩充模组，允许网络从容器中导入/导出物品。两者相结合，可实现极高的精确度、过滤性和控制性。当心，这个模组比大多数模组更难上手。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "带管道的扩展模组",
+      "text": "以下模组具有多种传输选项，但还新增了许多你可能感兴趣的其他精彩内容。如果你正在寻找$(o)只有$()新增物品/流体/能量传输选项的模组，请参考之前的页面。$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/create)Create$()$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/immersive-engineering)Immersive Engineering$()$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/rats)funny rat mod$()"
+    }
+  ]
+}

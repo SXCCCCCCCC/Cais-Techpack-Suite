@@ -1,0 +1,8 @@
+{
+  "name": "装置",
+  "description": "本节详细介绍每个装置的功能。除非明确说明，否则这些装置不需要红石通量。",
+  "icon": "thermal:device_tree_extractor",
+  "parent": "thermal:technology",
+  "flag": "|mod:thermal_expansion,mod:thermal_cultivation,mod:thermal_dynamics,mod:thermal_innovation",
+  "sortnum": 2
+}

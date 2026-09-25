@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.macobaltfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "macobaltfix.refmap.json",
+    "mixins": [
+        "ModCropsMixin",
+        "AgradditionsModCropsMixin"
+    ],
+    "client": [
+    ],
+    "server": [
+    ]
+}

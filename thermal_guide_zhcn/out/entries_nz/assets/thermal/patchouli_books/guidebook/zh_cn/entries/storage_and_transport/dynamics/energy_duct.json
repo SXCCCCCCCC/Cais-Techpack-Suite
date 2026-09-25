@@ -1,0 +1,23 @@
+{
+  "name": "能量管道",
+  "icon": "thermal:energy_duct",
+  "read_by_default": true,
+  "flag": "mod:thermal_dynamics",
+  "category": "thermal:ducts",
+
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "能量管道用于输送能量。输送多少能量？管够。如果你让连接进入饱和状态，它就可以支持更高的传输速率。所以，尽量保持稳定的需求。为了限制能量流动的速率，可以使用红石通量限流器连接件。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:energy_duct_4"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "连接件兼容性",
+      "text": "$(li)红石通量限流器"
+    }
+  ]
+}

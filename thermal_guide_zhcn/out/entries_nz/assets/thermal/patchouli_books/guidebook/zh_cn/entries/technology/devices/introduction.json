@@ -1,0 +1,18 @@
+{
+  "name": "介绍 - 装置",
+  "icon": "thermal:iron_gear",
+  "category": "thermal:devices",
+  "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+  "sortnum": -2,
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "装置在它们周围的方块上执行各种功能，其中一些可能需要红石通量。为了改进或修改其功能的各个方面，装置接受$(l:thermal:technology/augments/introduction)增强$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "本章的其他条目将对每个方块的功能进行详细说明。每个方块的 GUI 中的可折叠面板中提供了简短说明。另一个面板在适用时提供关于方块的红石通量信息，例如当前和最大红石通量使用率。还有增强和红石控制面板，用于分别组织增强项和对红石信号的响应。"
+    }
+  ]
+}

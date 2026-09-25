@@ -1,0 +1,16 @@
+{
+  "name": "手榴弹",
+  "icon": "thermal:explosive_grenade",
+  "read_by_default": true,
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "手榴弹是一种较小的、可投掷版本的 TNT，爆炸半径为 5 个方块！"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:explosive_grenade_4"
+    }
+  ]
+}

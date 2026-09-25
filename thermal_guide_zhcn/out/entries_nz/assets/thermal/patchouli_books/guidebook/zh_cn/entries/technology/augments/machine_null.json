@@ -1,0 +1,14 @@
+{
+  "name": "辅助仙人掌",
+  "icon": "thermal:machine_null_augment",
+  "category": "thermal:augments",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:augments/machine_null_augment",
+      "title": "辅助仙人掌",
+      "text": "辅助仙人掌增强会自动销毁任何多余的副产物。多余的副产物是指会溢出存储槽并超出正常允许溢出量的那部分产物。"
+    }
+  ]
+}

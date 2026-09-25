@@ -1,0 +1,23 @@
+{
+  "name": "树汁提取器",
+  "icon": "thermal:device_tree_extractor",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "树汁提取器是一种从相邻树木中提取流体的装置。可选择性地施肥以提高产量。骨粉在 8 个周期内将产量提升 1.5 倍，而$(l:thermal:world/plants/phytogro)植育一号$(/l)则在 16 个周期内提升 2.0 倍。不同的树产生不同的流体；使用 JEI 查看可用的配方。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_tree_extractor",
+      "title": "树汁提取器"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)"
+    }
+  ]
+}

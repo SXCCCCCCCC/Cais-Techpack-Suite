@@ -1,0 +1,41 @@
+{
+  "name": "植育一号",
+  "icon": "thermal:phytogro",
+  "read_by_default": true,
+  "category": "thermal:plants",
+  "flag": "|mod:thermal_cultivation,mod:thermal_expansion",
+  "pages": [
+    {
+      "flag": "&mod:thermal_cultivation,!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:phytogro_2",
+      "text": "植育一号富含所有植物所需养分的肥料。它可以直接套用在植物上或利用$(l:thermal:equipment/explosives/phyto_explosives)一些炸药$(/l)散布在一个区域。"
+    },
+    {
+      "flag": "&!mod:thermal_cultivation,mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:phytogro_2",
+      "text": "它可以直接套用在植物上，也可以当作机器的$(l:thermal:world/materials/catalysts)催化剂$(/l)。"
+    },
+    {
+      "flag": "&mod:thermal_cultivation,mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:phytogro_2",
+      "text": "植育一号富含所有植物所需养分的肥料。它可以直接套用在植物上，利用$(l:thermal:equipment/explosives/phyto_explosives)一些炸药$(/l)散布在一个区域，或当作机器的$(l:thermal:world/materials/catalysts)催化剂$(/l)。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:phytogro_4",
+      "text": "$(o)村里的长者谈到了一种失传的植育配方，它可以注入树汁和红石通量，以提高农作物产量，远远超过自然条件下的产量。不幸的是，所有重建它的尝试都以失败告终。$()"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:phytogro_8",
+      "B.recipe": "thermal:phytosoil"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "植育土是注入了植育一号的泥土。它使上面种植的植物的生长速度大约翻了一倍，使用$(l:thermal:technology/devices/soil_infuser)植育土注能机$(/l)可以进一步提升到约 5 倍。就像普通的土壤一样，它必须经过耕耘才能在上面生长农作物。与普通农田不同，被耕作过的植育土不会被踩踏，也不需要附近的水来保持水分。"
+    }
+  ]
+}

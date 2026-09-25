@@ -1,0 +1,26 @@
+本仓库是多个独立工程的合集，不是一个单一作品。每个子目录下的工程各自适用其
+自身的许可证，全文见该目录下的 LICENSE 文件。
+
+  除下列例外，各工程均为 MIT 许可。
+
+例外
+----
+  tecend/              GNU Lesser General Public License v3.0
+                       （目录内 LICENSE 为 LGPL-3.0 正文，
+                         LICENSE.GPL-3.0 是 LGPL-3.0 引用到的 GPL-3.0 副本）
+
+  maaddon/             MIT，但包含来自 Industrial Agriculture 的贴图素材，
+                       该部分为 LGPL v2.1。详见 THIRD_PARTY_NOTICES.md
+                       与 LICENSE.LGPL-2.1
+
+  thermal_guide_zhcn/  Thermal Series 指南书的翻译作品，以资源包形态分发。
+                       原指南书内容的权利归 Team CoFH 所有；
+                       使用时需自行安装原 mod。
+
+--------------------------------------------------------------------------
+
+This repository is a collection of independent projects. Each subdirectory
+is a separate work governed by its own license; see the LICENSE file inside
+that directory.
+
+Except where noted above, the projects are licensed under the MIT License.

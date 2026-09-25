@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.sxcccccccc.createindustrialforegoingfluidfix.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "createindustrialforegoingfluidfix.refmap.json",
+  "mixins": [
+    "FluidHelperMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

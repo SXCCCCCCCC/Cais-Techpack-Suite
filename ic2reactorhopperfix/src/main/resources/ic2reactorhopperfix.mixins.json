@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.ic2reactorhopperfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "ic2reactorhopperfix.refmap.json",
+    "mixins": [
+        "ReactorItemStorageProviderMixin"
+    ],
+    "client": [
+    ],
+    "server": [
+    ]
+}

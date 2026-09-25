@@ -1,0 +1,16 @@
+{
+  "type": "mysticalagriculture:reprocessor",
+  "conditions": [
+    {
+      "type": "mysticalagriculture:crop_enabled",
+      "crop": "maaddon:pink_slime"
+    }
+  ],
+  "input": {
+    "item": "mysticalagriculture:pink_slime_seeds"
+  },
+  "result": {
+    "item": "mysticalagriculture:pink_slime_essence",
+    "count": 2
+  }
+}

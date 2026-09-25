@@ -1,0 +1,7 @@
+{
+  "name": "植物",
+  "description": "农作物和树木生产各种有用的食物和材料。",
+  "icon": "thermal:rosin",
+  "parent": "thermal:world",
+  "sortnum": 2
+}

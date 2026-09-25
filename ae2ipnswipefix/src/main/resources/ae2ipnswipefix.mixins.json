@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.ae2ipnswipefix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "ae2ipnswipefix.refmap.json",
+    "mixins": [
+    ],
+    "client": [
+        "ContainerClickerMixin"
+    ],
+    "server": [
+    ]
+}

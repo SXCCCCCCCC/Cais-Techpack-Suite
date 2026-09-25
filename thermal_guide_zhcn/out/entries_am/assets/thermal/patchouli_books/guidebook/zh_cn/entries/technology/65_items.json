@@ -1,0 +1,19 @@
+{
+  "name": "一组有 65 个物品？！",
+  "icon": "thermal:gold_gear",
+  "category": "thermal:technology",
+  "flag": "mod:thermal_expansion",
+  "sortnum": -2,
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "某些机器的输出有一定几率出现，尤其是在使用催化剂时。例如，在一个配方中，每个输入物品产生 2.5 个输出物品。虽然前两个输出物品是确定的，但第三个输出物品只有 50% 的几率。当机器的输出栏填满时，这可能会导致问题。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "这不是错误！",
+      "text": "热力膨胀通过简单地让堆叠大小随意增加来容纳这些多余的输出以解决这个问题。"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "鸣雷弹",
+  "icon": "thermal:lightning_charge",
+  "category": "thermal:charges",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "鸣雷弹可以用来召唤一道闪电。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/blitz)震荡$(/l)效果。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:lightning_charge_3",
+      "title": "鸣雷弹"
+    }
+  ]
+}

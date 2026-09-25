@@ -1,0 +1,24 @@
+{
+  "name": "震天雷击炸药",
+  "icon": "thermal:lightning_tnt",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "震天雷击炸药会在一个区域召唤闪电，并给予其范围内的生物$(l:thermal:world/mobs/blitz)震荡 II $(/l) 效果。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:lightning_tnt",
+      "B.recipe": "thermal:lightning_grenade_4"
+    },
+    {
+      "flag": "&mod:thermal_innovation,mod:thermal_locomotion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:lightning_tnt_minecart",
+      "title": "震天雷击炸药矿车"
+    }
+  ]
+}

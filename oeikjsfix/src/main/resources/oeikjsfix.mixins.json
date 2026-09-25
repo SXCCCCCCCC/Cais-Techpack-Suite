@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.oeikjsfix.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "oeikjsfix.refmap.json",
+    "mixins": [],
+    "client": [
+        "PathUtilsMixin",
+        "ReplacementEditorManagerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

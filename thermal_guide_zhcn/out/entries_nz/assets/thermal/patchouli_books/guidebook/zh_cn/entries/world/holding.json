@@ -1,0 +1,12 @@
+{
+  "name": "扩容",
+  "icon": "minecraft:enchanted_book",
+  "read_by_default": true,
+  "category": "thermal:world",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "CoFH 核心新增了扩容，这是一种新的附魔，可以套用于存储各种东西（例如红石通量或流体）的方块和物品。对于每个等级，它都会增加 50% 的容量，在扩容 IV 时最高可增加达 200%。这可与修改存储容量的其他东西叠加在一起，例如$(l:thermal:technology/augments/introduction)增强元件$(/l)。例如，如果一台机器具有 $(l:thermal:technology/augments/integral_components)谐振整合组件$(/l)且有扩容 IV，它将存储 12 倍的红石通量。"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "name": "矿物",
+  "icon": "thermal:lead_ore",
+  "read_by_default": true,
+  "category": "thermal:materials",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "title": "免责声明",
+      "text": "矿石生成是可设定的，因此这里不解释数量和 Y 水平，因为它们在世界之间可能有很大差异。"
+    },
+    {
+      "type": "thermal:2-2_item_page",
+
+      "A.title": "硝石",
+      "A.item1": "thermal:niter_ore",
+      "A.item2": "thermal:niter",
+      "A.text": "一种软矿物，当作肥料中氮和钾的来源。",
+
+      "B.title": "硫磺",
+      "B.item1": "thermal:sulfur_ore",
+      "B.item2": "thermal:sulfur",
+      "B.text": "一种反应性矿物，用于固化橡胶和制造火药。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:2-2_item_page",
+
+      "A.title": "朱砂",
+      "A.item1": "thermal:cinnabar_ore",
+      "A.item2": "thermal:cinnabar",
+      "A.text": "一种用于提高矿物产量的猩红色矿物。",
+
+      "B.title": "沥青沙",
+      "B.item1": "thermal:oil_sand",
+      "B.item2": "thermal:bitumen",
+      "B.text": "悬浮在沙子中的黏稠黑色高黏性液体。出现在沙漠和恶地。"
+    },
+    {
+      "type": "thermal:2-2_item_page",
+
+      "A.title": "锡",
+      "A.item1": "thermal:tin_ore",
+      "A.item2": "thermal:tin_ingot",
+      "A.text": "一种柔软、轻盈的金属，因其多功能性而受到重视。",
+
+      "B.title": "镍",
+      "B.item1": "thermal:nickel_ore",
+      "B.item2": "thermal:nickel_ingot",
+      "B.text": "一种用于合金中的硬金属，受热的影响较小。"
+    },
+    {
+      "type": "2-2_item_page",
+
+      "A.title": "铅",
+      "A.item1": "thermal:lead_ore",
+      "A.item2": "thermal:lead_ingot",
+      "A.text": "一种柔软、致密的金属，具有遮蔽特性。",
+
+      "B.title": "银",
+      "B.item1": "thermal:silver_ore",
+      "B.item2": "thermal:silver_ingot",
+      "B.text": "一种导电金属，因其光芒四射而备受推崇。"
+    },
+    {
+      "flag": "mod:thermal_cultivation",
+      "type": "2_item_page",
+
+      "A.title": "磷灰石",
+      "A.item1": "thermal:apatite_ore",
+      "A.item2": "thermal:apatite",
+      "A.text": "一种常见的矿物质，通常当作染料或肥料中磷的来源。"
+    }
+  ]
+}

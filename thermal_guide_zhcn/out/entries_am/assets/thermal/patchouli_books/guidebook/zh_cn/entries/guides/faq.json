@@ -1,0 +1,35 @@
+{
+  "name": "常见的、已回答的问题",
+  "icon": "minecraft:redstone",
+  "category": "thermal:guides",
+  "sortnum": -3,
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Q: 热动力学/管道在哪里？$(br)A: 请详阅$(l:thermal:storage_and_transport/dynamics)此处$(/l)。$(br2)Q: 升级套件在哪里？$(br)A: 请详阅$(l:thermal:technology/augments/integral_components)此处$(/l)。$(br2)Q: 我该如何提高我的机器的速度？$(br)A: 请详阅$(l:thermal:technology/augments/integral_components)此处$(/l)和$(l:thermal:technology/augments/machine_speed)此处$(/l)。$(br2)Q: 这些升级组件可以叠加吗？$(br)A: 请详阅$(l:thermal:technology/augments/introduction)此处$(/l)。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Q: 我该如何更改通量电钻/电锯的模式？$(br)A: 你需要安装$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)来调整挖掘半径。$(br2)Q: 我该如何充能/升级我的工具？$(br)A: 请详阅$(l:thermal:technology/tinker_bench)此处$(/l)。$(br2)Q: 为什么我的能源炉会缓慢失去红石通量？$(br)A: 能源炉中的红石通量缓冲区仅用于确定对能源炉进行多少节流。请详阅$(l:thermal:technology/dynamos/introduction)此处$(/l)以获取更多信息。"
+    },
+    {
+      "type": "patchouli:link",
+      "url": "https://www.curseforge.com/minecraft/mc-mods/tools-complement",
+      "link_text": "工具的补充",
+      "text": "Q: X 模组可以获得支持（配方等）吗？$(br)A: 你可以在我们的$(l:thermal:links/discord)Discord 服务器$(/l)中请求兼容性。$(br2)Q: 热力的基础工具/武器/盔甲在哪里，例如钻石开掘铲和琥珀金弓？$(br)A: 它们已被转移到单独的模组："
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Q: 铂、钢、蕴魔秘银等发生了什么？$(br)A: 由于各种原因，这些被认为没有必要包含在热力基础中。如果有些回归，它将在单独的兼容性模组中。$(br2)Q: 为什么我不能放置流体？$(br)A: Forge 的流体 API 目前处于混乱状态。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Q: 如何修改矿物生成？$(br)A: 设置中有启用/停用矿物生成的选项，但尚未实现对生成高度等细节的调整。$(br2)Q: 我如何更改设置？$(br)A: 设置现在是在每个存档的基础上建立；在存档文件中的 serverconfigs 文件夹中找到它们。你还可以通过将文件从 serverconfigs 文件夹复制到 defaultconfigs 文件夹并编辑来设置默认设置。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Q: 我该在哪里以及如何报告错误？$(br)A: 你可以在我们的$(l:thermal:links/discord)Discord 服务器$(/l)中询问。在报告之前，请确保你的模组是最新的并且你没有安装 Optifine。$(br2)Q: 我该如何修改配方？$(br)A: 热力模组都是数据驱动的，因此你可以使用数据包修改配方，如$(l:thermal:guides/modpack/recipes)此处$(/l)所示。或者，热力模组具有 CraftTweaker 支持。"
+    }
+  ]
+}

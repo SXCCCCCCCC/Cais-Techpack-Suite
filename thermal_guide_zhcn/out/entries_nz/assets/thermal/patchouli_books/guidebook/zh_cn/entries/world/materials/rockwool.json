@@ -1,0 +1,16 @@
+{
+  "name": "炉渣和石棉",
+  "icon": "thermal:slag",
+  "read_by_default": true,
+  "category": "thermal:materials",
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "thermal:2_item_page",
+      "title": "炉渣和石棉",
+      "item1": "thermal:slag",
+      "item2": "tag:thermal:rockwool",
+      "text": "炉渣是一种富含矿物质的物质，通过在$(l:thermal:technology/machines/smelter)感应炉$(/l)中熔炼砾石而产生。石棉是一种纤维材料，通过使熔化的矿物材料（例如炉渣）在熔炉中快速旋转而制成。它不易燃，并且防爆性能略优于普通羊毛。"
+    }
+  ]
+}

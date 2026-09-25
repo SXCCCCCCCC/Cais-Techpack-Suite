@@ -1,0 +1,6 @@
+{
+  "name": "技术",
+  "description": "专业提示：Alt + shift + 点击任何机器中的流体或红石通量槽都会将其倾倒，使流体/红石通量清空。",
+  "icon": "thermal:machine_frame",
+  "sortnum": 1
+}

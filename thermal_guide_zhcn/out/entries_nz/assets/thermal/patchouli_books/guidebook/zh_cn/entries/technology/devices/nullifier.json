@@ -1,0 +1,24 @@
+{
+  "name": "销毁器",
+  "icon": "thermal:device_nullifier",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "|mod:thermal_expansion,mod:thermal_dynamics",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "销毁器是一种可以使放入其中的所有物品和流体作废的装置。自动输入的物品/流体（例如通过漏斗）会立即作废，而通过 GUI 手动放入的物品会暂时存储，直到按下废弃按钮。它与过滤器类型的增强兼容，以限制它可以接受的内容。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_nullifier",
+      "title": "销毁器",
+      "text": "红石控制仅影响物品/流体的自动放入。无论红石控制设置如何，始终可以通过 GUI 手动删除。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)"
+    }
+  ]
+}

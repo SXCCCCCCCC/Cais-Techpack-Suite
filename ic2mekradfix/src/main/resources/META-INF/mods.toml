@@ -1,0 +1,43 @@
+modLoader="javafml"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="${mod_authors}"
+description='''${mod_description}'''
+
+[[dependencies.${mod_id}]]
+    modId="forge"
+    mandatory=true
+    versionRange="${forge_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="mekanism"
+    mandatory=true
+    versionRange="[10.4,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="gtceu"
+    mandatory=true
+    # 上限 7.6.0：GT 7.6+ 可能改动 HazardProperty.ProtectionType.isProtected 签名，
+    # 升级 GT 前需先 javap 复查注入点，确认后再放宽此范围。
+    versionRange="[7.5.0,7.6.0)"
+    ordering="NONE"
+    side="BOTH"
+
+# 注意：ic2_120 是经 Sinytra Connector 运行的 Fabric mod，不在 Forge 的 mods.toml
+# 依赖解析范围内，此处不声明依赖；mixin 仅在本包（ic2 必装）中使用。

@@ -1,0 +1,60 @@
+{
+  "name": "硬化玻璃",
+  "icon": "thermal:obsidian_glass",
+  "read_by_default": true,
+  "category": "thermal:materials",
+  "pages": [
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "patchouli:text",
+      "text": "硬化玻璃是用于各种配方的防爆玻璃。它可以内衬各种金属以赋予其不同的特性。与$(l:thermal:world/materials/alloys)合金$(/l)一样，硬化玻璃及其变体可以使用其成分和火焰弹在工作台或直接在感应炉中制作。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:3-3_alloy_page",
+
+      "A.in1": "minecraft:quartz",
+      "A.in2": "minecraft:obsidian",
+      "A.in3": "minecraft:sand",
+      "A.out": "thermal:obsidian_glass#2",
+      "A.text": "基础抗凋零。",
+
+      "B.in1": "thermal:obsidian_glass#2",
+      "B.in2": "thermal:signalum_ingot",
+      "B.out": "thermal:signalum_glass#2",
+      "B.text": "为相邻的红石供能。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:3-3_alloy_page",
+
+      "A.in1": "thermal:obsidian_glass#2",
+      "A.in2": "thermal:lumium_ingot",
+      "A.out": "thermal:lumium_glass#2",
+      "A.text": "散发出强烈的光芒。",
+
+      "B.in1": "thermal:obsidian_glass#2",
+      "B.in2": "thermal:enderium_ingot",
+      "B.out": "thermal:enderium_glass#2",
+      "B.text": "让你向他人炫耀。"
+    },
+
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "patchouli:text",
+      "text": "硬化玻璃是用于各种配方的防爆玻璃。它可以内衬各种金属以赋予其不同的特性。信素玻璃会发出强烈的红石信号。流明玻璃发出强光。末影玻璃让你可以向其他玩家炫耀。"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/obsidian_glass_2",
+      "B.recipe": "thermal:fire_charge/signalum_glass_2"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/lumium_glass_2",
+      "B.recipe": "thermal:fire_charge/enderium_glass_2"
+    }
+  ]
+}

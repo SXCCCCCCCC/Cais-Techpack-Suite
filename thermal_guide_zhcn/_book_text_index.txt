@@ -1,0 +1,850 @@
+categories/armor.json	name	盔甲
+categories/armor.json	description	也许不是时尚的标杆，但他们完成了工作。
+categories/augments.json	name	增强元件
+categories/augments.json	description	升级你的科技和工具。
+categories/charges.json	name	元素充能
+categories/charges.json	description	掌握所有四种元素。
+categories/contributors.json	name	参与者
+categories/contributors.json	description	由这些亲爱的人们带给你！感谢所有提供帮助的人们及 Discord 中所有提供建议和反馈的人。最由衷地感谢 King，感谢他容忍我们，让我们着手这个项目，并在这么多年来为我们带来了这些所有的模组，并且从未要求任何回报。
+categories/devices.json	name	装置
+categories/devices.json	description	本节详细介绍每个装置的功能。除非明确说明，否则这些装置不需要红石通量。
+categories/ducts.json	name	管道
+categories/ducts.json	description	怎么搬运<东西>？
+categories/dynamos.json	name	能源炉
+categories/dynamos.json	description	没有能量的机器能有什么用？
+categories/equipment.json	name	装备
+categories/equipment.json	description	你冒险所需的装备。
+categories/explosives.json	name	炸药
+categories/explosives.json	description	娱乐是用来玩的，不是用来消耗的。
+categories/guides.json	name	指南和常见问题
+categories/guides.json	description	迷茫了？你来对地方了。
+categories/links.json	name	链接和参与者
+categories/links.json	description	加入我们的 Discord 以获取更多帮助/技术支持，甚至只是聊天！
+categories/locomotion.json	name	交通
+categories/locomotion.json	description	在嘟嘟声之前，正确的哐当哐当声数量是八。
+categories/machines.json	name	机器
+categories/machines.json	description	本节详细介绍每台机器的功能。机器需要红石通量才能运行。
+categories/materials.json	name	材料
+categories/materials.json	description	热力系列不可或缺的资源。
+categories/mobs.json	name	生物
+categories/mobs.json	description	水、土、火、电。很久以前，四种元素无法共存。然而，当新增下界之后，一切都改变了。只有 King Lemming，所有 CoFH 模组的大师，才能新增其他元素。
+categories/modpack.json	name	模组整合包制作者
+categories/modpack.json	description	制作模组整合包，或更改热力系列的各个方面以获得乐趣？本节探讨热力支持调整和设置的所有酷炫方式。
+categories/plants.json	name	植物
+categories/plants.json	description	农作物和树木生产各种有用的食物和材料。
+categories/storage.json	name	存储空间
+categories/storage.json	description	技术上可以作为临时管道发送垃圾。
+categories/storage_and_transport.json	name	存储和运输
+categories/storage_and_transport.json	description	本节涉及存储和移动诸如资源和生物之类的东西。
+categories/technology.json	name	技术
+categories/technology.json	description	专业提示：Alt + shift + 点击任何机器中的流体或红石通量槽都会将其倾倒，使流体/红石通量清空。
+categories/tools.json	name	工具
+categories/tools.json	description	增强工具的步骤：$(li)将可强化的物品或方块放入工作台$(li)将工作台设为增强模式$(li)将增强元件放入物品栏$(li)将工作台设置为充能/灌装模式$(li)从工作台中移除物品$(li)享受成果
+categories/world.json	name	世界
+categories/world.json	description	热力为你周围的世界新增的一切，从金属到生物。
+entries/equipment/armor/beekeeper.json	name	养蜂人套装
+entries/equipment/armor/beekeeper.json	pages.0.text	养蜂人套装可以保护你免受任何可能遇到的刺痛，但要以耐久度为代价。这样的例子有仙人掌、浆果丛，当然还有蜜蜂的蜇伤。请注意，为了受到$(o)全套$()保护，你必须穿上全套服装！要$(o)飞$()常小心，因为即使是全套套装，耐久度仍然会被消耗。
+entries/equipment/armor/beekeeper.json	pages.1.text	用在所有养蜂装备上的布料。
+entries/equipment/armor/diving.json	name	潜泳套装
+entries/equipment/armor/diving.json	pages.0.text	潜泳套装可让你轻松探索水下的深度。让你在水下游得更快、呼吸更久、挖掘速度更快！
+entries/equipment/armor/diving.json	pages.1.text	用在所有潜泳装备上的布料。
+entries/equipment/armor/hazmat.json	name	防化套装
+entries/equipment/armor/hazmat.json	pages.0.text	防化套装将保护你免受环境危害，例如燃烧、摔落伤害和状态异常。需要整套防化套装才能提供全面保护！防止状态效果和火焰时会消耗耐久度。
+entries/equipment/armor/hazmat.json	pages.1.text	$(o)橙色可疑$()
+entries/equipment/charges/earth_charge.json	name	裂岩弹
+entries/equipment/charges/earth_charge.json	pages.0.text	裂岩弹用于立即开挖大地方块，例如泥土、草地、石头等。它也可以用于合成，将一些东西变成粉末，并将一些存储方块分解，例如将石英块分解为四个石英。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/basalz)割裂$(/l)效果并提供强大的击退效果。
+entries/equipment/charges/earth_charge.json	pages.1.title	裂岩弹
+entries/equipment/charges/earth_charge.json	pages.1.text	$(o)传说这些曾经强大到足以打破基岩。$()
+entries/equipment/charges/fire_charge.json	name	火焰弹
+entries/equipment/charges/fire_charge.json	pages.0.text	火焰弹原产于原版 Minecraft，但热力套件为它们增加了新用途。它们可以与其他资源一起用于工作台，以形成某些合金和方块。
+entries/equipment/charges/fire_charge.json	pages.1.title	火焰弹
+entries/equipment/charges/ice_charge.json	name	瀑冰弹
+entries/equipment/charges/ice_charge.json	pages.0.text	瀑冰弹可用于在方块上放置雪、将水转化成冰以及将熔岩转化为黑曜石。后两者也可以在工作台上使用铁桶来完成。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/blizz)冻僵$(/l)效果并冻结一小块区域。
+entries/equipment/charges/ice_charge.json	pages.1.title	瀑冰弹
+entries/equipment/charges/lightning_charge.json	name	鸣雷弹
+entries/equipment/charges/lightning_charge.json	pages.0.text	鸣雷弹可以用来召唤一道闪电。从发射器发射会发射一个线性弹射物，该弹射物将对击中的生物套用$(l:thermal:world/mobs/blitz)震荡$(/l)效果。
+entries/equipment/charges/lightning_charge.json	pages.1.title	鸣雷弹
+entries/equipment/explosives/detonator.json	name	遥控起爆器
+entries/equipment/explosives/detonator.json	pages.0.text	遥控起爆器用于引爆，并且一次引爆多达 16 个炸药！首先放置所有炸药，然后用起爆器右击每个炸药。指示灯将变成黄色，表示至少有 1 个炸药已启动。接着可以将模式更改为引爆，此时指示灯将变为绿色，再次右击将引爆所有已启动的炸药。
+entries/equipment/explosives/detonator.json	pages.1.text	按 "$(k:cofh.mode_change_increment)" 变更模式。
+entries/equipment/explosives/earth_explosives.json	name	地岩碎裂炸药
+entries/equipment/explosives/earth_explosives.json	pages.0.text	地岩碎裂炸药会破坏并掉落一个区域中的石头和泥土类型的方块，并给予其半径范围内的生物$(l:thermal:world/mobs/basalz)割裂 II $(/l)效果。对挖矿很有用。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。$(br2)$(o)传说这些曾经强大到足以打破基岩。$()
+entries/equipment/explosives/earth_explosives.json	pages.2.title	地岩碎裂炸药矿车
+entries/equipment/explosives/ender_explosives.json	name	末影侵扰炸药
+entries/equipment/explosives/ender_explosives.json	pages.0.text	末影侵扰炸药会产生持续 10 秒的影抑，将其中的大多数生物/玩家传送到最多 128 个方块外的随机位置。最初的爆炸会造成伤害并阻止末影人和末影螨传送 15 秒。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。像末影人一样，这些炸药在水下会失去效用！
+entries/equipment/explosives/ender_explosives.json	pages.2.title	末影侵扰炸药矿车
+entries/equipment/explosives/fire_explosives.json	name	狱火烧夷炸药
+entries/equipment/explosives/fire_explosives.json	pages.0.text	狱火烧夷炸药会点燃一片区域，并点燃其半径范围内的生物。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/fire_explosives.json	pages.2.title	狱火烧夷炸药矿车
+entries/equipment/explosives/glowstone_explosives.json	name	圣光辐照炸药
+entries/equipment/explosives/glowstone_explosives.json	pages.0.text	圣光辐照炸药在爆炸时会在空气中散布细小的荧石颗粒，形成持续 10 秒的云，照亮周围区域。最初的爆炸会伤害亡灵生物并点燃它们。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。$(br2)$(o)这些本质上是闪光弹。$()
+entries/equipment/explosives/glowstone_explosives.json	pages.2.title	圣光辐照炸药矿车
+entries/equipment/explosives/grenade.json	name	手榴弹
+entries/equipment/explosives/grenade.json	pages.0.text	手榴弹是一种较小的、可投掷版本的 TNT，爆炸半径为 5 个方块！
+entries/equipment/explosives/ice_explosives.json	name	冰川结冻炸药
+entries/equipment/explosives/ice_explosives.json	pages.0.text	冰川结冻炸药会冻结一个区域中的方块，并给予其半径范围内的生物$(l:thermal:world/mobs/blizz)冻僵 II $(/l)效果。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/ice_explosives.json	pages.2.title	冰川结冻炸药矿车
+entries/equipment/explosives/lightning_explosives.json	name	震天雷击炸药
+entries/equipment/explosives/lightning_explosives.json	pages.0.text	震天雷击炸药会在一个区域召唤闪电，并给予其范围内的生物$(l:thermal:world/mobs/blitz)震荡 II $(/l) 效果。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/lightning_explosives.json	pages.2.title	震天雷击炸药矿车
+entries/equipment/explosives/phyto_explosives.json	pages.0.text	植育催熟炸药会立即对区域内的所有农作物和草产生骨粉效果。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/phyto_explosives.json	pages.2.title	PNT矿车
+entries/equipment/explosives/redstone_explosives.json	name	红石发信炸药
+entries/equipment/explosives/redstone_explosives.json	pages.0.text	红石发信炸药在爆炸时会产生红石通量激发场，启动其影响范围内的任何红石元件和装置。该场域将持续 10 秒。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/redstone_explosives.json	pages.2.title	红石发信炸药矿车
+entries/equipment/explosives/slime_explosives.json	name	弹力黏着炸药
+entries/equipment/explosives/slime_explosives.json	pages.0.text	弹力黏着炸药会击退所有陷入爆炸的生物和玩家，并用史莱姆覆盖他们，暂时给他们带来黏着效果。具有这种效果的生物和玩家将能够在表面上弹跳，就如同他们降落在史莱姆方块上一样。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。
+entries/equipment/explosives/slime_explosives.json	pages.2.title	弹力黏着炸药矿车
+entries/equipment/tools/crescent_hammer.json	name	新月锤
+entries/equipment/tools/crescent_hammer.json	pages.0.text	普普通通的扳手。可用于通过 shift + 右击拾取机器，通过右击旋转机器。你甚至可以让一直在骚扰你的讨厌朋友们保持理智！
+entries/equipment/tools/crescent_hammer.json	pages.1.title	新月锤
+entries/equipment/tools/florb.json	name	流体球
+entries/equipment/tools/florb.json	pages.0.text	流体球。即「流体之球」的简称，显然。可容纳一桶流体。而且你还能把它们扔出去！注意：它们只能装可以在世界中放置的流体。
+entries/equipment/tools/florb.json	pages.1.title	流体球
+entries/equipment/tools/fluid_reservoir.json	name	贮液器
+entries/equipment/tools/fluid_reservoir.json	pages.0.text	容纳适量的流体并允许分配。按 "$(k:cofh.mode_change_increment)" 切换清空/填充模式。潜行时使用以启用或停用大多数其他手持（或穿戴）流体容器的自动补充。它可以在工匠工作台中填充流体和升级。
+entries/equipment/tools/fluid_reservoir.json	pages.1.title	贮液器
+entries/equipment/tools/fluid_reservoir.json	pages.1.text	它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高流体容量。
+entries/equipment/tools/fluid_reservoir.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/fluid_reservoir.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/equipment/tools/flux_capacitor.json	name	通量电容
+entries/equipment/tools/flux_capacitor.json	pages.0.text	在你的物品栏中存储红石通量并充能物品。它有 3 种模式，允许你只为快捷栏和盔甲、物品栏或所有东西充能，可使用更改模式按键绑定进行切换。要打开和关闭物品充能，请在手持电容器的同时 shift + 右击。它也可以用来为机器提供能量。它可以在工匠工作台中充能和升级。
+entries/equipment/tools/flux_capacitor.json	pages.1.title	通量电容
+entries/equipment/tools/flux_capacitor.json	pages.1.text	按 "$(k:cofh.mode_change_increment)" 切换模式。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。
+entries/equipment/tools/flux_capacitor.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/flux_capacitor.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)
+entries/equipment/tools/flux_magnet.json	name	通量磁铁
+entries/equipment/tools/flux_magnet.json	pages.0.text	通量磁铁是一种使用红石通量将附近的物品拉入玩家物品栏的工具。拿着它右击会吸取附近的物品。按 "$(k:cofh.mode_change_increment)" 切换自动磁吸模式，附近的物品会被自动拉入。它可以在工匠工作台中充能和升级。
+entries/equipment/tools/flux_magnet.json	pages.1.title	通量磁铁
+entries/equipment/tools/flux_magnet.json	pages.1.text	它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。
+entries/equipment/tools/flux_magnet.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/flux_magnet.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/equipment/tools/fluxbore.json	name	通量电钻
+entries/equipment/tools/fluxbore.json	pages.0.text	使用红石通量有效地挖掘石头和泥土类型的方块。它可以在工匠工作台中充能和升级。挖掘黑曜石需要强化或更高的整合组件。安装径向范围拓展后，按 "$(k:cofh.mode_change_increment)" 可在挖掘半径之间切换。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。
+entries/equipment/tools/fluxbore.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/fluxbore.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/equipment/tools/fluxsaw.json	name	通量电锯
+entries/equipment/tools/fluxsaw.json	pages.0.text	使用红石通量轻松挖掘木头类型的方块。右击像往常一样将原木剥皮。它可以在工匠工作台中充能和升级。安装径向范围拓展后，按 "$(k:cofh.mode_change_increment)" 可在砍伐半径之间切换。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。
+entries/equipment/tools/fluxsaw.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/fluxsaw.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/equipment/tools/potion_infuser.json	name	药水注射器
+entries/equipment/tools/potion_infuser.json	pages.0.text	用于为自己、生物或其他玩家注入药水效果。按 "$(k:cofh.mode_change_increment)" 切换自动注射，它会定期为你注射小剂量。它可以用$(l:thermal:technology/potion_fluid)药水$(/l)填充并在工匠工作台中升级。
+entries/equipment/tools/potion_infuser.json	pages.1.title	药水注射器
+entries/equipment/tools/potion_infuser.json	pages.1.text	它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高流体容量。
+entries/equipment/tools/potion_infuser.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/potion_infuser.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/potion_amplifier)炼金放大器$(/l)$(li)$(l:thermal:technology/augments/potion_duration)炼金延长器$(/l)
+entries/equipment/tools/potion_quiver.json	name	药水箭袋
+entries/equipment/tools/potion_quiver.json	pages.0.text	用于存储和灌注具有药水效果的箭。右击你手中的箭袋，将箭矢从你的物品栏转移到箭袋中。按 "$(k:cofh.mode_change_increment)" 切换灌注，每个箭矢需要 50mb 存储的 $(l:thermal:technology/potion_fluid)药水$(/l)。可以在工匠工作台中填充和升级箭袋。
+entries/equipment/tools/potion_quiver.json	pages.1.title	药水箭袋
+entries/equipment/tools/potion_quiver.json	pages.1.text	它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高流体容量。
+entries/equipment/tools/potion_quiver.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/potion_quiver.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/potion_amplifier)炼金放大器$(/l)$(li)$(l:thermal:technology/augments/potion_duration)炼金延长器$(/l)
+entries/equipment/tools/rf_potato.json	name	马铃薯电容
+entries/equipment/tools/rf_potato.json	pages.0.text	存储和传输红石通量。不能用于为玩家物品栏中的物品充能。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高红石通量容量。
+entries/equipment/tools/rf_potato.json	pages.1.title	马铃薯电容
+entries/equipment/tools/rf_potato.json	pages.1.text	$(br2)$(o)「我不骗你，这个马铃薯只能发 1.1 伏特的电。还不够我跟你撒个谎呢。」
+entries/equipment/tools/satchel.json	name	背包
+entries/equipment/tools/satchel.json	pages.0.text	背包是可以装东西的包包。这很简单明了。按 "$(k:cofh.mode_change_increment)" 切换自动收集模式，根据过滤器限制，物品会在拾取时自动存储。它可以在工匠工作台中升级。
+entries/equipment/tools/satchel.json	pages.1.title	背包
+entries/equipment/tools/satchel.json	pages.1.text	它可以在工作台中用任何普通染料染色，和/或用信素安全锁锁定。
+entries/equipment/tools/satchel.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/satchel.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)
+entries/equipment/tools/watering_can.json	name	洒水壶
+entries/equipment/tools/watering_can.json	pages.0.text	用于浇灌作物以加速其生长。它可以在工匠工作台中填充和扩容。安装径向范围拓展后，按 "$(k:cofh.mode_change_increment)" 在浇水半径之间切换。它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高水容量。
+entries/equipment/tools/watering_can.json	pages.1.title	洒水壶
+entries/equipment/tools/watering_can.json	pages.2.title	升级组件兼容性
+entries/equipment/tools/watering_can.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/equipment/tools/xp_crystal.json	name	洞见水晶
+entries/equipment/tools/xp_crystal.json	pages.0.text	便携式 XP 存储空间！洞见水晶可以容纳 10K 经验值，相当于大约 63 级。这可以通过附魔$(l:thermal:world/holding)扩容$(/l)来增加。
+entries/equipment/tools/xp_crystal.json	pages.1.title	洞见水晶
+entries/guides/faq.json	name	常见的、已回答的问题
+entries/guides/faq.json	pages.0.text	Q: 热动力学/管道在哪里？$(br)A: 请详阅$(l:thermal:storage_and_transport/dynamics)此处$(/l)。$(br2)Q: 升级套件在哪里？$(br)A: 请详阅$(l:thermal:technology/augments/integral_components)此处$(/l)。$(br2)Q: 我该如何提高我的机器的速度？$(br)A: 请详阅$(l:thermal:technology/augments/integral_components)此处$(/l)和$(l:thermal:technology/augments/machine_speed)此处$(/l)。$(br2)Q: 这些升级组件可以叠加吗？$(br)A: 请详阅$(l:thermal:technology/augments/introduction)此处$(/l)。
+entries/guides/faq.json	pages.1.text	Q: 我该如何更改通量电钻/电锯的模式？$(br)A: 你需要安装$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)来调整挖掘半径。$(br2)Q: 我该如何充能/升级我的工具？$(br)A: 请详阅$(l:thermal:technology/tinker_bench)此处$(/l)。$(br2)Q: 为什么我的能源炉会缓慢失去红石通量？$(br)A: 能源炉中的红石通量缓冲区仅用于确定对能源炉进行多少节流。请详阅$(l:thermal:technology/dynamos/introduction)此处$(/l)以获取更多信息。
+entries/guides/faq.json	pages.2.link_text	工具的补充
+entries/guides/faq.json	pages.2.text	Q: X 模组可以获得支持（配方等）吗？$(br)A: 你可以在我们的$(l:thermal:links/discord)Discord 服务器$(/l)中请求兼容性。$(br2)Q: 热力的基础工具/武器/盔甲在哪里，例如钻石开掘铲和琥珀金弓？$(br)A: 它们已被转移到单独的模组：
+entries/guides/faq.json	pages.3.text	Q: 铂、钢、蕴魔秘银等发生了什么？$(br)A: 由于各种原因，这些被认为没有必要包含在热力基础中。如果有些回归，它将在单独的兼容性模组中。$(br2)Q: 为什么我不能放置流体？$(br)A: Forge 的流体 API 目前处于混乱状态。
+entries/guides/faq.json	pages.4.text	Q: 如何修改矿物生成？$(br)A: 设置中有启用/停用矿物生成的选项，但尚未实现对生成高度等细节的调整。$(br2)Q: 我如何更改设置？$(br)A: 设置现在是在每个存档的基础上建立；在存档文件中的 serverconfigs 文件夹中找到它们。你还可以通过将文件从 serverconfigs 文件夹复制到 defaultconfigs 文件夹并编辑来设置默认设置。
+entries/guides/faq.json	pages.5.text	Q: 我该在哪里以及如何报告错误？$(br)A: 你可以在我们的$(l:thermal:links/discord)Discord 服务器$(/l)中询问。在报告之前，请确保你的模组是最新的并且你没有安装 Optifine。$(br2)Q: 我该如何修改配方？$(br)A: 热力模组都是数据驱动的，因此你可以使用数据包修改配方，如$(l:thermal:guides/modpack/recipes)此处$(/l)所示。或者，热力模组具有 CraftTweaker 支持。
+entries/guides/modpack/augments.json	name	自定义升级组件
+entries/guides/modpack/augments.json	pages.0.text	升级系统的建立考虑了模块化、可定制性和灵活性。升级是基于 NBT 的，这意味着你可以通过修改物品 NBT 来分配你想要的任何修饰词和值。换句话说，热力提供的升级组件没有什么特别之处——实际上任何物品都可以是升级组件，前提是它具有相关的 NBT 数据。甚至一个马铃薯。
+entries/guides/modpack/augments.json	pages.1.text	升级分为类型和修饰词。类型决定了升级组件可以插入到哪些方块中，也可以影响可堆叠性。请详阅 $(l:thermal:technology/augments/introduction)升级组件介绍$(/l)以获取更多信息。如果未指定类型，则不会对升级组件施加任何限制。
+entries/guides/modpack/augments.json	pages.2.text	修饰符通过属性值配对分配给一个物品，属性是修饰词，值是修饰词的数值。所有的值都是浮点数，即使修饰词建议它应该是整数（例如药水强度）。稍后会详细介绍。
+entries/guides/modpack/augments.json	pages.3.link_text	Github 链接
+entries/guides/modpack/augments.json	pages.3.text	NBT 的一般格式如下： $(br2){AugmentData:$(br){Type:'[augment type]',$(br)[modifier 1]:[float value]f, $(br)[modifier 2]:[float value]f, $(br)[...]}}$(br2)可以在 CoFH 的 Github 中找到可用升级类型和修饰词的完整清单；链接如下。
+entries/guides/modpack/augments.json	pages.4.text	因此，例如，使所有配方的能量为 0 的机器升级的命令（本质上是创造模式的机器升级）如下（点击以执行命令）：$(br)$(c:/summon minecraft:item ~ ~ ~ {Item:{id:'minecraft:sea_pickle',Count:1b,tag:{AugmentData:{Type:'Machine',MachineEnergy:0.0f}}}})/give $(playername) minecraft:sea_pickle{AugmentData:{Type:'Machine',MachineEnergy:0.0f}} 1$(/c)$(br2)如果有多个修饰词-值配对具有相同的修饰词，则以最后一个为准。
+entries/guides/modpack/augments.json	pages.5.title	关于堆叠的说明
+entries/guides/modpack/augments.json	pages.5.text	某些修饰词是不可堆叠的——也就是说，如果同一工具/方块上的多个升级具有相同的修饰词，则最高值将会优先采用。这些修饰词的值带有下划线。可堆叠性是修饰词类型固有的特性；例如，无论值如何，红石通量容量始终不可堆叠，而范围扩展永远可以堆叠。
+entries/guides/modpack/augments.json	pages.6.title	关于浮点数的说明
+entries/guides/modpack/augments.json	pages.6.text	如前所述，所有值都以浮点数格式输入。这会导致与似乎不可或缺的修饰词进行一些有趣的互动。在这些情况下，升级会将输入的浮点数显示为四舍五入到最接近整数的值。但是，工具/方块的实际行为可能会有所不同，具体取决于修饰词/值。
+entries/guides/modpack/recipes.json	name	自定义配方
+entries/guides/modpack/recipes.json	pages.0.text	所有机器、装置、能源炉等都使用 JSON 来决定它们的配方和催化剂，这意味着你可以使用数据包来创建和修改配方。或者，热力具有 CraftTweaker 支持，如果你对此更满意的话。下方是 Minecraft Wiki 的链接，可以帮助你开始使用数据包。
+entries/guides/modpack/recipes.json	pages.1.link_text	机器配方
+entries/guides/modpack/recipes.json	pages.1.text	下方是指向机器配方示例的链接。第一个输出永远是主要输出，而其余永远是次要输出。"count" 是一个整数值，不受催化剂影响。"chance" 是一个浮点数值，默认情况下受催化剂影响（可以通过将 "locked" 设为 true 来更改）。
+entries/guides/modpack/recipes.json	pages.2.link_text	催化剂
+entries/guides/modpack/recipes.json	pages.2.text	下方是一个用于向机器添加催化剂的 JSON 示例的链接。机器、物品和所有 4 个催化剂倍增器都在此处定义。有关催化剂的更多信息，请详阅$(l:thermal:world/materials/catalysts)此处$(/l)。
+entries/guides/modpack/recipes.json	pages.3.link_text	提取器升级
+entries/guides/modpack/recipes.json	pages.3.text	下方是一个 JSON 示例的链接，用于使用植育一号提高树汁提取器的输出。很简单，这里就不多说了。
+entries/guides/modpack/recipes.json	pages.4.link_text	能源炉配方
+entries/guides/modpack/recipes.json	pages.4.text	下方是一个用于在能源炉中燃烧精炼油的 JSON 示例的链接。要记住的一个重要限制是能量值必须至少 10k 红石通量！
+entries/links/contributions/darkangel22579.json	pages.0.text	提供机器的贡献。
+entries/links/contributions/drullkus.json	pages.0.text	就事情的运作方式而言，非常需要 Patchouli 的支持。协助热力系列材质和许多其他模组。喜欢说自己的作品有多糟糕。
+entries/links/contributions/floofhips.json	pages.0.link_text	FloofHips 的 Twitter
+entries/links/contributions/floofhips.json	pages.0.text	创造了许多美丽的热力系列材质，让你的眼睛倍感幸福。Floof 还使这本书多次变得更加爵士乐。
+entries/links/contributions/hekera.json	pages.0.text	合著者，重写了这本书很多。通过改进布局使这本书更加精美，并经历了许多错误。喜欢取笑 Shiny。
+entries/links/contributions/hekera.json	pages.2.text	再 5 分钟，拜托...
+entries/links/contributions/onelemonyboi.json	pages.0.text	能源炉类别和一些模组支持贡献。
+entries/links/contributions/shiny.json	pages.0.text	项目负责人，合著者。最初的书籍工作包括类别。为 Discord 写了一些东西，许多模组支持文件（还有更多）对 King 的个人滋扰，错误信息的传播者，对 Hekera 的道义支持。
+entries/links/contributions/shiny.json	pages.2.text	你听过智者达斯-Lemming 的悲剧吗？我想没有。这不是 CoFH wiki 会告诉你的故事。这是一个 Discord 的传奇。达斯-Lemming 是 Java 的黑魔王，如此强大和明智，他可以使用代码影响其他模组修复错误……他对 Java 的了解如此之多，以至于他甚至可以让他关心的模组免于消亡。
+entries/links/contributions/shiny.json	pages.3.text	Java 的阴暗面是获得许多被一些人认为是非自然能力的途径。他变得如此强大……他唯一害怕的就是失去红石通量平衡，当然，最终他做到了。不幸的是，他将他所知道的一切都教给了其他模组作者，然后这些模组作者将红石通量的使用量扩大了一千倍。具有讽刺意味的是，他可以拯救其他模组免于动力不足，但他自己的模组却不行。
+entries/links/contributions/spongeblast.json	pages.0.text	升级类别，所以你们都可以知道最终将它们用于什么。 :D
+entries/links/ctm.json	pages.0.text	你是否知道安装了 CTM 后，末影玻璃等一些材质会连接起来并且看起来很漂亮？你装了吗？做得好。你没有？你在等什么？！
+entries/links/ctm.json	pages.1.text	有趣的事实！末影合金因其扭曲时空的末影特性而得名！
+entries/links/discord.json	pages.0.text	遇到技术问题？还有问题？有建议？想要一个友好的地方？想更轻松地知道你最喜爱的热力模组何时更新？加入我们的 Discord 吧 :D
+entries/links/discord.json	pages.1.text	有趣的事实！信素因其传输红石信号的能力而得名！
+entries/links/twitter.json	name	King 的 Twitter
+entries/links/twitter.json	pages.0.text	想跟上 King 本人吗？在 Twitter 上关注他！
+entries/links/twitter.json	pages.1.text	有趣的事实！流明因其发光特性而得名！
+entries/storage_and_transport/dynamics.json	name	《热动力学》在哪里？
+entries/storage_and_transport/dynamics.json	pages.0.text	《热动力学》目前被搁置，因为热力系列的其他功能正在充实。请耐心等待！以下页面将有其他推荐的管道模组。
+entries/storage_and_transport/dynamics.json	pages.1.link_text	Curseforge 链接
+entries/storage_and_transport/dynamics.json	pages.1.text	XNet 是一款功能强大的模组，可以在一条线缆中传输物品、流体、红石通量等。每个网络都需要一个控制器，通过它可以设定网络以控制多个频道上的输入、输出、过滤、堆叠大小等。涉及到轻微的学习曲线，但可操作性几乎是无与伦比的。
+entries/storage_and_transport/dynamics.json	pages.2.link_text	Curseforge 链接
+entries/storage_and_transport/dynamics.json	pages.2.text	要获得更像 1.12 热动力学的体验，请尝试 Refined Pipes。管道和提取器以不同的速度进入不同的层次。对于那些已经熟悉 1.12 热动力学的人来说，这个模组应该感觉像家一样。
+entries/storage_and_transport/dynamics.json	pages.3.link_text	Curseforge 链接
+entries/storage_and_transport/dynamics.json	pages.3.text	Integrated Dynamics 是一个非常强大的模组，可以评估关于生物、容器等的各种数值。Tunnels 是它的扩充模组，允许网络从容器中导入/导出物品。两者相结合，可实现极高的精确度、过滤性和控制性。当心，这个模组比大多数模组更难上手。
+entries/storage_and_transport/dynamics.json	pages.4.title	带管道的扩展模组
+entries/storage_and_transport/dynamics.json	pages.4.text	以下模组具有多种传输选项，但还新增了许多你可能感兴趣的其他精彩内容。如果你正在寻找$(o)只有$()新增物品/流体/能量传输选项的模组，请参考之前的页面。$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/create)Create$()$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/immersive-engineering)Immersive Engineering$()$(li)$(l:https://www.curseforge.com/minecraft/mc-mods/rats)funny rat mod$()
+entries/storage_and_transport/dynamics/energy_duct.json	name	能量管道
+entries/storage_and_transport/dynamics/energy_duct.json	pages.0.text	能量管道用于输送能量。输送多少能量？管够。如果你让连接进入饱和状态，它就可以支持更高的传输速率。所以，尽量保持稳定的需求。为了限制能量流动的速率，可以使用红石通量限流器连接件。
+entries/storage_and_transport/dynamics/energy_duct.json	pages.2.title	连接件兼容性
+entries/storage_and_transport/dynamics/energy_duct.json	pages.2.text	$(li)红石通量限流器
+entries/storage_and_transport/dynamics/fluid_duct.json	name	流体管道
+entries/storage_and_transport/dynamics/fluid_duct.json	pages.0.text	流体管道用于输送流体。一段管道网络在同一时间只能容纳和传输一种流体。流体管道（视窗）可以让你看到里面的流体。为了从$(l:thermal:technology/devices/introduction)装置$(/l)和其他不能自动输出流体的方块中抽取流体，需要安装伺服器连接件。
+entries/storage_and_transport/dynamics/fluid_duct.json	pages.2.title	连接件兼容性
+entries/storage_and_transport/dynamics/fluid_duct.json	pages.2.text	$(li)过滤器$(li)伺服器$(li)涡轮伺服器
+entries/storage_and_transport/locomotion/crossover_rail.json	name	渡线铁轨
+entries/storage_and_transport/locomotion/crossover_rail.json	pages.0.text	渡线铁轨允许两条垂直的轨道相交而不会互相干扰。通过渡线铁轨的矿车将继续沿其来自的相同方向行驶。
+entries/storage_and_transport/locomotion/energy_minecart.json	name	红石通量矿车
+entries/storage_and_transport/locomotion/energy_minecart.json	pages.0.text	红石通量矿车可用于存储红石通量 (RF)。矿车的初始存储容量为 1,000,000 RF，最大传输速率为 1,000 RF/t，可以使用增强元件提升。使用 GUI 为存放 RF 的物品充能或排空。
+entries/storage_and_transport/locomotion/energy_minecart.json	pages.2.text	请期待一种可以实现有趣物流的传输铁轨！
+entries/storage_and_transport/locomotion/energy_minecart.json	pages.3.title	增强元件兼容性
+entries/storage_and_transport/locomotion/energy_minecart.json	pages.3.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)
+entries/storage_and_transport/locomotion/fluid_minecart.json	name	流体储罐矿车
+entries/storage_and_transport/locomotion/fluid_minecart.json	pages.0.text	流体储罐矿车可用于存储流体。矿车的初始容量为 32,000 mb，可以使用增强元件提升。它一次只能存储一种流体。你可以使用兼容的容器（例如桶）手动向矿车中添加或取出流体。
+entries/storage_and_transport/locomotion/fluid_minecart.json	pages.2.text	也可以直接用桶右键点击流体储罐矿车，一次一桶地填充或倒空。注意：目前 Forge 存在一个 Bug，对不可装桶的流体使用桶会导致你的桶凭空消失！请期待一种可以实现有趣物流的传输铁轨！
+entries/storage_and_transport/locomotion/fluid_minecart.json	pages.3.title	增强元件兼容性
+entries/storage_and_transport/locomotion/fluid_minecart.json	pages.3.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/storage_and_transport/locomotion/lumium_rails.json	name	流明铁轨
+entries/storage_and_transport/locomotion/lumium_rails.json	pages.0.text	流明铁轨的工作方式与其标准铁轨完全相同，只是它们发出的亮度等级为 15。
+entries/storage_and_transport/locomotion/prismarine_rails.json	name	海晶铁轨
+entries/storage_and_transport/locomotion/prismarine_rails.json	pages.0.text	海晶铁轨的工作原理与标准铁轨完全一样，只是它们是防水的并且可以放置在水下。但是，如果普通矿车中的实体完全淹没在水中，他们仍会被踢出矿车。这可以通过使用$(l:thermal:storage_and_transport/locomotion/underwater_minecart)水下矿车$(/l)来防止。海晶铁轨还会发出 8 级的亮度。
+entries/storage_and_transport/locomotion/underwater_minecart.json	name	水下矿车
+entries/storage_and_transport/locomotion/underwater_minecart.json	pages.0.text	水下矿车允许包括玩家在内的实体在水下乘坐$(l:thermal:storage_and_transport/locomotion/prismarine_rails)铁轨$(/l)。乘坐水下矿车的实体在窒息前有 4 分钟的时间。生物仍然会表现得像在水下一样；亡灵生物不会燃烧，烈焰使者和末影人会受到伤害，僵尸会变成溺尸。可以附魔水下呼吸，这会降低每刻消耗空气的几率。
+entries/storage_and_transport/storage/energy_cell.json	name	红石通量单元
+entries/storage_and_transport/storage/energy_cell.json	pages.0.text	红石通量单元可用于存储和分配红石通量 (RF)。每侧都可以设定为输入/输出能量，单元可以设定为自动输入/输出。红石通量单元以 1,000,000RF 存储容量和 1,000RF/t 最大输入/输出开始，可以使用升级组件进行改进。提供与充满程度成比例的比较器输出。
+entries/storage_and_transport/storage/energy_cell.json	pages.2.text	可以精确设定红石通量单元的传输速率。在 GUI 中，红石通量测量计的两侧是输入和输出传输速率。这些可以使用 "+" 和 "-" 按钮手动设定，以精确控制红石通量传输速率。左/右键点击将以每刻 50/10 RF 的比率更改。Ctrl + 点击以 5/1 的比率更改。Shift + 点击以 1000/100 的比率更改。Ctrl + Shift + 点击以 10k/1k 的比率更改。
+entries/storage_and_transport/storage/energy_cell.json	pages.3.title	升级组件兼容性
+entries/storage_and_transport/storage/energy_cell.json	pages.3.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)
+entries/storage_and_transport/storage/fluid_cell.json	name	流体单元
+entries/storage_and_transport/storage/fluid_cell.json	pages.0.text	流体单元可用于存储和分配流体。流体单元的起始容量为 32,000 mb，最大输入/输出速率为 8,000 mb/t，可以使用升级组件进行改进。它一次只能存储一种流体。每侧都可以设定为输入/输出能量，单元可以设定为自动输入/输出。提供与充满程度成比例的比较器输出。
+entries/storage_and_transport/storage/fluid_cell.json	pages.2.text	可以精确设置流体单元的传输速率。在 GUI 中，流体测量计的两侧是输入和输出传输速率。这些可以使用 "+" 和 "-" 按钮手动设定，以精确控制流体传输速率。左/右键点击将以每刻 50/10 mb 的比率更改。Ctrl + 点击以 5/1 的比率更改。Shift + 点击以 1000/100 的比率更改。Ctrl + Shift + 点击以 10k/1k 的比率更改。
+entries/storage_and_transport/storage/fluid_cell.json	pages.3.text	可以用铁桶右击流体单元以一次填充或清空一个桶。请注意，目前 Forge 存在一个错误，即尝试将不可装桶的流体装桶会使你的桶失效！
+entries/storage_and_transport/storage/fluid_cell.json	pages.4.title	升级组件兼容性
+entries/storage_and_transport/storage/fluid_cell.json	pages.4.text	$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/technology/65_items.json	name	一组有 65 个物品？！
+entries/technology/65_items.json	pages.0.text	某些机器的输出有一定几率出现，尤其是在使用催化剂时。例如，在一个配方中，每个输入物品产生 2.5 个输出物品。虽然前两个输出物品是确定的，但第三个输出物品只有 50% 的几率。当机器的输出栏填满时，这可能会导致问题。
+entries/technology/65_items.json	pages.1.title	这不是错误！
+entries/technology/65_items.json	pages.1.text	热力膨胀通过简单地让堆叠大小随意增加来容纳这些多余的输出以解决这个问题。
+entries/technology/augments/area_radius.json	name	径向范围拓展
+entries/technology/augments/area_radius.json	pages.0.title	径向范围拓展
+entries/technology/augments/area_radius.json	pages.0.text	径向范围拓展允许你的工具或机器影响其周围更大的区域。每次扩容都会在每个方向将最大区域增加 1 个方块。
+entries/technology/augments/dynamo_fuel.json	name	多环泵注器
+entries/technology/augments/dynamo_fuel.json	pages.0.title	多环泵注器
+entries/technology/augments/dynamo_fuel.json	pages.0.text	多环泵注器将能源炉的燃料效率提升 1.1 倍。
+entries/technology/augments/dynamo_output.json	name	辅助反应室
+entries/technology/augments/dynamo_output.json	pages.0.title	辅助反应室
+entries/technology/augments/dynamo_output.json	pages.0.text	辅助反应室将能源炉的最大产能增加 100%，但将效率降低 0.9 倍。
+entries/technology/augments/fluid_tank.json	name	扩容储罐构造
+entries/technology/augments/fluid_tank.json	pages.0.title	扩容储罐构造
+entries/technology/augments/fluid_tank.json	pages.0.text	扩容储罐构造将机器、装置、能源炉或工具中所有流体存储空间的大小提升 4 倍。
+entries/technology/augments/integral_components.json	name	整合组件
+entries/technology/augments/integral_components.json	pages.0.text	升级组件可提高机器、装置、能源炉和工具的整体统计数据；它们扩展了基础红石通量存储/传输、流体存储/传输和 RF/t 的使用/生成。这个整体缩放比例与其他升级修饰词叠加，即使它们带有下划线。但是，与所有其他带有下划线的修饰词一样，只采用最高缩放比例的修饰词。
+entries/technology/augments/integral_components.json	pages.1.text	例如，$(l:thermal:technology/machines/furnace)红石熔炼炉$(/l)具有谐振和硬化整合组件和$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)将具有 24 倍的红石通量存储、8 倍的红石通量传输和 4 倍的基础 RF/t。$(br2)硬化、强化和谐振整合组件的缩放比例分别为 2 倍、3 倍和 4 倍。
+entries/technology/augments/introduction.json	name	介绍 - 升级组件
+entries/technology/augments/introduction.json	pages.0.text	所有机器、装置、能源炉和工具都可以使用$(l)升级组件$()进行升级。升级组件提供各种好处，从增强存储到增加自动化的便利性。可以在工匠工作台或机器、装置和能源炉 GUI 中的升级面板中应用升级。
+entries/technology/augments/introduction.json	pages.1.text	将鼠标光标停留在物品栏中的升级组件上时，物品提示将显示升级组件的修饰词。普通字体的修饰词可以叠加，以 "+" 开头的修饰词可以叠加，以 "x" 结尾的修饰词可以叠加。带下划线的乘数值不能叠加；相对的，只使用所有升级的最高乘数值。
+entries/technology/augments/introduction.json	pages.2.text	升级组件有一个与之关联的特定升级类型，也可以在物品提示中看到。该类型限制可以将升级组件放入的方块，有时限制放入方块的数量。例如，机器类型的升级组件不能放入能源炉中。许多升级组件无法堆叠，例如具有银色背景的升级组件。
+entries/technology/augments/item_filter.json	name	物品过滤规制
+entries/technology/augments/item_filter.json	pages.0.title	物品过滤规制
+entries/technology/augments/item_filter.json	pages.0.text	物品过滤规制升级组件允许机器、装置或装备有选择地接受物品。过滤器可以在独立的 GUI 中配置，可以通过按住 Shift + 右击安装它的方块或物品，或通过方块 GUI 中的标签来访问。
+entries/technology/augments/item_filter.json	pages.1.text	最多可以将 15 个物品添加到过滤器中，并具有在黑名单/白名单与忽略/匹配 NBT 之间切换的选项。
+entries/technology/augments/machine_catalyst.json	name	触媒回收室
+entries/technology/augments/machine_catalyst.json	pages.0.title	触媒回收室
+entries/technology/augments/machine_catalyst.json	pages.0.text	触媒回收室降低 0.8 倍使用催化剂的几率，但也将每次操作使用的能量提升 1.25 倍。
+entries/technology/augments/machine_cycle.json	name	循环处理升级
+entries/technology/augments/machine_cycle.json	pages.0.title	循环处理升级
+entries/technology/augments/machine_cycle.json	pages.0.text	循环处理升级允许机器的有效输出被反馈到它的输入栏中。对自动化很有用。
+entries/technology/augments/machine_efficiency.json	name	通量效率升级
+entries/technology/augments/machine_efficiency.json	pages.0.title	通量效率升级
+entries/technology/augments/machine_efficiency.json	pages.0.text	通量效率升级使每次操作使用的红石通量降低 0.9 倍，但也将机器的最大红石通量使用率降低 10%。
+entries/technology/augments/machine_null.json	name	辅助仙人掌
+entries/technology/augments/machine_null.json	pages.0.title	辅助仙人掌
+entries/technology/augments/machine_null.json	pages.0.text	辅助仙人掌增强会自动销毁任何多余的副产物。多余的副产物是指会溢出存储槽并超出正常允许溢出量的那部分产物。
+entries/technology/augments/machine_output.json	name	辅助处理筛
+entries/technology/augments/machine_output.json	pages.0.title	辅助处理筛
+entries/technology/augments/machine_output.json	pages.0.text	辅助处理筛将副产物输出的几率提升 15%，但也将每次操作使用的能量提升 1.25 倍。
+entries/technology/augments/machine_speed.json	name	通量链接放大器
+entries/technology/augments/machine_speed.json	pages.0.title	通量链接放大器
+entries/technology/augments/machine_speed.json	pages.0.text	通量链接放大器增强元件提升了 100% 的最大红石通量使用率，但也将每次操作使用的红石通量提升 1.1 倍。
+entries/technology/augments/potion_amplifier.json	name	炼金放大器
+entries/technology/augments/potion_amplifier.json	pages.0.title	炼金放大器
+entries/technology/augments/potion_amplifier.json	pages.0.text	炼金放大器增加了储存药水的效果 1 级，但减少了 25% 的持续时间。堆叠到 4 个会导致产生没有持续时间的药水，使许多药水变得无用。
+entries/technology/augments/potion_duration.json	name	炼金延长器
+entries/technology/augments/potion_duration.json	pages.0.title	炼金延长器
+entries/technology/augments/potion_duration.json	pages.0.text	炼金延长器增加药水的持续时间 100%。对具有即时、一次性效果的药水（即时药水）没有影响。
+entries/technology/augments/rf_coil.json	name	扩展通量线圈
+entries/technology/augments/rf_coil.json	pages.0.title	扩展通量线圈
+entries/technology/augments/rf_coil.json	pages.0.text	扩展通量线圈将红石通量存储和传输提升 4 倍。
+entries/technology/augments/rf_coil_storage.json	name	稳态通量线圈
+entries/technology/augments/rf_coil_storage.json	pages.0.title	稳态通量线圈
+entries/technology/augments/rf_coil_storage.json	pages.0.text	稳态通量线圈将红石通量存储提升 6 倍，将红石通量传输提升 2 倍。
+entries/technology/augments/rf_coil_xfer.json	name	强导通量线圈
+entries/technology/augments/rf_coil_xfer.json	pages.0.title	强导通量线圈
+entries/technology/augments/rf_coil_xfer.json	pages.0.text	强导通量线圈将红石通量存储提升 2 倍，将红石通量传输提升 6 倍。
+entries/technology/augments/xp_storage.json	name	知识浓缩器
+entries/technology/augments/xp_storage.json	pages.0.title	知识浓缩器
+entries/technology/augments/xp_storage.json	pages.0.text	知识浓缩器增强元件允许机器或装置从配方或世界中收集经验值。它以 2.5k 经验值的最大存储量开始，乘以$(l:thermal:technology/augments/integral_components)整合元件$(/l)提供的缩放比例。
+entries/technology/augments/xp_storage.json	pages.1.text	安装后，一个类似于 $(l:thermal:equipment/tools/xp_crystal)洞见水晶$(/l)的小图标将出现在方块 GUI 的右下角。玩家可以点击此图标来提取存储在机器中的经验值。
+entries/technology/charge_bench.json	name	能量灌注机
+entries/technology/charge_bench.json	pages.0.text	能量灌注机是一个可用于一次充能最多 9 个物品的方块。与$(l:thermal:technology/tinker_bench)工匠工作台$(/l)相比，它的主要优点是充电速度更快，并且可以自动插入和取出物品（例如借助漏斗）。
+entries/technology/charge_bench.json	pages.1.title	能量灌注机
+entries/technology/charge_bench.json	pages.1.text	$(o)根据古代文献记载，有一种与能量灌注机同名的机器一度可以直接将红石通量注入任何物品，而不仅仅局限于工具。然而，这实在是太离谱了。$()
+entries/technology/charge_bench.json	pages.2.title	增强元件兼容性
+entries/technology/charge_bench.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)
+entries/technology/devices/collector.json	name	真空箱子
+entries/technology/devices/collector.json	pages.0.text	真空箱子是一种可以在其影响范围内拾取物品的装置。当安装了$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)时，它可以拾取经验球。基本上，真空箱子收集以其为中心的 9x9x9 区域，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)将其扩大到 15x15x15。
+entries/technology/devices/collector.json	pages.1.title	真空箱子
+entries/technology/devices/collector.json	pages.1.text	当由红石控制时，真空箱子会在打开时立即拾取物品。这样，它会在脉冲时永远可靠地启动。
+entries/technology/devices/collector.json	pages.2.title	增强元件兼容性
+entries/technology/devices/collector.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/technology/devices/composter.json	name	批量堆肥器
+entries/technology/devices/composter.json	pages.0.text	批量堆肥器是更高级版本的堆肥器。它可以一次堆肥多个物品，产出的是堆肥而不是骨粉。安装$(l:thermal:technology/augments/xp_storage)知识浓缩器增强元件$(/l)后，它还会产生经验值。
+entries/technology/devices/composter.json	pages.1.title	批量堆肥器
+entries/technology/devices/composter.json	pages.2.title	增强元件兼容性
+entries/technology/devices/composter.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)
+entries/technology/devices/fisher.json	name	水产捕捞器
+entries/technology/devices/fisher.json	pages.0.text	水产捕捞器是一种放置在水体中时就可以被动捕鱼的装置。它捕鱼的速度取决于生物群系、天气和增强设置，但它的基础速度是每隔几分钟捕捞 1 条鱼。$(l:thermal:technology/augments/integral_components)整合元件$(/l)和$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)可以加快速度。它可以选择使用 $(l:thermal:world/materials/bait)鱼饵$(/l)来提升它的速度或改变它捕捞的物品。
+entries/technology/devices/fisher.json	pages.1.title	水产捕捞器
+entries/technology/devices/fisher.json	pages.1.text	如果安装了$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)增强元件，捕捞器还会为每次捕捞（双关语）1-3 经验值。
+entries/technology/devices/fisher.json	pages.2.title	增强元件兼容性
+entries/technology/devices/fisher.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/technology/devices/hive_extractor.json	name	蜂箱漏斗
+entries/technology/devices/hive_extractor.json	pages.0.text	蜂箱漏斗是一种放置在蜂箱下时可以提取蜂巢和液体蜂蜜的装置。
+entries/technology/devices/hive_extractor.json	pages.1.title	蜂箱漏斗
+entries/technology/devices/hive_extractor.json	pages.2.title	增强元件兼容性
+entries/technology/devices/hive_extractor.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/technology/devices/introduction.json	name	介绍 - 装置
+entries/technology/devices/introduction.json	pages.0.text	装置在它们周围的方块上执行各种功能，其中一些可能需要红石通量。为了改进或修改其功能的各个方面，装置接受$(l:thermal:technology/augments/introduction)增强$(/l)。
+entries/technology/devices/introduction.json	pages.1.text	本章的其他条目将对每个方块的功能进行详细说明。每个方块的 GUI 中的可折叠面板中提供了简短说明。另一个面板在适用时提供关于方块的红石通量信息，例如当前和最大红石通量使用率。还有增强和红石控制面板，用于分别组织增强项和对红石信号的响应。
+entries/technology/devices/nullifier.json	name	销毁器
+entries/technology/devices/nullifier.json	pages.0.text	销毁器是一种可以使放入其中的所有物品和流体作废的装置。自动输入的物品/流体（例如通过漏斗）会立即作废，而通过 GUI 手动放入的物品会暂时存储，直到按下废弃按钮。它与过滤器类型的增强兼容，以限制它可以接受的内容。
+entries/technology/devices/nullifier.json	pages.1.title	销毁器
+entries/technology/devices/nullifier.json	pages.1.text	红石控制仅影响物品/流体的自动放入。无论红石控制设置如何，始终可以通过 GUI 手动删除。
+entries/technology/devices/nullifier.json	pages.2.title	增强元件兼容性
+entries/technology/devices/nullifier.json	pages.2.text	$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)
+entries/technology/devices/potion_diffuser.json	name	药水雾化器
+entries/technology/devices/potion_diffuser.json	pages.0.text	药水雾化器是一种会定期消耗$(l:thermal:technology/potion_fluid)药水溶液$(/l)以将药水效果散播给附近生物的装置。与普通药水相比，以这种方式获得的效果持续时间缩短 1/4。当没有生物在其影响范围内时，它会自动停止运作。基本上，雾化器在以它为中心的 9x9x9 区域散播药水效果，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)增强元件扩大到 15x15x15。
+entries/technology/devices/potion_diffuser.json	pages.1.title	药水雾化器
+entries/technology/devices/potion_diffuser.json	pages.1.text	试剂，即红石和荧石，可以分别以持续时间为代价来增加持续时间和提升效果等级（最高 IV）。单个试剂物品可维持雾化器运作 16 次。
+entries/technology/devices/potion_diffuser.json	pages.2.text	当由红石控制时，雾化器会在打开时套用药水效果，只要它的范围内有生物。这样，它会在脉冲时始终可靠地启动。
+entries/technology/devices/potion_diffuser.json	pages.3.title	增强元件兼容性
+entries/technology/devices/potion_diffuser.json	pages.3.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)$(li)$(l:thermal:technology/augments/potion_amplifier)炼金放大器$(/l)$(li)$(l:thermal:technology/augments/potion_duration)炼金延长器$(/l)
+entries/technology/devices/rock_gen.json	name	造石机
+entries/technology/devices/rock_gen.json	pages.0.text	造石机是一种在被适当的方块和流体包围时会产生无限石头的装置。它需要一个相邻的岩浆源方块和一个相邻的冷却剂方块；它可以选在在下方放置一个方块。有关所有可用的配方，请参阅 JEI。
+entries/technology/devices/rock_gen.json	pages.1.title	造石机
+entries/technology/devices/rock_gen.json	pages.1.text	最初，它将每秒产生 1 个方块，但可以使用 $(l:thermal:technology/augments/integral_components)整合元件$(/l)将其增加到每秒 4 个。如果更改了配方，则输出栏中的任何方块都将作废，以便为新配方中的方块腾出空间。
+entries/technology/devices/rock_gen.json	pages.2.title	增强元件兼容性
+entries/technology/devices/rock_gen.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)
+entries/technology/devices/soil_infuser.json	name	植育土注能机
+entries/technology/devices/soil_infuser.json	pages.0.text	植育土注能机是一种使用红石通量加速附近$(l:thermal:world/plants/phytogro)通量植育土$(/l)上农作物生长的装置。在它的基本形态中，它在周围注入了一个 3x3x3 的区域，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)增强元件扩大到 7x3x7。$(l:thermal:technology/augments/integral_components)整合元件$(/l)增加生长促进效果。
+entries/technology/devices/soil_infuser.json	pages.1.title	植育土注能机
+entries/technology/devices/soil_infuser.json	pages.2.title	增强元件兼容性
+entries/technology/devices/soil_infuser.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/technology/devices/tree_extractor.json	name	树汁提取器
+entries/technology/devices/tree_extractor.json	pages.0.text	树汁提取器是一种从相邻树木中提取流体的装置。可选择性地施肥以提高产量。骨粉在 8 个周期内将产量提升 1.5 倍，而$(l:thermal:world/plants/phytogro)植育一号$(/l)则在 16 个周期内提升 2.0 倍。不同的树产生不同的流体；使用 JEI 查看可用的配方。
+entries/technology/devices/tree_extractor.json	pages.1.title	树汁提取器
+entries/technology/devices/tree_extractor.json	pages.2.title	增强元件兼容性
+entries/technology/devices/tree_extractor.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/technology/devices/water_gen.json	name	蓄水器
+entries/technology/devices/water_gen.json	pages.0.text	蓄水器是一种根据你的需要生成无限水的装置。为了让它产生水，必须至少有 2 个与装置侧面相邻的水源方块。装置上方或下方的水源方块将不计算在内。
+entries/technology/devices/water_gen.json	pages.1.title	蓄水器
+entries/technology/devices/water_gen.json	pages.2.title	增强元件兼容性
+entries/technology/devices/water_gen.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/technology/devices/xp_condenser.json	name	知识聚集器
+entries/technology/devices/xp_condenser.json	pages.0.text	知识聚集器是一种可以从附近方块收集经验的装置，这些方块内部储存有经验值（通过$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)）。然后它会把经验值转换成液体形态。基础情况下，它收集以其为中心的 5x5x5 区域，可以使用$(l:thermal:technology/augments/area_radius)径向范围拓展增强元件$(/l)扩大。
+entries/technology/devices/xp_condenser.json	pages.1.title	知识聚集器
+entries/technology/devices/xp_condenser.json	pages.1.text	当通过红石信号控制时，知识聚集器会在打开的瞬间立即收集经验。这样，它在接收脉冲时总是能可靠地启动。
+entries/technology/devices/xp_condenser.json	pages.2.title	增强元件兼容性
+entries/technology/devices/xp_condenser.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/area_radius)径向范围拓展$(/l)
+entries/technology/dynamos/compression.json	name	压缩能源炉
+entries/technology/dynamos/compression.json	pages.0.text	压缩能源炉使用树油等可燃液体燃料产生红石通量。
+entries/technology/dynamos/compression.json	pages.1.title	压缩能源炉
+entries/technology/dynamos/compression.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/compression.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/disenchantment.json	name	祛魔能源炉
+entries/technology/dynamos/disenchantment.json	pages.0.text	祛魔能源炉使用书本等附魔物品产生红石通量。
+entries/technology/dynamos/disenchantment.json	pages.1.title	祛魔能源炉
+entries/technology/dynamos/disenchantment.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/disenchantment.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/gourmand.json	name	饕餮能源炉
+entries/technology/dynamos/gourmand.json	pages.0.text	饕餮能源炉使用食物产生红石通量。
+entries/technology/dynamos/gourmand.json	pages.1.title	饕餮能源炉
+entries/technology/dynamos/gourmand.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/gourmand.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/introduction.json	name	介绍 - 能源炉
+entries/technology/dynamos/introduction.json	pages.0.text	能源炉从各种类型的燃料中产生红石通量。它们有一个线圈侧，由能源炉产能时发光的亮红色小方块表示。红石通量仅从线圈侧输出，燃料从任何其他侧接受。在没有任何升级的情况下，能源炉可产生高达 40 RF/t 的功率。
+entries/technology/dynamos/introduction.json	pages.1.text	能源炉有一个内部缓冲器，可以使用$(l:thermal:technology/augments/integral_components)整合元件$(/l)升级，但不能使用通量线圈增强。能源炉将根据此缓冲区的饱满程度自动限制其红石通量输出和燃料使用。当为空时，能源炉将以其最大红石通量输出工作。充满时，能源炉将以 10% 的输出工作，即使产生的红石通量被浪费，也会使用燃料。缓冲器只有在能源炉产能时才会自动输出，闲置时会逐渐衰减。
+entries/technology/dynamos/lapidary.json	name	珠宝能源炉
+entries/technology/dynamos/lapidary.json	pages.0.text	珠宝能源炉使用水晶和宝石产生红石通量。
+entries/technology/dynamos/lapidary.json	pages.1.title	珠宝能源炉
+entries/technology/dynamos/lapidary.json	pages.1.text	$(o)这可能是通往痴迷宝石星人之地的传送门。$()
+entries/technology/dynamos/lapidary.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/lapidary.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/magmatic.json	name	热力能源炉
+entries/technology/dynamos/magmatic.json	pages.0.text	热力能源炉使用岩浆产生红石通量。
+entries/technology/dynamos/magmatic.json	pages.1.title	热力能源炉
+entries/technology/dynamos/magmatic.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/magmatic.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/numismatic.json	name	通货能源炉
+entries/technology/dynamos/numismatic.json	pages.0.text	通货能源炉使用$(l:thermal:technology/machines/press)硬币$(/l)产生红石通量。
+entries/technology/dynamos/numismatic.json	pages.1.title	通货能源炉
+entries/technology/dynamos/numismatic.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/numismatic.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/dynamos/stirling.json	name	斯特林能源炉
+entries/technology/dynamos/stirling.json	pages.0.text	斯特林能源炉使用可燃物品产生红石通量。
+entries/technology/dynamos/stirling.json	pages.1.title	斯特林能源炉
+entries/technology/dynamos/stirling.json	pages.2.title	增强元件兼容性
+entries/technology/dynamos/stirling.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/dynamo_output)辅助反应室$(/l)$(li)$(l:thermal:technology/augments/dynamo_fuel)多环泵注器$(/l)
+entries/technology/lock.json	name	信素安全锁
+entries/technology/lock.json	pages.0.text	用于启用各种机器、能源炉和物品上的安全面板。让你的东西变成你的！
+entries/technology/lock.json	pages.1.title	信素安全锁
+entries/technology/machines/bottler.json	name	流体灌装机
+entries/technology/machines/bottler.json	pages.0.text	流体灌装机是一种灌装盛装流体的物品（例如水桶和瓶子）的机器。可用于自动使用来自$(l:thermal:technology/machines/brewer)药水酿造机$(/l)的$(l:thermal:technology/potion_fluid)药水溶液$(/l)填充瓶子。
+entries/technology/machines/bottler.json	pages.1.title	流体灌装机
+entries/technology/machines/bottler.json	pages.2.title	增强元件兼容性
+entries/technology/machines/bottler.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/brewer.json	name	药水酿造机
+entries/technology/machines/brewer.json	pages.0.text	药水酿造机是一种酿造药水的机器。它是制造$(l:thermal:technology/potion_fluid)药水溶液$(/l)而不是直接在瓶子里酿造的。一种材料足以酿造一桶药水，它可以装满 4 瓶。
+entries/technology/machines/brewer.json	pages.1.title	药水酿造机
+entries/technology/machines/brewer.json	pages.2.title	增强元件兼容性
+entries/technology/machines/brewer.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/centrifuge.json	name	离心分离机
+entries/technology/machines/centrifuge.json	pages.0.text	离心分离机是一种将物品分离成组件的机器。例如，将合金混合成的基本金属粉。它还可以有效地从花朵中提取染料。
+entries/technology/machines/centrifuge.json	pages.1.title	离心分离机
+entries/technology/machines/centrifuge.json	pages.2.title	增强元件兼容性
+entries/technology/machines/centrifuge.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/chiller.json	name	急速冷冻机
+entries/technology/machines/chiller.json	pages.0.text	急速冷冻机是一种将水和熔融金属等液体冷却并结晶成固体形态的机器。允许各种铸模以更改最终产物的形状。
+entries/technology/machines/chiller.json	pages.3.title	增强元件兼容性
+entries/technology/machines/chiller.json	pages.3.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/crafter.json	name	序列装配台
+entries/technology/machines/crafter.json	pages.0.text	序列装配台是一种可自动合成物品的机器。一旦设定好了合成表上的配方，它将从其内部物品栏中取出物品和液体并进行制作。将流体存储在内部储罐中，可以取代那些需要流体桶的合成配方。
+entries/technology/machines/crafter.json	pages.1.title	序列装配台
+entries/technology/machines/crafter.json	pages.1.text	请注意，这台机器目前无法防止一种特定成分过度填充！热动力学会附带批次处理装置，敬请期待！
+entries/technology/machines/crafter.json	pages.2.title	增强元件兼容性
+entries/technology/machines/crafter.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/crucible.json	name	熔岩炉
+entries/technology/machines/crucible.json	pages.0.text	熔岩炉是一种将物品熔化成流体的机器。
+entries/technology/machines/crucible.json	pages.1.title	熔岩炉
+entries/technology/machines/crucible.json	pages.2.title	增强元件兼容性
+entries/technology/machines/crucible.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/crystallizer.json	name	结晶器
+entries/technology/machines/crystallizer.json	pages.0.text	结晶器是一种从基础组件和流体中制造晶体的机器。
+entries/technology/machines/crystallizer.json	pages.1.title	结晶器
+entries/technology/machines/crystallizer.json	pages.2.title	增强元件兼容性
+entries/technology/machines/crystallizer.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/furnace.json	name	红石熔炼炉
+entries/technology/machines/furnace.json	pages.0.text	红石熔炼炉是一种像传统熔炉一样熔炼物品的机器。
+entries/technology/machines/furnace.json	pages.1.title	红石熔炼炉
+entries/technology/machines/furnace.json	pages.2.title	增强元件兼容性
+entries/technology/machines/furnace.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/insolator.json	name	有机灌注器
+entries/technology/machines/insolator.json	pages.0.text	有机灌注器是一种使用红石通量、水和$(l:thermal:world/materials/catalysts)肥料$(/l)种植农作物、花朵和树木的机器。
+entries/technology/machines/insolator.json	pages.1.title	有机灌注器
+entries/technology/machines/insolator.json	pages.2.title	增强元件兼容性
+entries/technology/machines/insolator.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)$(li)$(l:thermal:technology/augments/machine_catalyst)触媒回收室$(/l)$(li)$(l:thermal:technology/augments/machine_cycle)循环处理升级$(/l)
+entries/technology/machines/introduction.json	name	介绍 - 机器
+entries/technology/machines/introduction.json	pages.0.text	机器使用红石通量 (RF) 形式的能量处理物品和/或流体。本章的其他条目将对每个的功能进行详细说明。每个方块的 GUI 中的可折叠面板中提供了简短说明。未升级的机器使用高达 20 RF/t。
+entries/technology/machines/introduction.json	pages.1.text	为了改进或修改其功能的各个方面，机器在「增强」面板中接受 $(l:thermal:technology/augments/introduction)增强$(/l)。「红石控制」和「设置」面板设定机器的红石行为和侧面设置。默认情况下，无论红石信号如何，机器都会工作，并且在首次放置时带有空白面设置，这意味着没有面会接受物品或流体。
+entries/technology/machines/introduction.json	pages.2.text	在「设置」面板中，方块的每一侧都由一个正方形表示，点击时将在设置间循环切换。蓝色和橙色分别代表输入和输出。箭头按钮设置自动转移到/从相邻物品栏。黑色表示该侧将接受输入/输出，但不会自动传输。拾取方块时会保存侧面设置。
+entries/technology/machines/introduction.json	pages.3.text	「能量」面板提供方块的红石通量信息，例如当前的红石通量使用情况。每台机器都有它可以使用的最大红石通量速率，并且每个配方都有与之相关的特定红石通量成本。这两个值可能会受到$(l:thermal:technology/augments/introduction)增强元件$(/l)的影响，两者相除即可确定给定配方的处理速度。为了加快机器的运行速度，可以使用某些$(l:thermal:technology/augments/machine_speed)增强元件$(/l)增加最大红石通量使用量，或者可以使用$(l:thermal:world/materials/catalysts)催化剂$(/l)减少配方所需的红石通量。
+entries/technology/machines/introduction.json	pages.4.text	这些页面包含机器和装置中常用组件的配方。
+entries/technology/machines/press.json	name	多驱冲压机
+entries/technology/machines/press.json	pages.0.text	多驱冲压机是一种可以接受各种铸模的机器，以便将金属冲压成不同的形状并（解）压缩方块和物品。
+entries/technology/machines/press.json	pages.1.title	多驱冲压机
+entries/technology/machines/press.json	pages.4.title	增强元件兼容性
+entries/technology/machines/press.json	pages.4.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/pulverizer.json	name	磨粉机
+entries/technology/machines/pulverizer.json	pages.0.text	磨粉机是一种粉碎物品和矿石的机器。想要提高矿石产量，可以使用增强元件和$(l:thermal:world/materials/catalysts)催化剂$(/l)进一步提升。
+entries/technology/machines/pulverizer.json	pages.1.title	磨粉机
+entries/technology/machines/pulverizer.json	pages.2.title	增强元件兼容性
+entries/technology/machines/pulverizer.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)$(li)$(l:thermal:technology/augments/machine_catalyst)触媒回收室$(/l)
+entries/technology/machines/pyrolyzer.json	name	热解炉
+entries/technology/machines/pyrolyzer.json	pages.0.text	热解炉是一种利用热量在低氧环境中分解物质的机器。通常用于将有机物和煤炭转化为更清净、更持久的燃料。
+entries/technology/machines/pyrolyzer.json	pages.1.title	热解炉
+entries/technology/machines/pyrolyzer.json	pages.2.title	增强元件兼容性
+entries/technology/machines/pyrolyzer.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)
+entries/technology/machines/refinery.json	name	流体精炼机
+entries/technology/machines/refinery.json	pages.0.text	流体精炼机是一种提炼树脂和树汁等流体的机器。
+entries/technology/machines/refinery.json	pages.1.title	流体精炼机
+entries/technology/machines/refinery.json	pages.2.title	增强元件兼容性
+entries/technology/machines/refinery.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)
+entries/technology/machines/sawmill.json	name	锯木机
+entries/technology/machines/sawmill.json	pages.0.text	锯木机是一种比手动更有效地将原木切割成木板的机器。它产生$(l:thermal:world/plants/treeproducts)锯末$(/l)作为副产物。
+entries/technology/machines/sawmill.json	pages.1.title	锯木机
+entries/technology/machines/sawmill.json	pages.2.title	增强元件兼容性
+entries/technology/machines/sawmill.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)
+entries/technology/machines/smelter.json	name	感应炉
+entries/technology/machines/smelter.json	pages.0.title	感应炉
+entries/technology/machines/smelter.json	pages.0.text	感应炉是一种将多种物品熔炼在一起，生产合金的机器。它还可以将矿物熔炼成锭和宝石，受$(l:thermal:world/materials/catalysts)催化剂$(/l)影响。熔炼矿石有机会产生富炉渣作为副产物，可当作催化剂或制造$(l:thermal:world/plants/phytogro)植育一号$(/l)。熔炼砾石会产生燧石和炉渣。
+entries/technology/machines/smelter.json	pages.1.title	感应炉
+entries/technology/machines/smelter.json	pages.2.title	增强元件兼容性
+entries/technology/machines/smelter.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/machine_speed)通量链接放大器$(/l)$(li)$(l:thermal:technology/augments/machine_efficiency)通量效率升级$(/l)$(li)$(l:thermal:technology/augments/machine_output)辅助处理筛$(/l)$(li)$(l:thermal:technology/augments/machine_catalyst)触媒回收室$(/l)
+entries/technology/potion_fluid.json	name	药水溶液
+entries/technology/potion_fluid.json	pages.0.text	药水溶液是传统 Minecraft 药水的流体形态。在接受药水的机器、装置或存储方块上使用 Minecraft 药水瓶会用药水填充方块并返还一个空瓶。
+entries/technology/potion_fluid.json	pages.1.text	药水溶液是传统 Minecraft 药水的流体形态。它可以通过在$(l:thermal:technology/machines/brewer)药水酿造机$(/l)中酿造药水直接获得。在接受药水的机器、装置或存储方块上使用 Minecraft 药水瓶会用药水填充方块并返还一个空瓶。
+entries/technology/potion_fluid.json	pages.2.text	相对的，在装有流体药水的方块上使用空瓶会填满瓶子。250 mb 的药水溶液相当于一瓶 Minecraft 药水。
+entries/technology/redprint.json	name	红图
+entries/technology/redprint.json	pages.0.text	红图可以轻松复制和粘贴你的方块设置！要保存设置，请手持空白红图并右键点击已设定的方块。手持已设定红图并右键点击其他的机器以粘贴设置。Shift + 右键点击可以清除红图。将红图放在副手栏中以自动设定放置的方块。
+entries/technology/redprint.json	pages.1.title	红图
+entries/technology/slot_seal.json	name	槽楔
+entries/technology/slot_seal.json	pages.0.text	用于锁定栏位并防止物品进入。有助于高级的机器物流。
+entries/technology/slot_seal.json	pages.1.title	槽楔
+entries/technology/tinker_bench.json	name	工匠工作台
+entries/technology/tinker_bench.json	pages.0.text	工匠工作台是一个可以为工具和方块充电、填充和套用增强的方块。它有两种模式，充能/灌装和增强，你可以使用 GUI 中物品栏下方的按钮在这两种模式之间切换。只有当你切换模式或取出工具/方块时，增强元件才会完全安装。
+entries/technology/tinker_bench.json	pages.1.title	工匠工作台
+entries/technology/tinker_bench.json	pages.2.title	增强元件兼容性
+entries/technology/tinker_bench.json	pages.2.text	$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/rf_coil)扩展通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_storage)稳态通量线圈$(/l)$(li)$(l:thermal:technology/augments/rf_coil_xfer)强导通量线圈$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)
+entries/world/holding.json	name	扩容
+entries/world/holding.json	pages.0.text	CoFH 核心新增了扩容，这是一种新的附魔，可以套用于存储各种东西（例如红石通量或流体）的方块和物品。对于每个等级，它都会增加 50% 的容量，在扩容 IV 时最高可增加达 200%。这可与修改存储容量的其他东西叠加在一起，例如$(l:thermal:technology/augments/introduction)增强元件$(/l)。例如，如果一台机器具有 $(l:thermal:technology/augments/integral_components)谐振整合组件$(/l)且有扩容 IV，它将存储 12 倍的红石通量。
+entries/world/materials/alloys.json	name	合金
+entries/world/materials/alloys.json	pages.0.text	热力新增各种不同的合金。它们可以在感应炉中直接合金化。或者，它们可以通过将其成分与如上所示的火焰弹组合来合成。
+entries/world/materials/alloys.json	pages.1.A.title	青铜
+entries/world/materials/alloys.json	pages.1.A.text	新时代的曙光。
+entries/world/materials/alloys.json	pages.1.B.title	殷钢
+entries/world/materials/alloys.json	pages.1.B.text	受热时膨胀最小。
+entries/world/materials/alloys.json	pages.2.A.title	琥珀金
+entries/world/materials/alloys.json	pages.2.A.text	两全其美。
+entries/world/materials/alloys.json	pages.2.B.title	康铜
+entries/world/materials/alloys.json	pages.2.B.text	加热时电阻系数变化最小。
+entries/world/materials/alloys.json	pages.3.A.title	流明
+entries/world/materials/alloys.json	pages.3.A.text	一块坚固的阳光砖。
+entries/world/materials/alloys.json	pages.3.B.title	信素
+entries/world/materials/alloys.json	pages.3.B.text	导电率比银好。
+entries/world/materials/alloys.json	pages.4.title	末影合金
+entries/world/materials/alloys.json	pages.4.text	以任何频率共振。
+entries/world/materials/alloys.json	pages.5.title	合金
+entries/world/materials/alloys.json	pages.5.text	热力新增各种不同的合金。它们可以通过将成分与火焰弹组合来合成。
+entries/world/materials/bait.json	name	鱼饵
+entries/world/materials/bait.json	pages.0.text	可以在$(l:thermal:technology/devices/fisher)水产捕捞器$(/l)中使用各种类型的鱼饵以增强或改变其捕鱼能力。
+entries/world/materials/bait.json	pages.1.text	水产饲料是鱼类无法抗拒的独特成分混合物；它提高了捕捞器的自然捕捞能力。
+entries/world/materials/bait.json	pages.2.text	底栖水产饲料帮助捕捞器从更深的地方捕捞东西，提高捕捞河豚、海带、海晶石、墨水囊、海绵、偶尔甚至是三叉戟等物品的几率。
+entries/world/materials/bait.json	pages.3.text	垃圾打捞网可以让捕捞器收集垃圾物品，例如拴绳、睡莲、骨头、水瓶和皮革。正如谚语所说：「一个人的垃圾是另一个人的宝藏。」或类似的说法。
+entries/world/materials/catalysts.json	name	催化剂
+entries/world/materials/catalysts.json	pages.0.text	催化剂是选择性物品，可以消耗以提升某些配方的产量。机器及其催化剂乘数列在下一页中。配方的主要输出由「主产物」倍率调整。副输出由「副产物」倍率调整。每次操作的能量由「能量」倍率调整。最后，「消耗」表示催化剂在操作中被消耗的几率。
+entries/world/materials/hardened_glass.json	name	硬化玻璃
+entries/world/materials/hardened_glass.json	pages.0.text	硬化玻璃是用于各种配方的防爆玻璃。它可以内衬各种金属以赋予其不同的特性。与$(l:thermal:world/materials/alloys)合金$(/l)一样，硬化玻璃及其变体可以使用其成分和火焰弹在工作台或直接在感应炉中制作。
+entries/world/materials/hardened_glass.json	pages.1.A.text	基础抗凋零。
+entries/world/materials/hardened_glass.json	pages.1.B.text	为相邻的红石供能。
+entries/world/materials/hardened_glass.json	pages.2.A.text	散发出强烈的光芒。
+entries/world/materials/hardened_glass.json	pages.2.B.text	让你向他人炫耀。
+entries/world/materials/hardened_glass.json	pages.3.text	硬化玻璃是用于各种配方的防爆玻璃。它可以内衬各种金属以赋予其不同的特性。信素玻璃会发出强烈的红石信号。流明玻璃发出强光。末影玻璃让你可以向其他玩家炫耀。
+entries/world/materials/metal_forms.json	name	齿轮、硬币、粉末等
+entries/world/materials/metal_forms.json	pages.0.title	齿轮、硬币、粉末等
+entries/world/materials/metal_forms.json	pages.0.text	热力新增了多种形态的金属和宝石，用于各种配方。最基本的是金属粒，它们的功用与原版铁粒和金粒相同。
+entries/world/materials/metal_forms.json	pages.1.text	粉末可以来自合成带有$(l:thermal:equipment/charges/earth_charge)裂岩弹$(/l)的锭，并且可以用于配方（通常是合金）或熔炼（仅限金属粉）中。可以使用 4 个特定材料的锭/宝石包围铁粒合成齿轮。
+entries/world/materials/metal_forms.json	pages.2.text	粉末通常来自 $(l:thermal:technology/machines/pulverizer)磨粉机$(/l)并且可以用于配方（通常是合金）或熔炼（仅限金属粉）中。金属板和硬币仅在$(l:thermal:technology/machines/press)多驱冲压机$(/l)中制作，并用于各种配方中。可以使用 4 个特定材料的锭/宝石包围铁粒合成齿轮。金属齿轮也可以用 4 个锭在冲压机中制作。
+entries/world/materials/ores.json	name	矿物
+entries/world/materials/ores.json	pages.0.title	免责声明
+entries/world/materials/ores.json	pages.0.text	矿石生成是可设定的，因此这里不解释数量和 Y 水平，因为它们在世界之间可能有很大差异。
+entries/world/materials/ores.json	pages.1.A.title	硝石
+entries/world/materials/ores.json	pages.1.A.text	一种软矿物，当作肥料中氮和钾的来源。
+entries/world/materials/ores.json	pages.1.B.title	硝石
+entries/world/materials/ores.json	pages.1.B.text	一种反应性矿物，用于固化橡胶和制造火药。
+entries/world/materials/ores.json	pages.2.A.title	朱砂
+entries/world/materials/ores.json	pages.2.A.text	一种用于提高矿物产量的猩红色矿物。
+entries/world/materials/ores.json	pages.2.B.title	沥青沙
+entries/world/materials/ores.json	pages.2.B.text	悬浮在沙子中的黏稠黑色高黏性液体。出现在沙漠和恶地。
+entries/world/materials/ores.json	pages.3.A.title	锡
+entries/world/materials/ores.json	pages.3.A.text	一种柔软、轻盈的金属，因其多功能性而受到重视。
+entries/world/materials/ores.json	pages.3.B.title	镍
+entries/world/materials/ores.json	pages.3.B.text	一种用于合金中的硬金属，受热的影响较小。
+entries/world/materials/ores.json	pages.4.A.title	铅
+entries/world/materials/ores.json	pages.4.A.text	一种柔软、致密的金属，具有遮蔽特性。
+entries/world/materials/ores.json	pages.4.B.title	银
+entries/world/materials/ores.json	pages.4.B.text	一种导电金属，因其光芒四射而备受推崇。
+entries/world/materials/ores.json	pages.5.A.title	磷灰石
+entries/world/materials/ores.json	pages.5.A.text	一种常见的矿物质，通常当作染料或肥料中磷的来源。
+entries/world/materials/rockwool.json	name	炉渣和石棉
+entries/world/materials/rockwool.json	pages.0.title	炉渣和石棉
+entries/world/materials/rockwool.json	pages.0.text	炉渣是一种富含矿物质的物质，通过在$(l:thermal:technology/machines/smelter)感应炉$(/l)中熔炼砾石而产生。石棉是一种纤维材料，通过使熔化的矿物材料（例如炉渣）在熔炉中快速旋转而制成。它不易燃，并且防爆性能略优于普通羊毛。
+entries/world/materials/storage.json	name	材料贮存
+entries/world/materials/storage.json	pages.0.text	热力为其所有的$(l:thermal:world/ores)矿物$(/l)和$(l:thermal:materials/alloys)合金$(/l)以及火药、炉渣、富炉渣和木炭新增了贮存块。对于其他模组的贮存块，热力遵循一个惯例，即制作配方中的中心物品决定要制作哪个模组的贮存块。例如，用 8 个沉浸工程的铜锭围绕 1 个热力的铜锭将制作一个热力的铜块。
+entries/world/materials/storage.json	pages.1.text	热力为其所有的$(l:thermal:world/ores)矿物$(/l)和$(l:thermal:materials/alloys)合金$(/l)以及火药、炉渣、富炉渣和木炭新增了贮存块。这些可以使用$(l:thermal:technology/machines/press)多驱冲压机$(/l)自动压缩/解压缩。
+entries/world/materials/storage.json	pages.2.text	对于其他模组的贮存块，热力遵循一个惯例，即制作配方中的中心物品决定要制作哪个模组的贮存块。例如，用 8 个沉浸工程的铜锭围绕 1 个热力的铜锭将制作一个热力的铜块。
+entries/world/mobs/basalz.json	name	岩石人
+entries/world/mobs/basalz.json	pages.0.title	岩石人
+entries/world/mobs/basalz.json	pages.0.text	岩石人是一种在贫瘠或多山的生物群系中生成的生物。它有 10 颗心，近距离造成 4.0 颗心的伤害。它会制造弹射物，造成 3.0 颗心的伤害并套用割裂效果。它有几率掉落岩石裂骸，可以制作或粉碎成岩石粉。
+entries/world/mobs/basalz.json	pages.1.title	岩石人
+entries/world/mobs/basalz.json	pages.1.text	割裂：每级降低盔甲效果 25%。
+entries/world/mobs/basalz.json	pages.2.title	行为
+entries/world/mobs/basalz.json	pages.2.text	岩石人是一种大胆的元素生物，擅长近战。它产生 8 个环绕弹射物，击中任何不幸进入 4 格内的物体。每次命中消耗一枚弹射物。一旦所有弹射物都被消耗掉，岩石人就会撤退并需要 5 秒才能为另外 8 个弹射物充能。
+entries/world/mobs/basalz.json	pages.3.title	攻略
+entries/world/mobs/basalz.json	pages.3.text	对付岩石人最简单的方法是使用远程武器。在近战情况下，即使是全副武装的玩家也可能难以承受所有 8 个弹射物，因为它们套用割裂效果。最好用一面盾牌吸收所有 8 个弹射物的冲击，然后趁它脆弱时攻击岩石人。或者，将岩石人引向其他生物让他们承受伤害。
+entries/world/mobs/blitz.json	name	狂风人
+entries/world/mobs/blitz.json	pages.0.title	狂风人
+entries/world/mobs/blitz.json	pages.0.text	狂风人是一种在温暖、干燥的生物群系中生成的生物。它有 10 颗心，近距离造成 1.5 颗心的伤害。它会制造弹射物，造成 2.5 颗心的伤害并套用震荡效果。它有几率掉落狂风沙尘，可以制作或粉碎成狂风粉。
+entries/world/mobs/blitz.json	pages.1.title	狂风人
+entries/world/mobs/blitz.json	pages.1.text	震荡：每级减少 3 颗心的攻击伤害。
+entries/world/mobs/blitz.json	pages.2.title	行为
+entries/world/mobs/blitz.json	pages.2.text	狂风人是一种胆小的元素生物，它会从远处发射弧形弹射物。如果它距离目标 24 格以内，它会每秒发射一枚弹射物。如果离得太远，它会靠近。如果目标距离小于 20 格，它会逃跑以保持距离。
+entries/world/mobs/blitz.json	pages.3.title	攻略
+entries/world/mobs/blitz.json	pages.3.text	对付狂风人最简单的方法是使用远程武器。此外，弹射物有飞行时间，因此它们更难击中移动/扫射的目标。
+entries/world/mobs/blizz.json	name	暴雪人
+entries/world/mobs/blizz.json	pages.0.title	暴雪人
+entries/world/mobs/blizz.json	pages.0.text	暴雪人是一种在寒冷生物群系中生成的生物。它有 10 颗心，近距离造成 3.5 颗心的伤害。它射出的弹射物造成 2.5 颗心的伤害并套用冻僵效果。它有几率掉落暴雪立方，可以制作或粉碎成暴雪粉。
+entries/world/mobs/blizz.json	pages.1.title	暴雪人
+entries/world/mobs/blizz.json	pages.1.text	冻僵：每级降低 30% 移动速度和 0.4 秒攻击速度。
+entries/world/mobs/blizz.json	pages.2.title	行为
+entries/world/mobs/blizz.json	pages.2.text	暴雪人是一种冷漠的元素生物，会向它的敌人倾泻弹射物。它会飞到它的目标上方并在它周围的区域产生坠落的弹射物。如果足够近，它会在目标上方盘旋。
+entries/world/mobs/blizz.json	pages.3.title	攻略
+entries/world/mobs/blizz.json	pages.3.text	对付暴雪人最简单的方法是使用远程武器。在近战中，最好直接面对暴雪人并承受伤害以进入近战范围。
+entries/world/plants/crops.json	name	农作物
+entries/world/plants/crops.json	pages.0.text	热力农业新增了多种农作物，其种子可以从村民购买。这些农作物可以经由空手右击收割。蘑菇作物可以种植在$(l:thermal:world/plants/phytogro)通量植育土$(/l)、菌丝土或灰壤上，但不能以骨粉或植育一号催化。它们仍然受到植育土和$(l:thermal:equipment/tools/watering_can)洒水壶$(/l)生长奖励的影响。
+entries/world/plants/crops.json	pages.1.A.title	大麦
+entries/world/plants/crops.json	pages.1.A.text	一种谷物，可以磨成面粉或发芽制成啤酒或威士忌。
+entries/world/plants/crops.json	pages.1.B.title	玉米
+entries/world/plants/crops.json	pages.1.B.text	一种因其多功能性而备受推崇的主食谷物。
+entries/world/plants/crops.json	pages.2.A.title	亚麻
+entries/world/plants/crops.json	pages.2.A.text	一种纤维状植物，可以很轻易地加工成细绳。
+entries/world/plants/crops.json	pages.2.B.title	洋葱
+entries/world/plants/crops.json	pages.2.B.text	一种球茎蔬菜，通常用于为咸味菜肴增添风味。让人流泪。
+entries/world/plants/crops.json	pages.3.A.title	小萝卜
+entries/world/plants/crops.json	pages.3.A.text	一种味道浓烈的根菜类蔬菜，通常生吃或蒸熟吃。
+entries/world/plants/crops.json	pages.3.B.title	大米
+entries/world/plants/crops.json	pages.3.B.text	世界上消费最广泛的主要粮食。辛苦收获。
+entries/world/plants/crops.json	pages.4.A.title	萨蒂根茎
+entries/world/plants/crops.json	pages.4.A.text	一种以其洁净特性而闻名的药用香料。具有独特的香气。
+entries/world/plants/crops.json	pages.4.B.title	菠菜
+entries/world/plants/crops.json	pages.4.B.text	菠菜植物的叶子。使水手增加肌肉质量。
+entries/world/plants/crops.json	pages.5.A.title	甜椒
+entries/world/plants/crops.json	pages.5.A.text	不含辣味的辣椒品种。通常切碎并用在菜肴中。
+entries/world/plants/crops.json	pages.5.B.title	茄子
+entries/world/plants/crops.json	pages.5.B.text	在许多菜肴中使用的紫色、海绵状$(l)水果$()。倾向于吸收其他味道。
+entries/world/plants/crops.json	pages.6.A.title	四季豆
+entries/world/plants/crops.json	pages.6.A.text	豆类植物未成熟的种子荚。可单独食用或与各种菜肴一起烹调。
+entries/world/plants/crops.json	pages.6.B.title	花生
+entries/world/plants/crops.json	pages.6.B.text	花生植物的种子。经常被烤、压榨成油，或磨成花生酱。
+entries/world/plants/crops.json	pages.7.A.title	草莓
+entries/world/plants/crops.json	pages.7.A.text	一种用于各种调味品和甜点的甜红色水果。
+entries/world/plants/crops.json	pages.7.B.title	番茄
+entries/world/plants/crops.json	pages.7.B.text	一种美味的红色$(l)水果$()，经常切片用于菜肴或挤成酱汁和汤。
+entries/world/plants/crops.json	pages.8.A.title	咖啡果
+entries/world/plants/crops.json	pages.8.A.text	咖啡树的果实，其果核可以被烘烤、研磨和酿造，成为模组开发者的命脉。
+entries/world/plants/crops.json	pages.8.B.title	茶叶
+entries/world/plants/crops.json	pages.8.B.text	茶树的叶子。经常在茶会期间倾倒到海里。
+entries/world/plants/crops.json	pages.9.A.title	啤酒花
+entries/world/plants/crops.json	pages.9.A.text	开花的啤酒花藤的种子球果。用来给啤酒调味。
+entries/world/plants/crops.json	pages.9.B.title	霜冻西瓜
+entries/world/plants/crops.json	pages.9.B.text	蓝色品种的西瓜。吃下去之后，摸着炉火都感觉是冰冷的。
+entries/world/plants/crops.json	pages.10.A.title	通量菌
+entries/world/plants/crops.json	pages.10.A.text	一种浅色蘑菇，成熟时会散发出黏稠的红石状乳液。
+entries/world/plants/crops.json	pages.10.B.title	光帽菇
+entries/world/plants/crops.json	pages.10.B.text	一种发光的真菌，在它的伞盖上会产生一层薄薄的、闪闪发光的金色粉末。
+entries/world/plants/crops.json	pages.11.A.title	爆爆菇
+entries/world/plants/crops.json	pages.11.A.text	一种脾气暴躁的蘑菇，在其底部长出爆炸性材料网。
+entries/world/plants/crops.json	pages.11.B.title	史莱蘑
+entries/world/plants/crops.json	pages.11.B.text	一种分泌保护性黏液的黏性真菌，可以凝结成球。
+entries/world/plants/crops.json	pages.12.title	苋菜
+entries/world/plants/crops.json	pages.12.text	充满活力的谷物，富含营养和炼金术特性。
+entries/world/plants/foods.json	name	食物
+entries/world/plants/foods.json	pages.0.text	用胡萝卜精心制作的蛋糕，含有丰富的胡萝卜素。食用时提供夜视效果。
+entries/world/plants/foods.json	pages.1.text	细致入微的点缀，才配得上沁人心脾的美味。
+entries/world/plants/foods.json	pages.2.text	一种煎药的乐趣！向食用者注入用于烘烤它的药水效果。
+entries/world/plants/foods.json	pages.3.text	萨蒂根茎做香料，口感甜蜜又芳妙。食用时清除负面状态效果。
+entries/world/plants/foods.json	pages.4.text	一个饱满的南瓜，里面装满了丰富的农产品。令人难以置信的填充，而且只有这么多。
+entries/world/plants/foods.json	pages.5.text	通过用凝乳酶凝固酪蛋白制成的凝固奶油。谁不喜欢奶酪？可以分切成楔形。
+entries/world/plants/foods.json	pages.6.text	大量不同的蔬菜。经典的收获季节主食，呈馅饼状。
+entries/world/plants/foods.json	pages.7.text	麸质与黏稠的食物组成。如果任何口味可以更好地搭配，它们还没有被发现。
+entries/world/plants/foods.json	pages.8.text	一种用帕马森干酪和上等肉搭配的甜椒。令人难以置信的填充和美味！
+entries/world/plants/foods.json	pages.9.text	用海藻和糙米包裹的咸海鲜，通常佐以酱油。营养又快。不要告诉 Direwolf20。
+entries/world/plants/foods.json	pages.10.text	用春季的战利品合成，一定让你的脚步充满春天。食用时提升跳跃高度。
+entries/world/plants/foods.json	pages.11.text	一种强身健体的肉汤，使用球形农产品酿造。食用时提升最大生命值。
+entries/world/plants/foods.json	pages.12.text	喝下茄子圣水，精神顿时翻倍，睁睁眼蹬蹬腿，升级步入正轨。
+entries/world/plants/phytogro.json	name	植育一号
+entries/world/plants/phytogro.json	pages.0.text	植育一号富含所有植物所需养分的肥料。它可以直接套用在植物上或利用$(l:thermal:equipment/explosives/phyto_explosives)一些炸药$(/l)散布在一个区域。
+entries/world/plants/phytogro.json	pages.1.text	它可以直接套用在植物上，也可以当作机器的$(l:thermal:world/materials/catalysts)催化剂$(/l)。
+entries/world/plants/phytogro.json	pages.2.text	植育一号富含所有植物所需养分的肥料。它可以直接套用在植物上，利用$(l:thermal:equipment/explosives/phyto_explosives)一些炸药$(/l)散布在一个区域，或当作机器的$(l:thermal:world/materials/catalysts)催化剂$(/l)。
+entries/world/plants/phytogro.json	pages.3.text	$(o)村里的长者谈到了一种失传的植育配方，它可以注入树汁和红石通量，以提高农作物产量，远远超过自然条件下的产量。不幸的是，所有重建它的尝试都以失败告终。$()
+entries/world/plants/phytogro.json	pages.5.text	植育土是注入了植育一号的泥土。它使上面种植的植物的生长速度大约翻了一倍，使用$(l:thermal:technology/devices/soil_infuser)植育土注能机$(/l)可以进一步提升到约 5 倍。就像普通的土壤一样，它必须经过耕耘才能在上面生长农作物。与普通农田不同，被耕作过的植育土不会被踩踏，也不需要附近的水来保持水分。
+entries/world/plants/storage.json	name	农作物贮存
+entries/world/plants/storage.json	pages.0.text	所有农作物都有与之对应的贮存块，就像原版小麦和干草捆。
+entries/world/plants/storage.json	pages.1.text	所有农作物都有与之对应的贮存块，就像原版小麦和干草捆。这些可以使用$(l:thermal:technology/machines/press)多驱冲压机$(/l)自动压缩/解压缩。
+entries/world/plants/treeproducts.json	name	树木产物
+entries/world/plants/treeproducts.json	pages.0.A.title	树汁
+entries/world/plants/treeproducts.json	pages.0.A.text	一种含糖流体，曾经在$(l:thermal:technology/devices/tree_extractor)深色橡木$(/l)中携带水和养分。
+entries/world/plants/treeproducts.json	pages.0.B.title	树脂
+entries/world/plants/treeproducts.json	pages.0.B.text	一种黏稠的流体，可以从橡木、白桦木、云杉木和金合欢木中$(l:thermal:technology/devices/tree_extractor)收获$(/l)。
+entries/world/plants/treeproducts.json	pages.1.title	植物胶乳
+entries/world/plants/treeproducts.json	pages.1.text	一种稠密的乳状聚合物胶乳，可以从丛林中$(l:thermal:technology/devices/tree_extractor)收获$(/l)。主要用于制作橡胶。
+entries/world/plants/treeproducts.json	pages.2.title	橡胶
+entries/world/plants/treeproducts.json	pages.3.title	橡胶
+entries/world/plants/treeproducts.json	pages.3.text	一种来自胶乳凝固的弹性防水材料。它可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉中对橡胶进行硫化。
+entries/world/plants/treeproducts.json	pages.4.title	橡胶
+entries/world/plants/treeproducts.json	pages.5.text	一种来自胶乳凝固的弹性防水材料。它可以直接将乳胶桶放在工作台上制作，也可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉中对橡胶进行硫化。
+entries/world/plants/treeproducts.json	pages.6.title	橡胶
+entries/world/plants/treeproducts.json	pages.6.text	一种来自胶乳凝固的弹性防水材料。它可以直接将乳胶桶放在工作台上制作，也可以用藤蔓和蒲公英制作。为了提高其韧性和弹性，可以在熔炉或感应炉中对橡胶进行硫化。
+entries/world/plants/treeproducts.json	pages.7.A.title	锯末
+entries/world/plants/treeproducts.json	pages.7.A.text	一堆通过$(l:thermal:technology/machines/pulverizer)粉碎$(/l)原木或$(l:thermal:technology/machines/sawmill)切割$(/l)木材得到的小木片。方块形态是可燃燃料。
+entries/world/plants/treeproducts.json	pages.7.B.title	糖浆
+entries/world/plants/treeproducts.json	pages.7.B.text	一种浓稠可口的流体，让任何烙饼的不幸遭遇都值得。通过$(l:thermal:technology/machines/refinery)精炼$(/l)树汁产生。
+entries/world/plants/treeproducts.json	pages.8.A.title	松香
+entries/world/plants/treeproducts.json	pages.8.A.text	一种固体、$(l:thermal:technology/machines/refinery)精炼$(/l)形态的树脂。可当作可燃燃料。
+entries/world/plants/treeproducts.json	pages.8.B.title	树油
+entries/world/plants/treeproducts.json	pages.8.B.text	一种精油，是$(l:thermal:technology/machines/refinery)精炼$(/l)树脂的副产品。可以当作$(l:thermal:technology/dynamos/compression)压缩能源炉$(/l)的燃料。
+entries/world/plants/trees.json	name	树木
+entries/world/plants/trees.json	pages.0.text	热力基础新增了一种树（以及相关的木制品）——橡胶木！随着进度不断推进，更多内容会持续推出。
+entries/world/plants/trees.json	pages.1.A.title	橡胶木树
+entries/world/plants/trees.json	pages.1.A.text	想获得树苗，去找流浪商人。
+entries/world/plants/trees.json	pages.1.B.title	橡胶木
+entries/world/plants/trees.json	pages.1.B.text	含有大量胶乳的木材，且具有防火特性。
+templates/catalyst_page.json	components.0.tooltip.1	主产物：#A_0_p#x
+templates/catalyst_page.json	components.0.tooltip.2	副产物：#A_0_s#x
+templates/catalyst_page.json	components.0.tooltip.3	能量：#A_0_e#x
+templates/catalyst_page.json	components.0.tooltip.4	消耗：#A_0_u#%
+templates/catalyst_page.json	components.3.tooltip.1	基本：#A_1_p#x
+templates/catalyst_page.json	components.3.tooltip.2	次级：#A_1_s#x
+templates/catalyst_page.json	components.3.tooltip.3	能量：#A_1_e#x
+templates/catalyst_page.json	components.3.tooltip.4	使用：#A_1_u#%
+templates/catalyst_page.json	components.6.tooltip.1	基本：#A_2_p#x
+templates/catalyst_page.json	components.6.tooltip.2	次级：#A_2_s#x
+templates/catalyst_page.json	components.6.tooltip.3	能量：#A_2_e#x
+templates/catalyst_page.json	components.6.tooltip.4	使用：#A_2_u#%
+templates/catalyst_page.json	components.9.tooltip.1	基本：#A_3_p#x
+templates/catalyst_page.json	components.9.tooltip.2	次级：#A_3_s#x
+templates/catalyst_page.json	components.9.tooltip.3	能量：#A_3_e#x
+templates/catalyst_page.json	components.9.tooltip.4	使用：#A_3_u#%
+templates/catalyst_page.json	components.12.tooltip.1	基本：#A_4_p#x
+templates/catalyst_page.json	components.12.tooltip.2	次级：#A_4_s#x
+templates/catalyst_page.json	components.12.tooltip.3	能量：#A_4_e#x
+templates/catalyst_page.json	components.12.tooltip.4	使用：#A_4_u#%
+templates/catalyst_page.json	components.15.tooltip.1	基本：#A_5_p#x
+templates/catalyst_page.json	components.15.tooltip.2	次级：#A_5_s#x
+templates/catalyst_page.json	components.15.tooltip.3	能量：#A_5_e#x
+templates/catalyst_page.json	components.15.tooltip.4	使用：#A_5_u#%
+templates/catalyst_page.json	components.19.text	还有$(br)更多！
+templates/catalyst_page.json	components.20.tooltip.0	详情请见 JEI！
+templates/catalyst_page.json	components.21.tooltip.1	基本：#B_0_p#x
+templates/catalyst_page.json	components.21.tooltip.2	次级：#B_0_s#x
+templates/catalyst_page.json	components.21.tooltip.3	能量：#B_0_e#x
+templates/catalyst_page.json	components.21.tooltip.4	使用：#B_0_u#%
+templates/catalyst_page.json	components.24.tooltip.1	基本：#B_1_p#x
+templates/catalyst_page.json	components.24.tooltip.2	次级：#B_1_s#x
+templates/catalyst_page.json	components.24.tooltip.3	能量：#B_1_e#x
+templates/catalyst_page.json	components.24.tooltip.4	使用：#B_1_u#%
+templates/catalyst_page.json	components.27.tooltip.1	基本：#B_2_p#x
+templates/catalyst_page.json	components.27.tooltip.2	次级：#B_2_s#x
+templates/catalyst_page.json	components.27.tooltip.3	能量：#B_2_e#x
+templates/catalyst_page.json	components.27.tooltip.4	使用：#B_2_u#%
+templates/catalyst_page.json	components.30.tooltip.1	基本：#B_3_p#x
+templates/catalyst_page.json	components.30.tooltip.2	次级：#B_3_s#x
+templates/catalyst_page.json	components.30.tooltip.3	能量：#B_3_e#x
+templates/catalyst_page.json	components.30.tooltip.4	使用：#B_3_u#%
+templates/catalyst_page.json	components.33.tooltip.1	基本：#B_4_p#x
+templates/catalyst_page.json	components.33.tooltip.2	次级：#B_4_s#x
+templates/catalyst_page.json	components.33.tooltip.3	能量：#B_4_e#x
+templates/catalyst_page.json	components.33.tooltip.4	使用：#B_4_u#%
+templates/catalyst_page.json	components.36.tooltip.1	基本：#B_5_p#x
+templates/catalyst_page.json	components.36.tooltip.2	次级：#B_5_s#x
+templates/catalyst_page.json	components.36.tooltip.3	能量：#B_5_e#x
+templates/catalyst_page.json	components.36.tooltip.4	使用：#B_5_u#%
+templates/catalyst_page.json	components.40.text	还有$(br)更多！
+templates/catalyst_page.json	components.41.tooltip.0	详情请见 JEI！
+templates/catalyst_page.json	components.42.tooltip.1	基本：#C_0_p#x
+templates/catalyst_page.json	components.42.tooltip.2	次级：#C_0_s#x
+templates/catalyst_page.json	components.42.tooltip.3	能量：#C_0_e#x
+templates/catalyst_page.json	components.42.tooltip.4	使用：#C_0_u#%
+templates/catalyst_page.json	components.45.tooltip.1	基本：#C_1_p#x
+templates/catalyst_page.json	components.45.tooltip.2	次级：#C_1_s#x
+templates/catalyst_page.json	components.45.tooltip.3	能量：#C_1_e#x
+templates/catalyst_page.json	components.45.tooltip.4	使用：#C_1_u#%
+templates/catalyst_page.json	components.48.tooltip.1	基本：#C_2_p#x
+templates/catalyst_page.json	components.48.tooltip.2	次级：#C_2_s#x
+templates/catalyst_page.json	components.48.tooltip.3	能量：#C_2_e#x
+templates/catalyst_page.json	components.48.tooltip.4	使用：#C_2_u#%
+templates/catalyst_page.json	components.51.tooltip.1	基本：#C_3_p#x
+templates/catalyst_page.json	components.51.tooltip.2	次级：#C_3_s#x
+templates/catalyst_page.json	components.51.tooltip.3	能量：#C_3_e#x
+templates/catalyst_page.json	components.51.tooltip.4	使用：#C_3_u#%
+templates/catalyst_page.json	components.54.tooltip.1	基本：#C_4_p#x
+templates/catalyst_page.json	components.54.tooltip.2	次级：#C_4_s#x
+templates/catalyst_page.json	components.54.tooltip.3	能量：#C_4_e#x
+templates/catalyst_page.json	components.54.tooltip.4	使用：#C_4_u#%
+templates/catalyst_page.json	components.57.tooltip.1	基本：#C_5_p#x
+templates/catalyst_page.json	components.57.tooltip.2	次级：#C_5_s#x
+templates/catalyst_page.json	components.57.tooltip.3	能量：#C_5_e#x
+templates/catalyst_page.json	components.57.tooltip.4	使用：#C_5_u#%
+templates/catalyst_page.json	components.61.text	还有$(br)更多！
+templates/catalyst_page.json	components.62.tooltip.0	详情请见 JEI！
+templates/catalyst_page.json	components.63.tooltip.1	基本：#D_0_p#x
+templates/catalyst_page.json	components.63.tooltip.2	次级：#D_0_s#x
+templates/catalyst_page.json	components.63.tooltip.3	能量：#D_0_e#x
+templates/catalyst_page.json	components.63.tooltip.4	使用：#D_0_u#%
+templates/catalyst_page.json	components.66.tooltip.1	基本：#D_1_p#x
+templates/catalyst_page.json	components.66.tooltip.2	次级：#D_1_s#x
+templates/catalyst_page.json	components.66.tooltip.3	能量：#D_1_e#x
+templates/catalyst_page.json	components.66.tooltip.4	使用：#D_1_u#%
+templates/catalyst_page.json	components.69.tooltip.1	基本：#D_2_p#x
+templates/catalyst_page.json	components.69.tooltip.2	次级：#D_2_s#x
+templates/catalyst_page.json	components.69.tooltip.3	能量：#D_2_e#x
+templates/catalyst_page.json	components.69.tooltip.4	使用：#D_2_u#%
+templates/catalyst_page.json	components.72.tooltip.1	基本：#D_3_p#x
+templates/catalyst_page.json	components.72.tooltip.2	次级：#D_3_s#x
+templates/catalyst_page.json	components.72.tooltip.3	能量：#D_3_e#x
+templates/catalyst_page.json	components.72.tooltip.4	使用：#D_3_u#%
+templates/catalyst_page.json	components.75.tooltip.1	基本：#D_4_p#x
+templates/catalyst_page.json	components.75.tooltip.2	次级：#D_4_s#x
+templates/catalyst_page.json	components.75.tooltip.3	能量：#D_4_e#x
+templates/catalyst_page.json	components.75.tooltip.4	使用：#D_4_u#%
+templates/catalyst_page.json	components.78.tooltip.1	基本：#D_5_p#x
+templates/catalyst_page.json	components.78.tooltip.2	次级：#D_5_s#x
+templates/catalyst_page.json	components.78.tooltip.3	能量：#D_5_e#x
+templates/catalyst_page.json	components.78.tooltip.4	使用：#D_5_u#%
+templates/catalyst_page.json	components.82.text	还有$(br)更多！
+templates/catalyst_page.json	components.83.tooltip.0	详情请见 JEI！
+templates/catalyst_page.json	components.84.tooltip.1	基本：#E_0_p#x
+templates/catalyst_page.json	components.84.tooltip.2	次级：#E_0_s#x
+templates/catalyst_page.json	components.84.tooltip.3	能量：#E_0_e#x
+templates/catalyst_page.json	components.84.tooltip.4	使用：#E_0_u#%
+templates/catalyst_page.json	components.87.tooltip.1	基本：#E_1_p#x
+templates/catalyst_page.json	components.87.tooltip.2	次级：#E_1_s#x
+templates/catalyst_page.json	components.87.tooltip.3	能量：#E_1_e#x
+templates/catalyst_page.json	components.87.tooltip.4	使用：#E_1_u#%
+templates/catalyst_page.json	components.90.tooltip.1	基本：#E_2_p#x
+templates/catalyst_page.json	components.90.tooltip.2	次级：#E_2_s#x
+templates/catalyst_page.json	components.90.tooltip.3	能量：#E_2_e#x
+templates/catalyst_page.json	components.90.tooltip.4	使用：#E_2_u#%
+templates/catalyst_page.json	components.93.tooltip.1	基本：#E_3_p#x
+templates/catalyst_page.json	components.93.tooltip.2	次级：#E_3_s#x
+templates/catalyst_page.json	components.93.tooltip.3	能量：#E_3_e#x
+templates/catalyst_page.json	components.93.tooltip.4	使用：#E_3_u#%
+templates/catalyst_page.json	components.96.tooltip.1	基本：#E_4_p#x
+templates/catalyst_page.json	components.96.tooltip.2	次级：#E_4_s#x
+templates/catalyst_page.json	components.96.tooltip.3	能量：#E_4_e#x
+templates/catalyst_page.json	components.96.tooltip.4	使用：#E_4_u#%
+templates/catalyst_page.json	components.99.tooltip.1	基本：#E_5_p#x
+templates/catalyst_page.json	components.99.tooltip.2	次级：#E_5_s#x
+templates/catalyst_page.json	components.99.tooltip.3	能量：#E_5_e#x
+templates/catalyst_page.json	components.99.tooltip.4	使用：#E_5_u#%
+templates/catalyst_page.json	components.103.text	还有$(br)更多！
+templates/catalyst_page.json	components.104.tooltip.0	详情请见 JEI！

@@ -1,0 +1,7 @@
+{
+  "name": "工具",
+  "description": "增强工具的步骤：$(li)将可强化的物品或方块放入工作台$(li)将工作台设为增强模式$(li)将增强元件放入物品栏$(li)将工作台设置为充能/灌装模式$(li)从工作台中移除物品$(li)享受成果",
+  "icon": "thermal:wrench",
+  "parent": "thermal:equipment",
+  "sortnum": 1
+}

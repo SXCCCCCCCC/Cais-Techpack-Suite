@@ -1,0 +1,26 @@
+{
+  "name": "ShinyPorygon",
+  "icon": "minecraft:orange_tulip",
+  "category": "thermal:contributors",
+  "read_by_default": true,
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "ShinyPorygon",
+      "item": "minecraft:player_head{SkullOwner:'ShinyPorygon'}",
+      "text": "项目负责人，合著者。最初的书籍工作包括类别。为 Discord 写了一些东西，许多模组支持文件（还有更多）对 King 的个人滋扰，错误信息的传播者，对 Hekera 的道义支持。"
+    },
+    {
+      "type": "patchouli:empty"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "你听过智者达斯-Lemming 的悲剧吗？我想没有。这不是 CoFH wiki 会告诉你的故事。这是一个 Discord 的传奇。达斯-Lemming 是 Java 的黑魔王，如此强大和明智，他可以使用代码影响其他模组修复错误……他对 Java 的了解如此之多，以至于他甚至可以让他关心的模组免于消亡。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Java 的阴暗面是获得许多被一些人认为是非自然能力的途径。他变得如此强大……他唯一害怕的就是失去红石通量平衡，当然，最终他做到了。不幸的是，他将他所知道的一切都教给了其他模组作者，然后这些模组作者将红石通量的使用量扩大了一千倍。具有讽刺意味的是，他可以拯救其他模组免于动力不足，但他自己的模组却不行。"
+    }
+  ]
+}

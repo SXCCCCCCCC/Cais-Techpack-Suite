@@ -1,0 +1,16 @@
+# Gradle / ForgeGradle
+build/
+.gradle/
+
+# Run dirs
+run/
+run-data/
+
+# OS
+.idea/
+*.iml
+eclipse/
+bin/
+
+# Logs (ForgeGradle reobfJar)
+*.log

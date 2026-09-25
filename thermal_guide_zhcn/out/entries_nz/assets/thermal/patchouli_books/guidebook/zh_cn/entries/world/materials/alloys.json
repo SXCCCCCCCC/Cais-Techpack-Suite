@@ -1,0 +1,88 @@
+{
+  "name": "合金",
+  "icon": "thermal:bronze_ingot",
+  "read_by_default": true,
+  "category": "thermal:materials",
+  "pages": [
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/bronze_ingot_4",
+      "text": "热力新增各种不同的合金。它们可以在感应炉中直接合金化。或者，它们可以通过将其成分与如上所示的火焰弹组合来合成。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:3-3_alloy_page",
+
+      "A.title": "青铜",
+      "A.recipe": "thermal:machines/smelter/smelter_alloy_bronze",
+      "A.text": "新时代的曙光。",
+
+      "B.title": "殷钢",
+      "B.recipe": "thermal:machines/smelter/smelter_alloy_invar",
+      "B.text": "受热时膨胀最小。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:3-3_alloy_page",
+
+      "A.title": "琥珀金",
+      "A.recipe": "thermal:machines/smelter/smelter_alloy_electrum",
+      "A.text": "两全其美。",
+
+      "B.title": "康铜",
+      "B.recipe": "thermal:machines/smelter/smelter_alloy_constantan",
+      "B.text": "加热时电阻系数变化最小。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "thermal:3-3_alloy_page",
+
+      "A.title": "流明",
+      "A.recipe": "thermal:machines/smelter/smelter_alloy_lumium",
+      "A.text": "一块坚固的阳光砖。",
+
+      "B.title": "信素",
+      "B.recipe": "thermal:machines/smelter/smelter_alloy_signalum",
+      "B.text": "导电率比银好。"
+    },
+    {
+      "flag": "mod:thermal_expansion",
+      "type": "3_alloy_page",
+
+      "title": "末影合金",
+      "recipe": "thermal:machines/smelter/smelter_alloy_enderium",
+      "text": "以任何频率共振。"
+    },
+
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "patchouli:text",
+      "title": "合金",
+      "text": "热力新增各种不同的合金。它们可以通过将成分与火焰弹组合来合成。"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/bronze_ingot_4",
+      "B.recipe": "thermal:fire_charge/invar_ingot_3"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/electrum_ingot_2",
+      "B.recipe": "thermal:fire_charge/constantan_ingot_2"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/lumium_ingot_4",
+      "B.recipe": "thermal:fire_charge/signalum_ingot_4"
+    },
+    {
+      "flag": "!mod:thermal_expansion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fire_charge/enderium_ingot_2"
+    }
+  ]
+}

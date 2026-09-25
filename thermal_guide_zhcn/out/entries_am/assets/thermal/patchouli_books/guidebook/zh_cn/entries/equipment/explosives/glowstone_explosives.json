@@ -1,0 +1,24 @@
+{
+  "name": "圣光辐照炸药",
+  "icon": "thermal:glowstone_tnt",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "category": "thermal:explosives",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "圣光辐照炸药在爆炸时会在空气中散布细小的荧石颗粒，形成持续 10 秒的云，照亮周围区域。最初的爆炸会伤害亡灵生物并点燃它们。炸药和手榴弹的爆炸半径分别为 9 和 5 个方块。$(br2)$(o)这些本质上是闪光弹。$()"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:glowstone_tnt",
+      "B.recipe": "thermal:glowstone_grenade_4"
+    },
+    {
+      "flag": "&mod:thermal_innovation,mod:thermal_locomotion",
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:glowstone_tnt_minecart",
+      "title": "圣光辐照炸药矿车"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.sxcccccccc.iuspeed.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "refmap": "iuspeed.refmap.json",
+    "mixins": [
+        "ComponentProcessMixin",
+        "ComponentSteamProcessMixin",
+        "ProcessMultiComponentMixin",
+        "BioProcessMultiComponentMixin",
+        "SteamProcessMultiComponentMixin",
+        "StandaloneMachineOperationLengthMixin",
+        "ProgressLengthMachineMixin",
+        "TimerDurationAccessor",
+        "SiliconCrystalTimerMixin",
+        "ProgrammingTableTimerMixin",
+        "TimerMachinesMixin",
+        "AdditionGenStoneDurationMixin",
+        "SteamPumpDurationMixin",
+        "BlastFurnaceDurationMixin",
+        "FakePlanetTimerMixin",
+        "FakeSatelliteTimerMixin",
+        "FakeAsteroidTimerMixin",
+        "SendsTimerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}

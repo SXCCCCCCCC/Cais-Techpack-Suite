@@ -1,0 +1,36 @@
+{
+  "name": "介绍 - 机器",
+  "icon": "thermal:iron_gear",
+  "category": "thermal:machines",
+  "sortnum": -2,
+  "read_by_default": true,
+  "flag": "mod:thermal_expansion",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "机器使用红石通量 (RF) 形式的能量处理物品和/或流体。本章的其他条目将对每个的功能进行详细说明。每个方块的 GUI 中的可折叠面板中提供了简短说明。未升级的机器使用高达 20 RF/t。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "为了改进或修改其功能的各个方面，机器在「增强」面板中接受 $(l:thermal:technology/augments/introduction)增强$(/l)。「红石控制」和「设置」面板设定机器的红石行为和侧面设置。默认情况下，无论红石信号如何，机器都会工作，并且在首次放置时带有空白面设置，这意味着没有面会接受物品或流体。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "在「设置」面板中，方块的每一侧都由一个正方形表示，点击时将在设置间循环切换。蓝色和橙色分别代表输入和输出。箭头按钮设置自动转移到/从相邻物品栏。黑色表示该侧将接受输入/输出，但不会自动传输。拾取方块时会保存侧面设置。"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "「能量」面板提供方块的红石通量信息，例如当前的红石通量使用情况。每台机器都有它可以使用的最大红石通量速率，并且每个配方都有与之相关的特定红石通量成本。这两个值可能会受到$(l:thermal:technology/augments/introduction)增强元件$(/l)的影响，两者相除即可确定给定配方的处理速度。为了加快机器的运行速度，可以使用某些$(l:thermal:technology/augments/machine_speed)增强元件$(/l)增加最大红石通量使用量，或者可以使用$(l:thermal:world/materials/catalysts)催化剂$(/l)减少配方所需的红石通量。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:machine_frame",
+      "text": "这些页面包含机器和装置中常用组件的配方。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:redstone_servo",
+      "B.recipe": "thermal:rf_coil"
+    }
+  ]
+}

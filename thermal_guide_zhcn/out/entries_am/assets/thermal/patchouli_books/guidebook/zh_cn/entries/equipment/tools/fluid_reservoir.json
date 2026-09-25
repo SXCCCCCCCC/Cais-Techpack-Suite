@@ -1,0 +1,24 @@
+{
+  "name": "贮液器",
+  "icon": "thermal:fluid_reservoir",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "flag": "mod:thermal_innovation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "容纳适量的流体并允许分配。按 \"$(k:cofh.mode_change_increment)\" 切换清空/填充模式。潜行时使用以启用或停用大多数其他手持（或穿戴）流体容器的自动补充。它可以在工匠工作台中填充流体和升级。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:fluid_reservoir",
+      "title": "贮液器",
+      "text": "它可以被附魔$(l:thermal:world/holding)扩容$(/l)以提高流体容量。"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "升级组件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合组件$(/l)$(li)$(l:thermal:technology/augments/fluid_tank)扩容储罐构造$(/l)"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "SpongeBlast",
+  "icon": "minecraft:lime_dye",
+  "category": "thermal:contributors",
+  "read_by_default": true,
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "title": "SpongeBlast",
+      "item": "minecraft:player_head{SkullOwner:'SpongeBlast'}",
+      "text": "升级类别，所以你们都可以知道最终将它们用于什么。 :D"
+    }
+  ]
+}

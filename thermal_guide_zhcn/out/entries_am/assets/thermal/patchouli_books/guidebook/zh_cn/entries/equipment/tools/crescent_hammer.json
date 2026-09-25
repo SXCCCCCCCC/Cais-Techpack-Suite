@@ -1,0 +1,17 @@
+{
+  "name": "新月锤",
+  "icon": "thermal:wrench",
+  "category": "thermal:tools",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "普普通通的扳手。可用于通过 shift + 右击拾取机器，通过右击旋转机器。你甚至可以让一直在骚扰你的讨厌朋友们保持理智！"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:tools/wrench",
+      "title": "新月锤"
+    }
+  ]
+}

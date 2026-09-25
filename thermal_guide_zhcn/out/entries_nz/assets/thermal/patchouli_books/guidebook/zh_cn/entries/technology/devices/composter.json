@@ -1,0 +1,23 @@
+{
+  "name": "批量堆肥器",
+  "icon": "thermal:device_composter",
+  "category": "thermal:devices",
+  "read_by_default": true,
+  "flag": "|mod:thermal_expansion,mod:thermal_cultivation",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "批量堆肥器是更高级版本的堆肥器。它可以一次堆肥多个物品，产出的是堆肥而不是骨粉。安装$(l:thermal:technology/augments/xp_storage)知识浓缩器增强元件$(/l)后，它还会产生经验值。"
+    },
+    {
+      "type": "thermal:double_crafting_page",
+      "A.recipe": "thermal:device_composter",
+      "title": "批量堆肥器"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "增强元件兼容性",
+      "text": "$(li)$(l:thermal:technology/augments/integral_components)整合元件$(/l)$(li)$(l:thermal:technology/augments/item_filter)物品过滤规制$(/l)$(li)$(l:thermal:technology/augments/xp_storage)知识浓缩器$(/l)"
+    }
+  ]
+}
